@@ -29,6 +29,7 @@ DEBUG = get_env_bool("KANHUB_DJANGO_DEBUG", True)
 ALLOWED_HOSTS = os.environ.get("KANHUB_DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
+    "apps.about.apps.AboutConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
