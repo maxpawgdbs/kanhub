@@ -1,6 +1,6 @@
 __all__ = ()
-from django.http import HttpResponse
+import django.shortcuts
 
 
 def main(request):
-    return HttpResponse("О проекте", 200)
+    return django.shortcuts.render(request, "about/main.html")

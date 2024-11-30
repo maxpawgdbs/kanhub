@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
 
@@ -25,3 +26,10 @@ urlpatterns = [
         include("apps.about.urls"),
     ),
 ]
+urlpatterns += i18n_patterns(
+    path(
+        "set_language/",
+        include("django.conf.urls.i18n"),
+        name="set_language",
+    ),
+)

@@ -1,0 +1,12 @@
+{% load i18n %}
+<h1>HEADER</h1>
+{% get_current_language as LANGUAGE_CODE %}
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+    <select name="language" onchange="this.form.submit()">
+        <option value="en" {% if LANGUAGE_CODE == "en" %}selected{% endif %}>English</option>
+        <option value="ru" {% if LANGUAGE_CODE == "ru" %}selected{% endif %}>Русский</option>
+        <option value="de" {% if LANGUAGE_CODE == "de" %}selected{% endif %}>Deutsch</option>
+    </select>
+</form>
