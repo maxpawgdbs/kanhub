@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 __all__ = ()
 import os
 import sys
