@@ -18,8 +18,11 @@ dotenv.load_dotenv(dotenv_path=dotenv_path)
 SECRET_KEY = os.getenv("KANHUB_DJANGO_SECRET_KEY", default="default_key")
 
 DEBUG = load_bool("KANHUB_DJANGO_DEBUG", True)
+DEFAULT_USER_IS_ACTIVE = load_bool("KANHUB_DJANGO_IS_ACTIVE", DEBUG)
 
-ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(",")
+ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
+    ",",
+)
 
 INSTALLED_APPS = [
     "apps.users.apps.UsersConfig",
@@ -135,3 +138,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = "/auth/profile/"
+LOGOUT_REDIRECT_URL = "/auth/login/"
+
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "send_mail"
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"

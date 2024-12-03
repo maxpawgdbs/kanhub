@@ -2,14 +2,14 @@ import django.contrib
 import django.contrib.auth.admin
 import django.contrib.auth.models
 
-import apps.users.models
+from apps.users.models import Profile
 
 
 class ProfileInline(django.contrib.admin.TabularInline):
-    model = apps.users.models.Profile
+    model = Profile
     can_delete = False
     readonly_fields = [
-        apps.users.models.Profile.image.field.name,
+        Profile.image.field.name,
     ]
 
 

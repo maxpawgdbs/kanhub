@@ -1,0 +1,12 @@
+{%extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block body %}
+    <p>username: {{username}}</p>
+    <p>email: {{email}}</p>
+{% if profile.image %}
+    <img src="{{profile.get_image_350x350.url}}">
+{% endif %}
+<a href="/auth/profile/change/">{% trans "Change Profile" %}</a>
+{% endblock %}

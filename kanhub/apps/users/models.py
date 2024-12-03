@@ -3,9 +3,9 @@ import uuid
 
 import django.conf
 import django.db.models
-import sorl.thumbnail
 import django.utils.safestring
 from django.utils.translation import gettext_lazy as _
+import sorl.thumbnail
 
 
 class ProfileManager(django.db.models.Manager):
@@ -34,6 +34,7 @@ class Profile(django.db.models.Model):
         django.conf.settings.AUTH_USER_MODEL,
         verbose_name=_("пользователь"),
         on_delete=django.db.models.CASCADE,
+        related_name="profile",
     )
     image = django.db.models.ImageField(
         verbose_name=_("изображение"),

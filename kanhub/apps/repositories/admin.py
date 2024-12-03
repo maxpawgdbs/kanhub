@@ -1,65 +1,51 @@
 import django.contrib.admin
 import django.core.exceptions
 
-import apps.repositories.models
+from apps.repositories.models import Commit, Redirect, Repositorion, Tag, Task
 
 
-@django.contrib.admin.register(apps.repositories.models.Repositorion)
-class repositorionAdmin(django.contrib.admin.ModelAdmin):
+@django.contrib.admin.register(Repositorion)
+class RepositorionAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
-        apps.repositories.models.Repositorion.name.field.name,
-        apps.repositories.models.Repositorion.is_published.field.name,
+        Repositorion.name.field.name,
+        Repositorion.is_published.field.name,
     )
-    list_editable = (
-    apps.repositories.models.Repositorion.is_published.field.name,)
-    list_display_links = (
-    apps.repositories.models.Repositorion.name.field.name,)
-    filter_horizontal = (
-        apps.repositories.models.Repositorion.users.field.name,
-    )
+    list_editable = (Repositorion.is_published.field.name,)
+    list_display_links = (Repositorion.name.field.name,)
+    filter_horizontal = (Repositorion.users.field.name,)
     readonly_fields = (
-        apps.repositories.models.Repositorion.created_at.field.name,
-        apps.repositories.models.Repositorion.updated_at.field.name,
+        Repositorion.created_at.field.name,
+        Repositorion.updated_at.field.name,
     )
 
 
-@django.contrib.admin.register(apps.repositories.models.Task)
+@django.contrib.admin.register(Task)
 class TaskAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
-        apps.repositories.models.Task.name.field.name,
-        apps.repositories.models.Task.text.field.name,
-        apps.repositories.models.Task.start_at.field.name,
-        apps.repositories.models.Task.end_at.field.name,
+        Task.name.field.name,
+        Task.text.field.name,
+        Task.start_at.field.name,
+        Task.end_at.field.name,
     )
-    filter_horizontal = (
-        apps.repositories.models.Task.tags.field.name,
-    )
-    list_display_links = (apps.repositories.models.Task.name.field.name,)
+    filter_horizontal = (Task.tags.field.name,)
+    list_display_links = (Task.name.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Commit)
+@django.contrib.admin.register(Commit)
 class CommitAdmin(django.contrib.admin.ModelAdmin):
-    list_display = (
-        apps.repositories.models.Commit.name.field.name,
-    )
-    list_display_links = (apps.repositories.models.Task.name.field.name,)
-    readonly_fields = (
-        apps.repositories.models.Repositorion.created_at.field.name,
-    )
+    list_display = (Commit.name.field.name,)
+    list_display_links = (Task.name.field.name,)
+    readonly_fields = (Repositorion.created_at.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Redirect)
+@django.contrib.admin.register(Redirect)
 class RedirectAdmin(django.contrib.admin.ModelAdmin):
-    list_display = (
-        apps.repositories.models.Redirect.link.field.name,
-    )
+    list_display = (Redirect.link.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Tag)
+@django.contrib.admin.register(Tag)
 class TagAdmin(django.contrib.admin.ModelAdmin):
-    list_display = (
-        apps.repositories.models.Tag.name.field.name,
-    )
+    list_display = (Tag.name.field.name,)
 
 
 __all__ = ()
