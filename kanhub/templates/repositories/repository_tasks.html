@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}{{ repository.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h3 class="card-title">{{ repository.name }}</h3>
+  {% for task in tasks %}
+    <h4>{{ task.name }}</h4>
+  {% endfor %}
+</div>
+
+{% endblock %}

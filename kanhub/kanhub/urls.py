@@ -9,6 +9,10 @@ urlpatterns = [
         include("apps.about.urls"),
     ),
     path(
+        "repositories/",
+        include("apps.repositories.urls"),
+    ),
+    path(
         "ckeditor/",
         include("ckeditor_uploader.urls"),
     ),

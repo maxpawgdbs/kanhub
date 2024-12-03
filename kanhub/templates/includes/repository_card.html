@@ -1,0 +1,10 @@
+{% load static %}
+<div>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title"><a
+              href="{% url 'repositories:repository_detail' pk=repository.id %}"
+              class="btn btn-primary">{{ repository.name }}</a></h1>
+    </div>
+  </div>
+</div>

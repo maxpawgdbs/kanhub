@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}{{ repository.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h3 class="card-title">{{ repository.name }}</h3>
+  {% for material in materials %}
+    <h4><a href="{{ material.link }}">{{ material.link }}</a></h4>
+  {% endfor %}
+</div>
+
+{% endblock %}

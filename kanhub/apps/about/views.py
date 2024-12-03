@@ -2,5 +2,6 @@ __all__ = ()
 import django.shortcuts
 
 
-def main(request):
-    return django.shortcuts.render(request, "about/main.html")
+class Description(django.views.generic.View):
+    def get(self, request, *args, **kwargs):
+        return django.shortcuts.render(request, "about/main.html")
