@@ -144,35 +144,6 @@ class Task(django.db.models.Model):
         return self.name
 
 
-class Commit(django.db.models.Model):
-    name = django.db.models.CharField(
-        verbose_name=_("название"),
-        max_length=150,
-        null=False,
-        unique=True,
-        help_text=_("max 150 символов"),
-        validators=[
-            django.core.validators.MinLengthValidator(2),
-        ],
-    )
-    user = django.db.models.ForeignKey(
-        django.conf.settings.AUTH_USER_MODEL,
-        verbose_name=_("пользователь"),
-        on_delete=django.db.models.CASCADE,
-    )
-    created_at = django.db.models.DateTimeField(
-        auto_now_add=True,
-        null=True,
-    )
-
-    class Meta:
-        verbose_name = _("коммит")
-        verbose_name_plural = _("коммиты")
-
-    def __str__(self):
-        return self.name
-
-
 class Redirect(django.db.models.Model):
     link = django.db.models.URLField(
         verbose_name=_("ссылка"),

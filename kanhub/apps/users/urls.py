@@ -9,7 +9,7 @@ urlpatterns = [
     django.urls.path(
         "login/",
         views.LoginView.as_view(
-            template_name="users/base.html",
+            template_name="users/login.html",
         ),
         name="login",
     ),

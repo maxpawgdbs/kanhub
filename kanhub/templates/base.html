@@ -1,24 +1,34 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>
-        {% block title %}Base{% endblock %}
-    </title>
-</head>
-<body>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link href='{% static "bootstrap/css/bootstrap-icons.css" %}' rel="stylesheet">
+    {% block css %} {% endblock %}
+    <script src='{% static "bootstrap/js/bootstrap.js" %}'></script>
+    <script src='{% static "bootstrap/js/bootstrap.bundle.min.js" %}'></script>
+    <script src='{% static "js/custom.js" %}'></script>
+    <link rel="icon" type="image" href='{% static "/img/logo.svg" %}'/>
+  </head>
+  <body>
+
     {% include "includes/header.html" %}
 
     {% block content %} Dont load {%  endblock %}
 
     {% if messages %}
-        {% for message in messages %}
-            <div role="alert">
-                {{message}}
-            </div>
-        {% endfor %}
+      {% for message in messages %}
+        <div role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
     {% endif %}
 
     {% include "includes/footer.html" %}
-</body>
+
+  </body>
 </html>
