@@ -1,37 +1,87 @@
-__all__ = ()
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from django.contrib.auth.models import User
-import django.forms
+from allauth.account.forms import AddEmailForm, LoginForm, SignupForm, \
+    ChangePasswordForm, ResetPasswordForm, ResetPasswordKeyForm
+from django import forms
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserChangeForm
 
-import apps.users.models
+from apps.users.models import User
 
 
-class CustomUserForm(UserCreationForm):
+class BootstrapFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if len(self.visible_fields()) == 1:
+            self.visible_fields()[0].field.widget.attrs[
+                "class"
+            ] = "form-control input-field-only-one"
+        else:
+            for field in self.visible_fields():
+                field.field.widget.attrs["class"] = "form-control input-field"
+                if isinstance(field.field.widget, forms.CheckboxInput):
+                    field.field.widget.attrs["class"] = "form-check-input"
+
+        self.update_errors_class()
+
+    def update_errors_class(self):
         for field in self.visible_fields():
-            field.field.widget.attrs["class"] = "form-control"
+            if self.errors.get(field.name):
+                if "is-invalid" not in field.field.widget.attrs["class"]:
+                    field.field.widget.attrs["class"] += " is-invalid"
 
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = (
-            "username",
-            "email",
-            "password1",
-            "password2",
-        )
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data["email"]
-
-        if commit:
-            user.save()
-
-        return user
+    def add_error(self, field, error):
+        super().add_error(field, error)
+        self.update_errors_class()
 
 
-class ChangeProfile(django.forms.ModelForm):
+class UserForm(BootstrapFormMixin, UserChangeForm):
+    password = None
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields[User.email.field.name].widget.attrs["readonly"] = True
+        self.fields[User.email.field.name].widget.attrs["disabled"] = True
+        self.fields[User.avatar.field.name].widget.attrs["class"] += " d-none"
+
     class Meta(UserChangeForm.Meta):
-        model = apps.users.models.Profile
-        fields = ("image",)
+        model = get_user_model()
+
+        fields = [
+            User.username.field.name,
+            User.email.field.name,
+            User.avatar.field.name,
+        ]
+
+
+class EmailForm(BootstrapFormMixin, AddEmailForm):
+    pass
+
+
+class LoginForm(BootstrapFormMixin, LoginForm):
+    pass
+
+
+class SignupForm(BootstrapFormMixin, SignupForm):
+    pass
+
+class ChangePasswordForm(BootstrapFormMixin, ChangePasswordForm):
+    pass
+
+
+class ResetPasswordForm(BootstrapFormMixin, ResetPasswordForm):
+    pass
+
+
+class ResetPasswordKeyForm(BootstrapFormMixin, ResetPasswordKeyForm):
+    pass
+
+
+__all__ = [
+    UserForm,
+    LoginForm,
+    EmailForm,
+    SignupForm,
+    ChangePasswordForm,
+    ResetPasswordForm,
+    ResetPasswordKeyForm,
+]

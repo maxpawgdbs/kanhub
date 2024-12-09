@@ -7,6 +7,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("auth/", include("apps.users.urls")),
+    path("auth/", include("allauth.urls")),
     path(
         "",
         include("apps.about.urls"),
@@ -19,7 +21,6 @@ urlpatterns = [
         "ckeditor/",
         include("ckeditor_uploader.urls"),
     ),
-    path("auth/", include("apps.users.urls")),
 ]
 urlpatterns += i18n_patterns(
     path(

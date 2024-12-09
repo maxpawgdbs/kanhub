@@ -1,64 +1,33 @@
-import pathlib
-import uuid
-
-import django.conf
-import django.db.models
-import django.utils.safestring
-from django.utils.translation import gettext_lazy as _
-import sorl.thumbnail
-
-
-class ProfileManager(django.db.models.Manager):
-    def user_detail(self, pk):
-        return (
-            self.get_queryset()
-            .filter(pk=pk)
-            .values(
-                django.conf.settings.AUTH_USER_MODEL.email.field.name,
-                django.conf.settings.AUTH_USER_MODEL.first_name.field.name,
-                django.conf.settings.AUTH_USER_MODEL.last_name.field.name,
-                Profile.image.field.name,
-            )
-        )
-
-
-class Profile(django.db.models.Model):
-    def get_upload_file(self, filename):
-        ext = filename.split(".")[-1]
-        filename = f"{uuid.uuid4()}.{ext}"
-        return pathlib.Path("users") / str(self.id) / filename
-
-    objects = ProfileManager()
-
-    user = django.db.models.OneToOneField(
-        django.conf.settings.AUTH_USER_MODEL,
-        verbose_name=_("пользователь"),
-        on_delete=django.db.models.CASCADE,
-        related_name="profile",
-    )
-    image = django.db.models.ImageField(
-        verbose_name=_("изображение"),
-        upload_to=get_upload_file,
-        blank=True,
-        null=True,
-        help_text=_("Аватарка"),
-    )
-
-    class Meta:
-        verbose_name = _("дополнительное поле")
-        verbose_name_plural = _("дополнительные поля")
-        ordering = ("user",)
-
-    def __str__(self):
-        return self.user.username
-
-    def get_image_350x350(self):
-        return sorl.thumbnail.get_thumbnail(
-            self.image,
-            "350x350",
-            crop="center",
-            quality=85,
-        )
-
-
 __all__ = ()
+
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from sorl.thumbnail import delete, get_thumbnail
+
+
+class User(AbstractUser):
+    avatar = models.ImageField(
+        _("avatar"),
+        upload_to="avatars/",
+        null=True,
+        blank=True,
+    )
+
+    def has_avatar(self):
+        return self.avatar and self.avatar.url is not None
+
+    def get_small_avatar(self):
+        return get_thumbnail(self.avatar, "80", crop="center").url
+
+    def get_large_avatar(self):
+        return get_thumbnail(self.avatar, "200", crop="center").url
+
+    def save(self, *args, **kwargs):
+        try:
+            old = User.objects.get(pk=self.pk)
+            if old.has_avatar() and not self.has_avatar():
+                delete(old.avatar)
+        except User.DoesNotExist:
+            pass
+        super().save(*args, **kwargs)

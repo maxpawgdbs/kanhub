@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "allauth",
+    "allauth.account",
     "tinymce",
     "active_link",
     "sorl.thumbnail",
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.locale.LocaleMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 if DEBUG:
@@ -101,6 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "users.User"
+
 CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 
 LANGUAGE_CODE = "ru-ru"
@@ -146,3 +151,23 @@ LOGOUT_REDIRECT_URL = "/auth/login/"
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = BASE_DIR / "send_mail"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_CHANGE_EMAIL = True
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_EMAIL_VERIFICATION = "none" if DEFAULT_USER_IS_ACTIVE else "mandatory"
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "<[KANHUB]>"
+SITE_ID = 1
+
+EMAIL_HOST = os.getenv("KANHUB_MAIL_HOST", default="smtp.mail.ru")
+EMAIL_PORT = os.getenv("KANHUB_MAIL_PORT", default=2525)
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = os.getenv("KANHUB_MAIL_USER", default="webmaster@localhost")
+EMAIL_HOST_USER = os.getenv("KANHUB_MAIL_USER", default="webmaster@localhost")
+EMAIL_HOST_PASSWORD = os.getenv(
+    "KANHUB_MAIL_PASSWORD",
+    default="secret_key",
+)

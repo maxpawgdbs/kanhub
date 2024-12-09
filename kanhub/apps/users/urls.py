@@ -1,73 +1,117 @@
-__all__ = ()
-from django.contrib.auth import views
-import django.urls
+from allauth.account.views import ConfirmEmailView
+from allauth.account.views import EmailVerificationSentView
+from allauth.account.views import EmailView
+from allauth.account.views import LoginView
+from allauth.account.views import LogoutView
+from allauth.account.views import PasswordChangeView
+from allauth.account.views import PasswordResetDoneView
+from allauth.account.views import PasswordResetFromKeyDoneView
+from allauth.account.views import PasswordResetFromKeyView
+from allauth.account.views import PasswordResetView
+from allauth.account.views import SignupView
+from django.urls import path, re_path, reverse_lazy
 
-import apps.users.views
+from apps.users import forms
+from apps.users import views
+
 
 app_name = "users"
+
 urlpatterns = [
-    django.urls.path(
+    path(
+        "account/",
+        views.AccountView.as_view(),
+        name="profile",
+    ),
+    path(
+        "signup/",
+        SignupView.as_view(
+            form_class=forms.SignupForm,
+            template_name="users/signup.html",
+        ),
+        name="signup",
+    ),
+    path(
         "login/",
-        views.LoginView.as_view(
+        LoginView.as_view(
+            form_class=forms.LoginForm,
             template_name="users/login.html",
         ),
         name="login",
     ),
-    django.urls.path(
+    path(
         "logout/",
-        views.LogoutView.as_view(
-            template_name="users/base.html",
+        LogoutView.as_view(
+            template_name="users/logout.html",
         ),
         name="logout",
     ),
-    django.urls.path(
-        "password_change/",
-        views.PasswordChangeView.as_view(
-            template_name="users/base.html",
+    path(
+        "confirm-email/",
+        EmailVerificationSentView.as_view(
+            template_name="users/confirm_email.html",
+        ),
+        name="confirm_email",
+    ),
+    re_path(
+        r"^confirm-email/(?P<key>[-:\w]+)/$",
+        ConfirmEmailView.as_view(
+            template_name="users/confirm_email_from_sent.html",
+        ),
+        name="account_confirm_email",
+    ),
+    path(
+        "email/",
+        EmailView.as_view(
+            form_class=forms.EmailForm,
+            template_name="users/email_change.html",
+        ),
+        name="email_change",
+    ),
+    path(
+        "password/change/",
+        PasswordChangeView.as_view(
+            form_class=forms.ChangePasswordForm,
+            template_name="users/password_change.html",
+            success_url=reverse_lazy("users:password_change_done"),
         ),
         name="password_change",
     ),
-    django.urls.path(
-        "password_change/done/",
+    path(
+        "password/change/done/",
         views.PasswordChangeDoneView.as_view(
-            template_name="users/base.html",
+            template_name="users/password_change_done.html",
         ),
         name="password_change_done",
     ),
-    django.urls.path(
-        "password_reset/",
-        views.PasswordResetView.as_view(
-            template_name="users/base.html",
+    path(
+        "password/reset/",
+        PasswordResetView.as_view(
+            form_class=forms.ResetPasswordForm,
+            template_name="users/password_reset.html",
         ),
         name="password_reset",
     ),
-    django.urls.path(
-        "password_reset/done/",
-        views.PasswordResetDoneView.as_view(
-            template_name="users/base.html",
+    path(
+        "password/reset/done/",
+        PasswordResetDoneView.as_view(
+            template_name="users/password_reset_done.html",
         ),
         name="password_reset_done",
     ),
-    django.urls.path(
-        "reset/<uidb64>/<token>",
-        views.PasswordResetConfirmView.as_view(
-            template_name="users/base.html",
+    re_path(
+        r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",
+        PasswordResetFromKeyView.as_view(
+            form_class=forms.ResetPasswordKeyForm,
+            template_name="users/password_reset_confirm.html",
         ),
         name="password_reset_confirm",
     ),
-    django.urls.path(
-        "password_reset_complete/",
-        views.PasswordResetCompleteView.as_view(
-            template_name="users/base.html",
+    path(
+        "password/reset/key/done/",
+        PasswordResetFromKeyDoneView.as_view(
+            template_name="users/password_reset_complete.html",
         ),
         name="password_reset_complete",
-    ),
-    django.urls.path("signup/", apps.users.views.signup, name="signup"),
-    django.urls.path("signup/", apps.users.views.activate, name="activate"),
-    django.urls.path("profile/", apps.users.views.profile, name="profile"),
-    django.urls.path(
-        "profile/change/",
-        apps.users.views.change_profile,
-        name="change_profile",
     ),
 ]
