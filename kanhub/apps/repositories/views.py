@@ -31,9 +31,13 @@ class RepositoryTasks(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         repository = self.object
-        commits = apps.repositories.models.Commit.objects.filter(repository=repository).all()
+        commits = apps.repositories.models.Commit.objects.filter(
+            repository=repository
+        ).all()
         commit = commits.last()
-        tasks = apps.repositories.models.Task.objects.filter(commit=commit).all()
+        tasks = apps.repositories.models.Task.objects.filter(
+            commit=commit
+        ).all()
         context["tasks"] = tasks
         return context
 
@@ -52,8 +56,12 @@ class RepositoryMaterials(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         repository = self.object
-        commits = apps.repositories.models.Commit.objects.filter(repository=repository).all()
+        commits = apps.repositories.models.Commit.objects.filter(
+            repository=repository
+        ).all()
         commit = commits.last()
-        materials = apps.repositories.models.Redirect.objects.filter(commit=commit).all()
+        materials = apps.repositories.models.Redirect.objects.filter(
+            commit=commit
+        ).all()
         context["materials"] = materials
         return context

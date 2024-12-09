@@ -8,7 +8,17 @@
 </head>
 <body>
     {% include "includes/header.html" %}
+
     {% block content %} Dont load {%  endblock %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <div role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     {% include "includes/footer.html" %}
 </body>
 </html>
