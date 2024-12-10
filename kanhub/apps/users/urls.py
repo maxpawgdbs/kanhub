@@ -19,6 +19,11 @@ app_name = "users"
 
 urlpatterns = [
     path(
+        "profile/",
+        views.AccountView.as_view(),
+        name="profile",
+    ),
+    path(
         "account/",
         views.AccountView.as_view(),
         name="profile",
