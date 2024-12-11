@@ -11,7 +11,6 @@
     <nav class="my-auto nav-item dropdown">
       <a href="{% url 'about:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "О проекте" %}</a>
       {% if user.is_authenticated %}
-        <a href="{% url 'users:profile' %}" class="{% if view_name == 'users:profile' %}active{% endif %}">{% trans "Профиль" %}</a>
         <a href="{% url 'users:logout' %}" class="{% if view_name == 'users:logout' %}active{% endif %}">{% trans "Выйти" %}</a>
       {% else %}
         <a href="{% url 'users:login' %}" class="{% if view_name == 'users:login' %}active{% endif %}">{% trans "Войти" %}</a>
@@ -56,6 +55,35 @@
           </li>
         </ul>
       </nav>
+      {% if request.resolver_match.view_name != 'users:login' %}
+        {% if request.user.is_authenticated %}
+          {% trans "no_user" as no_user %}
+          <div class="dropdown ms-2">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{% if request.user.has_avatar %}{{ request.user.get_small_avatar }}{% else %}{% static 'img/default_user_avatar.jpg' %}{% endif %}" alt="{{ request.user.username }}" class="rounded-circle" width="48" height="48">
+              <strong>{{ request.user.username|default:no_user }}</strong>
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" {% if view_name != "users:profile" %}href="{% url 'users:profile' %}"{% endif %}>{% trans "my_profile" %}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              {% if request.user.is_staff %}
+                <li><a href="{% url 'users:login' %}" class="dropdown-item">
+                  {% trans "users" %}
+                </a></li>
+              {% else %}
+                <li><a href="{% url 'users:login' %}" class="dropdown-item">
+                  {% trans "results" %}
+                </a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="{% url 'users:logout' %}">{% trans "exit" %}</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <a href="{% url 'users:login' %}" class="btn btn-outline my-auto me-2">
+            {% trans "sign_in" %}
+          </a>
+        {% endif %}
+      {% endif %}
     </nav>
   </div>
 </header>

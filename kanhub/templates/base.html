@@ -15,7 +15,6 @@
     <link rel="icon" type="image" href='{% static "/img/logo.svg" %}'/>
   </head>
   <body>
-
     {% include "includes/header.html" %}
 
     {% block content %} Dont load {%  endblock %}
@@ -30,5 +29,6 @@
 
     {% include "includes/footer.html" %}
 
+    {% block js %}{%  endblock %}
   </body>
 </html>
