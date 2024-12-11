@@ -4,7 +4,7 @@ from django.core import mail
 from django.shortcuts import reverse
 from django.test import Client, override_settings, TestCase
 
-from users.models import User
+from apps.users.models import User
 
 
 class ChangeFormTest(TestCase):

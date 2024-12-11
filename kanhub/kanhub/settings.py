@@ -165,7 +165,10 @@ EMAIL_HOST = os.getenv("KANHUB_MAIL_HOST", default="smtp.mail.ru")
 EMAIL_PORT = os.getenv("KANHUB_MAIL_PORT", default=2525)
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-DEFAULT_FROM_EMAIL = os.getenv("KANHUB_MAIL_USER", default="webmaster@localhost")
+DEFAULT_FROM_EMAIL = os.getenv(
+    "KANHUB_MAIL_USER",
+    default="webmaster@localhost",
+)
 EMAIL_HOST_USER = os.getenv("KANHUB_MAIL_USER", default="webmaster@localhost")
 EMAIL_HOST_PASSWORD = os.getenv(
     "KANHUB_MAIL_PASSWORD",

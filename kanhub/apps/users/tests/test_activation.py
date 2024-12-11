@@ -8,7 +8,7 @@ from django.shortcuts import reverse
 from django.test import Client, override_settings, TestCase
 from django.utils import timezone
 
-from users.models import User
+from apps.users.models import User
 
 
 class ActivationTest(TestCase):

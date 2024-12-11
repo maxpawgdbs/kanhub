@@ -6,7 +6,9 @@ import apps.repositories.views
 app_name = "repositories"
 urlpatterns = [
     django.urls.path(
-        "", apps.repositories.views.RepositoryList.as_view(), name="list"
+        "",
+        apps.repositories.views.RepositoryList.as_view(),
+        name="list",
     ),
     django.urls.path(
         "<int:pk>/",

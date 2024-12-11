@@ -30,4 +30,5 @@ class User(AbstractUser):
                 delete(old.avatar)
         except User.DoesNotExist:
             pass
+
         super().save(*args, **kwargs)
