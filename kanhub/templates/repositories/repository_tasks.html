@@ -5,11 +5,32 @@
 
 {% block content %}
 
+<nav>
+  <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
+  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
+  <a href="{% url 'repositories:materials' pk=repository.id %}" class="btn btn-light btn-sm">Материалы</a>
+  <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
+  <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
+</nav>
+
 <div class="container">
-  <h3 class="card-title">{{ repository.name }}</h3>
   {% for task in tasks %}
     <h4>{{ task.name }}</h4>
+    <form method="post" action="{% url 'repositories:task' pk=repository.id task_pk=task.id %}">
+      {% csrf_token %}
+      <input type="hidden" name="repository_pk" value="{{ repository.id }}">
+      <input type="hidden" name="task_pk" value="{{ task.id }}">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit">Delete</button>
+    </form>
+  {% empty %}
+    <h4>Задач нет</h4>
   {% endfor %}
 </div>
+
+{% if is_can %}
+  <h2>eg</h2>
+  <a href="{% url 'repositories:task_new' pk=repository.id %}">Новая задача</a>
+{% endif %}
 
 {% endblock %}

@@ -16,6 +16,11 @@ urlpatterns = [
         name="detail",
     ),
     django.urls.path(
+        "<int:pk>/tasks/<int:task_pk>/",
+        apps.repositories.views.RepositoryTask.as_view(),
+        name="task",
+    ),
+    django.urls.path(
         "<int:pk>/tasks/",
         apps.repositories.views.RepositoryTasks.as_view(),
         name="tasks",
@@ -34,5 +39,10 @@ urlpatterns = [
         "<int:pk>/settings/",
         apps.repositories.views.RepositorySettings.as_view(),
         name="settings",
+    ),
+    django.urls.path(
+        "<int:pk>/task_new/",
+        apps.repositories.views.RepositoryTasks.as_view(),
+        name="task_new",
     ),
 ]

@@ -4,9 +4,11 @@
   <div class="card shadow-sm mb-4">
     <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
       <h5 class="card-title mb-0">{{ repository.name }}</h5>
-      <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">
-        <i class="bi bi-box-arrow-up-right"></i>
-      </a>
+      {% if repository %}
+        <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+      {% endif %}
     </div>
     <div class="card-body">
       <p class="card-text">
