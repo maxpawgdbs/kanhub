@@ -26,7 +26,7 @@ urlpatterns = [
     path(
         "account/",
         views.AccountView.as_view(),
-        name="profile",
+        name="account",
     ),
     path(
         "signup/",
