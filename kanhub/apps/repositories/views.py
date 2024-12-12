@@ -10,7 +10,7 @@ class RepositoryList(django.views.generic.ListView):
     template_name = "repositories/repository_list.html"
     context_object_name = "repositories"
     queryset = apps.repositories.models.Repository.objects.filter(
-        is_published=True
+        is_published=True,
     )
 
     def get_context_data(self, **kwargs):
