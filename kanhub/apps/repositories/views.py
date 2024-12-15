@@ -5,6 +5,7 @@ import django.shortcuts
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+import apps.repositories.forms
 import apps.repositories.models
 
 
@@ -83,10 +84,37 @@ class RepositoryTask(django.views.generic.DetailView):
             return django.shortcuts.redirect("repositories:tasks", pk=repository_id)
 
 class RepositorySettings(django.views.generic.DetailView):
-    template_name = "repositories/repository_detail.html"
+    template_name = "repositories/repository_settings.html"
     context_object_name = "repository"
     queryset = apps.repositories.models.Repository.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["settings_form"] = apps.repositories.forms.SettingsForm(instance=self.object)
+        return context
+    def post(self, *args, **kwargs):
+        rep = self.get_object()
+        data = apps.repositories.forms.SettingsForm(self.request.POST)
+        if data.is_valid():
+            if self.request.user == rep.user:
+                rep.name = data.cleaned_data["name"]
+                rep.is_published = data.cleaned_data["is_published"]
+                #if data.cleaned_data["user"] != rep.user.username:
+                rep.user = data.cleaned_data["user"]
+                rep.full_clean()
+                rep.save()
+            else:
+                django.contrib.messages.success(
+                    self.request,
+                    "У вас нет прав на изменение этого репозитория",
+                )
+        else:
+            for error in data.errors:
+                django.contrib.messages.success(
+                    self.request,
+                    error,
+                )
+        return django.shortcuts.redirect("repositories:settings", pk=rep.id)
 
 class RepositoryMaterials(django.views.generic.DetailView):
     template_name = "repositories/repository_materials.html"

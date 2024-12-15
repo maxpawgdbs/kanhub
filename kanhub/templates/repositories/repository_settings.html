@@ -16,5 +16,10 @@
 <div class="container">
   <h3 class="card-title">{{ repository.name }}</h3>
 </div>
+<form method="post" action="{% url 'repositories:settings' pk=repository.id%}">
+      {% csrf_token %}
+      {{ settings_form.as_p }}
+      <button type="submit">Изменить</button>
+    </form>
 
 {% endblock %}
