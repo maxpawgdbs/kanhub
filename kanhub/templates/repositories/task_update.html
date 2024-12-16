@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать задачу{% endblock %}
+
+{% block content %}
+  <h2>Редактирование задачи</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="last_task" value="{{ last_task.id }}">
+    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+  </form>
+  <br>
+  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-secondary">Назад к задачам</a>
+{% endblock %}

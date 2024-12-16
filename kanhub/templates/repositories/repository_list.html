@@ -6,22 +6,14 @@
 {% block content %}
 <div class="container py-4">
   {% if user.is_authenticated %}
-    <h1 class="text-center mb-4">{% trans "Ваши репозитории" %}</h1>
     <div class="row">
-      {% for repository in my_repositories %}
+      {% for repository in repositories %}
         {% include "includes/repository_card.html" with repository=repository %}
       {% empty %}
-        <p class="text-center">{% trans "Список пуст" %}</p>
+        <p class="text-center">{% trans "У вас нет репозиториев" %}</p>
       {% endfor %}
     </div>
+    <a href="{% url 'repositories:new' %}">Новый репозиторий</a>
   {% endif %}
-  <h1 class="text-center mb-4">{% trans "Публичные репозитории" %}</h1>
-  <div class="row">
-    {% for repository in repositories %}
-      {% include "includes/repository_card.html" with repository=repository %}
-    {% empty %}
-      <p class="text-center">{% trans "Список пуст" %}</p>
-    {% endfor %}
-  </div>
 </div>
 {% endblock %}

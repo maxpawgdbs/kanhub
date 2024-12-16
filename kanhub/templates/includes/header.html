@@ -9,6 +9,7 @@
       <span class="ms-2 fw-bold">Kanhub</span>
     </a>
     <nav class="my-auto nav-item dropdown">
+      <a href="{% url 'homepage:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "Главная" %}</a>
       <a href="{% url 'about:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "О проекте" %}</a>
     </nav>
     <nav class="d-flex">

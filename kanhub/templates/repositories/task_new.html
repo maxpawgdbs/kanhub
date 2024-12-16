@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить новое задание{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Добавить новое задание для {{ repository.name }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="commit" value="{{ form.instance.commit.id }}">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+
+{% endblock %}

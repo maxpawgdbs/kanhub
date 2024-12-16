@@ -16,9 +16,19 @@ urlpatterns = [
         name="detail",
     ),
     django.urls.path(
+        "new/",
+        apps.repositories.views.RepositoryNew.as_view(),
+        name="new",
+    ),
+    django.urls.path(
         "<int:pk>/tasks/<int:task_pk>/",
         apps.repositories.views.RepositoryTask.as_view(),
         name="task",
+    ),
+    django.urls.path(
+        '<int:pk>/task/<int:task_pk>/edit/',
+        apps.repositories.views.EditTaskView.as_view(),
+        name='edit_task',
     ),
     django.urls.path(
         "<int:pk>/tasks/",
@@ -26,9 +36,9 @@ urlpatterns = [
         name="tasks",
     ),
     django.urls.path(
-        "<int:pk>/materials/",
-        apps.repositories.views.RepositoryMaterials.as_view(),
-        name="materials",
+        "<int:pk>/history/",
+        apps.repositories.views.RepositoryHistory.as_view(),
+        name="history",
     ),
     django.urls.path(
         "<int:pk>/calendar/",
@@ -42,7 +52,7 @@ urlpatterns = [
     ),
     django.urls.path(
         "<int:pk>/task_new/",
-        apps.repositories.views.RepositoryTasks.as_view(),
+        apps.repositories.views.RepositoryTaskNew.as_view(),
         name="task_new",
     ),
 ]

@@ -32,7 +32,7 @@ class Repository(django.db.models.Model):
         verbose_name=_("название"),
         max_length=150,
         null=False,
-        unique=True,
+        unique=False,
         help_text=_("max 150 символов"),
         validators=[
             django.core.validators.MinLengthValidator(2),
@@ -76,7 +76,7 @@ class Commit(django.db.models.Model):
         verbose_name=_("название"),
         max_length=150,
         null=False,
-        unique=True,
+        unique=False,
         help_text=_("max 150 символов"),
         validators=[
             django.core.validators.MinLengthValidator(2),
@@ -110,7 +110,7 @@ class Task(django.db.models.Model):
         verbose_name=_("название"),
         max_length=150,
         null=False,
-        unique=True,
+        unique=False,
         help_text=_("max 150 символов"),
         validators=[
             django.core.validators.MinLengthValidator(2),
@@ -130,6 +130,12 @@ class Task(django.db.models.Model):
     end_at = django.db.models.DateTimeField(
         null=True,
     )
+    first_commit = django.db.models.ForeignKey(
+        Commit,
+        verbose_name=_("первый комит"),
+        on_delete=django.db.models.CASCADE,
+        related_name="first_commit",
+    )
     commit = django.db.models.ForeignKey(
         Commit,
         verbose_name=_("коммит"),
@@ -142,26 +148,6 @@ class Task(django.db.models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Redirect(django.db.models.Model):
-    link = django.db.models.URLField(
-        verbose_name=_("ссылка"),
-        help_text=_("ссылка для перевода"),
-        max_length=2000,
-    )
-    commit = django.db.models.ForeignKey(
-        Commit,
-        verbose_name=_("коммит"),
-        on_delete=django.db.models.CASCADE,
-    )
-
-    class Meta:
-        verbose_name = _("ссылка")
-        verbose_name_plural = _("ссылки")
-
-    def __str__(self):
-        return self.link
 
 
 __all__ = ()

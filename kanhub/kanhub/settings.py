@@ -27,6 +27,7 @@ ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
 INSTALLED_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.about.apps.AboutConfig",
+    "apps.homepage.apps.HomepageConfig",
     "apps.repositories.apps.RepositoriesConfig",
     "django.contrib.admin",
     "django.contrib.auth",

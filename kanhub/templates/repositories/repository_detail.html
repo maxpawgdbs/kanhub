@@ -8,7 +8,7 @@
 <nav>
   <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
   <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:materials' pk=repository.id %}" class="btn btn-light btn-sm">Материалы</a>
+  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
   <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
   <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
 </nav>
@@ -24,7 +24,7 @@
         {% trans "Здесь можно отобразить подробное описание репозитория, его статистику, графики, последние изменения или другие данные." %}
       </p>
       <div class="mt-3">
-        <a href="#" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> {% trans "Редактировать" %}</a>
+        <a href="{% url 'repositories:settings' pk=repository.pk %}" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> {% trans "Редактировать" %}</a>
         <a href="#" class="btn btn-outline-danger"><i class="bi bi-trash"></i> {% trans "Удалить" %}</a>
       </div>
     </div>

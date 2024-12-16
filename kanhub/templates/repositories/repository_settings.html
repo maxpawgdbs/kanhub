@@ -8,18 +8,15 @@
 <nav>
   <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
   <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:materials' pk=repository.id %}" class="btn btn-light btn-sm">Материалы</a>
+  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
   <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
   <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
 </nav>
 
-<div class="container">
-  <h3 class="card-title">{{ repository.name }}</h3>
-</div>
 <form method="post" action="{% url 'repositories:settings' pk=repository.id%}">
-      {% csrf_token %}
-      {{ settings_form.as_p }}
-      <button type="submit">Изменить</button>
-    </form>
+  {% csrf_token %}
+  {{ settings_form.as_p }}
+  <button type="submit">Изменить</button>
+</form>
 
 {% endblock %}

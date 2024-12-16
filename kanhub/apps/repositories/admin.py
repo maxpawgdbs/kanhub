@@ -43,11 +43,6 @@ class CommitAdmin(django.contrib.admin.ModelAdmin):
     readonly_fields = (apps.repositories.models.Commit.created_at.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Redirect)
-class RedirectAdmin(django.contrib.admin.ModelAdmin):
-    list_display = (apps.repositories.models.Redirect.link.field.name,)
-
-
 @django.contrib.admin.register(apps.repositories.models.Tag)
 class TagAdmin(django.contrib.admin.ModelAdmin):
     list_display = (apps.repositories.models.Tag.name.field.name,)

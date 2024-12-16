@@ -1,7 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% load static %}
-{% block title %}{{ repository.name }}{% endblock %}
+{% block title %}{% trans "Репозитории" %}{% endblock %}
 
 {% block content %}
 
@@ -13,11 +13,16 @@
   <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
 </nav>
 
-<div class="container">
-  <h3 class="card-title">{{ repository.name }}</h3>
-  {% for material in materials %}
-    <h4><a href="{{ material.link }}">{{ material.link }}</a></h4>
-  {% endfor %}
+<div class="container py-4">
+  {% if user.is_authenticated %}
+    <div class="row">
+      {% for history in histories %}
+        {{ history.name }}
+      {% empty %}
+        <p class="text-center">{% trans "У репозитория еще нет истории изменения" %}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
 </div>
 
 {% endblock %}

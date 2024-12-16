@@ -11,6 +11,10 @@ urlpatterns = [
     path("auth/", include("allauth.urls")),
     path(
         "",
+        include("apps.homepage.urls"),
+    ),
+    path(
+        "about/",
         include("apps.about.urls"),
     ),
     path(
