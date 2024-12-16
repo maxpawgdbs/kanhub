@@ -25,7 +25,7 @@ button[type="submit"]:hover {
 }
 
 .form-user-auth {
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
 }
   
@@ -48,4 +48,10 @@ button[type="submit"]:hover {
 .form-user-auth .btn {
     max-width: 400px;
     margin: 0 auto;
+}
+
+.form-user-auth .d-flex {
+    min-width: 300px;
+    max-width: 600px;
+    width: 100%;
 }
