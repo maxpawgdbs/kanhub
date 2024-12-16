@@ -61,7 +61,7 @@ header a.active  {
 
 body[data-bs-theme="light"] header a:hover,
 header a.active  {
-  background-color: #b8bfbd;
+  background-color: #9b9f9f;
 }
 
 header {
