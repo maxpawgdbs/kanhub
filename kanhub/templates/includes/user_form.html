@@ -4,13 +4,13 @@
 {% with request.resolver_match.view_name as view_name %}
   <form method="POST" class="form-user-auth mt-5" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="d-flex flex-column col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 col-xxl-3 ms-auto me-auto">
+    <div class="d-flex flex-column w-100" style="max-width: 400px; margin: auto;">
       <h1 class="h3 mb-3 fw-normal text-center">{{ title }}</h1>
 
       <div class="form-group d-flex flex-column">
         {% for field in form %}
           {% if field.field.widget.input_type != "checkbox" %}
-            <div class="form-floating">
+            <div class="form-floating mb-3">  {# Добавлен mb-3 #}
               {{ field }}
               <label for="{{ field.id_for_label }}">
                 {% if view_name == "users:login" and forloop.first %}
