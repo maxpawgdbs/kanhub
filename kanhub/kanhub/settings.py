@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.about.apps.AboutConfig",
     "apps.homepage.apps.HomepageConfig",
+    "apps.api.apps.ApiConfig",
     "apps.repositories.apps.RepositoriesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -35,12 +36,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "allauth",
-    "allauth.account",
     "tinymce",
     "active_link",
     "sorl.thumbnail",
+    "rest_framework",
+    "rest_framework.authtoken",
     "ckeditor",
+    "allauth",
+    "allauth.account",
 ]
 
 MIDDLEWARE = [
@@ -175,3 +178,12 @@ EMAIL_HOST_PASSWORD = os.getenv(
     "KANHUB_MAIL_PASSWORD",
     default="secret_key",
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}

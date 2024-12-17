@@ -16,14 +16,7 @@
   <div class="container">
     {% for task in tasks %}
       <h4>{{ task.name }}</h4>
-      <form method="post" action="{% url 'repositories:task' pk=repository.id task_pk=task.id %}">
-        {% csrf_token %}
-        <input type="hidden" name="repository_pk" value="{{ repository.id }}">
-        <input type="hidden" name="task_pk" value="{{ task.id }}">
-        <input type="hidden" name="_method" value="delete">
-        <button type="submit">Удалить</button>
-      </form>
-
+      <a href="{% url 'repositories:delete_task' pk=repository.pk task_pk=task.id %}">Удалить</a>
       <a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}" class="btn btn-warning">Редактировать</a>
     {% empty %}
       <h4>Задач нет</h4>

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}{{ repository.name }}{% endblock %}
+
+{% block content %}
+
+<h2>Удалить репозиторий "{{ object.name }}"?</h2>
+<p>Вы действительно хотите удалить этот репозиторий? Это действие невозможно отменить.</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Удалить</button>
+  <a href="{% url 'repositories:list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+
+{% endblock %}

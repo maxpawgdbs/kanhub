@@ -16,6 +16,11 @@ urlpatterns = [
         name="detail",
     ),
     django.urls.path(
+        "<int:pk>/delete/",
+        apps.repositories.views.RepositoryDelete.as_view(),
+        name="repository_delete",
+    ),
+    django.urls.path(
         "new/",
         apps.repositories.views.RepositoryNew.as_view(),
         name="new",
@@ -24,6 +29,11 @@ urlpatterns = [
         "<int:pk>/tasks/<int:task_pk>/",
         apps.repositories.views.RepositoryTask.as_view(),
         name="task",
+    ),
+    django.urls.path(
+        "<int:pk>/tasks/<int:task_pk>/delete/",
+        apps.repositories.views.RepositoryTaskDelete.as_view(),
+        name="delete_task",
     ),
     django.urls.path(
         '<int:pk>/task/<int:task_pk>/edit/',

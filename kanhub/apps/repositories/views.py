@@ -82,6 +82,19 @@ class RepositoryNew(LoginRequiredMixin, django.views.generic.CreateView):
         return super().form_valid(form)
 
 
+class RepositoryDelete(LoginRequiredMixin, django.views.generic.DeleteView):
+    model = apps.repositories.models.Repository
+    template_name = "repositories/repository_delete.html"
+    success_url = django.urls.reverse_lazy("repositories:list")
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        django.contrib.messages.success(request, "Репозиторий успешно удален!")
+        return response
+
 class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_new.html"
@@ -180,43 +193,50 @@ class RepositoryTask(django.views.generic.DetailView):
     context_object_name = "task"
     queryset = apps.repositories.models.Task.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        repository_id = int(request.POST.get("repository_pk"))
-        task_id = int(request.POST.get("task_pk"))
-        method = request.POST.get("_method")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["repository"] = self.object.commit.repository
+        return context
 
-        if method.upper() == "DELETE":
-            if task_id:
-                task = apps.repositories.models.Task.objects.get(
-                    id=task_id,
-                    commit__repository_id=repository_id,
-                )
-                repository = django.shortcuts.get_object_or_404(
-                    apps.repositories.models.Repository,
-                    pk=self.kwargs["pk"],
-                )
-                last_commit = apps.repositories.models.Commit.objects.filter(
-                    repository=repository,
-                ).last()
-                commit = apps.repositories.models.Commit.objects.create(
-                    name=f"Delete task {task.name}",
-                    user=self.request.user,
-                    repository=repository,
-                )
+class RepositoryTaskDelete(django.views.generic.View):
+    def get(self, request, *args, **kwargs):
+        repository_id = self.kwargs.get("pk")
+        task_id = self.kwargs.get("task_pk")
 
-                if last_commit:
-                    apps.repositories.models.Task.objects.filter(
-                        commit=last_commit,
-                    ).update(
-                        commit=commit,
-                    )
-                    task.commit = last_commit
-                    task.save()
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=repository_id,
+        )
+        task = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Task,
+            id=task_id,
+            commit__repository=repository,
+        )
 
-            return django.shortcuts.redirect(
-                "repositories:tasks",
-                pk=repository_id,
-            )
+        last_commit = apps.repositories.models.Commit.objects.filter(
+            repository=repository,
+        ).last()
+
+        commit = apps.repositories.models.Commit.objects.create(
+            name=f"Delete task {task.name}",
+            user=request.user,
+            repository=repository,
+        )
+
+        if last_commit:
+            apps.repositories.models.Task.objects.filter(commit=last_commit).update(commit=commit)
+            task.commit = last_commit
+            task.save()
+
+        django.contrib.messages.success(
+            request,
+            "Задача успешно удалена.",
+        )
+
+        return django.shortcuts.redirect(
+            "repositories:tasks",
+            pk=repository_id,
+        )
 
 
 class EditTaskView(django.views.generic.edit.UpdateView):

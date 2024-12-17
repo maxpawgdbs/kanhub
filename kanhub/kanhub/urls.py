@@ -3,7 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
+from rest_framework.authtoken import views as token_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -20,6 +20,14 @@ urlpatterns = [
     path(
         "repositories/",
         include("apps.repositories.urls"),
+    ),
+    path(
+        'api/',
+        include('apps.api.urls'),
+    ),
+    path(
+        'api-token-auth/',
+        token_views.obtain_auth_token,
     ),
     path(
         "ckeditor/",
