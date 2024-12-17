@@ -124,10 +124,10 @@ class Task(django.db.models.Model):
         verbose_name=_("текст"),
         help_text=_("Вспомогательный текст"),
     )
-    start_at = django.db.models.DateTimeField(
+    start_at = django.db.models.DateField(
         null=True,
     )
-    end_at = django.db.models.DateTimeField(
+    end_at = django.db.models.DateField(
         null=True,
     )
     first_commit = django.db.models.ForeignKey(

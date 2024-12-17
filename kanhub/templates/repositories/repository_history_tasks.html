@@ -16,9 +16,14 @@
 <div class="container py-4">
   {% if user.is_authenticated %}
     <div class="row">
-      {% for history in histories %}
-        {{ history.name }}
-        <a href="{% url 'repositories:history_commit' pk=repository.id commit_id=history.id %}">Посмотреть</a>
+      {% for task in tasks %}
+        <h2>{{ task.name }}</h2>
+        <br>
+        {{ task.text }}
+        <br>
+        {{ task.start_at }}
+        <br>
+        {{ task.end_at }}
         <br>
       {% empty %}
         <p class="text-center">{% trans "У репозитория еще нет истории изменения" %}</p>

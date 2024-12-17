@@ -41,6 +41,11 @@ urlpatterns = [
         name="history",
     ),
     django.urls.path(
+        "<int:pk>/history/<int:commit_id>",
+        apps.repositories.views.RepositoryHistoryTasks.as_view(),
+        name="history_commit",
+    ),
+    django.urls.path(
         "<int:pk>/calendar/",
         apps.repositories.views.RepositoryCalendar.as_view(),
         name="calendar",

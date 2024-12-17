@@ -38,6 +38,30 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
         )
         return queryset
 
+
+class RepositoryHistoryTasks(LoginRequiredMixin, django.views.generic.ListView):
+    template_name = "repositories/repository_history_tasks.html"
+    context_object_name = "tasks"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        context["repository"] = repository
+        return context
+
+    def get_queryset(self):
+        commit_id = self.kwargs["commit_id"]
+
+        queryset = apps.repositories.models.Task.objects.filter(
+            first_commit__id__lte=commit_id,
+            commit__id__gte=commit_id
+        )
+        return queryset
+
+
 class RepositoryDetail(django.views.generic.DetailView):
     template_name = "repositories/repository_detail.html"
     context_object_name = "repository"
@@ -231,12 +255,13 @@ class EditTaskView(django.views.generic.edit.UpdateView):
             start_at=last_task.start_at,
             end_at=last_task.end_at,
             commit=last_commit,
+            first_commit=last_task.first_commit,
         )
 
         task = form.save(commit=False)
 
         commit = apps.repositories.models.Commit.objects.create(
-            name=f"Edit task {last_task.name} on {task.name}",
+            name=f"Edit task {task.name}",
             user=self.request.user,
             repository=self.get_object().commit.repository
         )

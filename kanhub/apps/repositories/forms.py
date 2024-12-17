@@ -1,5 +1,4 @@
 from django import forms
-import django.utils
 from django.utils.translation import gettext_lazy as _
 
 import apps.repositories.models
@@ -27,19 +26,21 @@ class TaskForm(forms.ModelForm):
         model = apps.repositories.models.Task
         fields = ("name", "tags", "text", "start_at", "end_at")
         widgets = {
-            "date_start": forms.DateInput(
+            "start_at": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"},
+                format="%Y-%m-%d",
             ),
-            "date_end": forms.DateInput(
+            "end_at": forms.DateInput(
                 attrs={"class": "form-control", "type": "date"},
+                format="%Y-%m-%d",
             ),
         }
 
 
     def clean(self):
         cleaned_data = super().clean()
-        date_start = cleaned_data.get("date_start")
-        date_end = cleaned_data.get("date_end")
+        date_start = cleaned_data.get("start_at")
+        date_end = cleaned_data.get("end_at")
 
         if date_start and date_end and date_end < date_start:
             raise forms.ValidationError(
