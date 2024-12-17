@@ -2,6 +2,7 @@ __all__ = ()
 
 import django.conf
 import django.shortcuts
+import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 import apps.repositories.forms
@@ -322,19 +323,44 @@ class RepositorySettings(django.views.generic.DetailView):
 
     def post(self, *args, **kwargs):
         rep = self.get_object()
-        data = apps.repositories.forms.SettingsForm(self.request.POST,
-                                                    instance=rep)
+        data = apps.repositories.forms.SettingsForm(self.request.POST)
         if data.is_valid():
             if self.request.user == rep.user:
-                rep.name = data.cleaned_data["name"]
-                rep.is_published = data.cleaned_data["is_published"]
-                users = set(data.cleaned_data["users"])
-                users.add(rep.user)
-                rep.users.set(users)
+                if data.cleaned_data["name"] and rep.name != data.cleaned_data["name"]:
+                    rep.name = data.cleaned_data["name"]
+                    django.contrib.messages.success(
+                        self.request,
+                        "Репозиторий переименован",
+                    )
+                if rep.is_published != data.cleaned_data["is_published"]:
+                    rep.is_published = data.cleaned_data["is_published"]
+                    django.contrib.messages.success(
+                        self.request,
+                        "Статус публикации сменён",
+                    )
+                if data.cleaned_data["add_user"]:
+                    try:
+                        new_user = django.contrib.auth.get_user_model().objects.get(username=data.cleaned_data["add_user"])
+                        rep.users.add(new_user)
+                        django.contrib.messages.error(
+                            self.request,
+                            "Юзер добавлен"
+                        )
+                    except Exception:
+                        django.contrib.messages.error(
+                            self.request,
+                            "Юзер не найден"
+                        )
+                print(data.cleaned_data["users"], data.cleaned_data["del_selected_users"])
+                if data.cleaned_data["del_selected_users"]:
+                    for user in data.cleaned_data["users"]:
+                        rep.users.remove(user)
+
+
                 rep.full_clean()
                 rep.save()
             else:
-                django.contrib.messages.success(
+                django.contrib.messages.error(
                     self.request,
                     "У вас нет прав на изменение этого репозитория",
                 )

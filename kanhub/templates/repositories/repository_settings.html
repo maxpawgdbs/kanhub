@@ -18,5 +18,16 @@
   {{ settings_form.as_p }}
   <button type="submit">Изменить</button>
 </form>
+<script>
+      function clearSelection() {
+          const selectElement = document.getElementById('id_users');
+          for (let i = 0; i < selectElement.options.length; i++) {
+              selectElement.options[i].selected = false;
+          }
+      }
+      window.onload = function() {
+          clearSelection();
+      };
+  </script>
 
 {% endblock %}

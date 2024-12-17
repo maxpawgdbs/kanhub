@@ -6,14 +6,16 @@ import apps.repositories.forms
 
 
 class SettingsForm(forms.ModelForm):
+    add_user = forms.CharField(required=False)
+    del_selected_users = forms.BooleanField(required=False)
     class Meta:
         model = apps.repositories.models.Repository
         fields = ("name", "is_published", "users")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance and self.instance.user:
-            self.fields["users"].queryset = self.fields["users"].queryset.exclude(id=self.instance.user.id)
+        if len(args) == 0 and self.instance and self.instance.user:
+            self.fields["users"].queryset = self.instance.users.all().exclude(id=self.instance.user.id)
 
 class RepositoryForm(forms.ModelForm):
     class Meta:
