@@ -12,20 +12,26 @@
     <script src='{% static "bootstrap/js/bootstrap.js" %}'></script>
     <script src='{% static "bootstrap/js/bootstrap.bundle.min.js" %}'></script>
     <script src='{% static "js/custom.js" %}'></script>
+    <script src="//cdn.ckeditor.com/4.25.0-lts/standard/ckeditor.js"></script>
     <link rel="icon" type="image" href='{% static "/img/logo.svg" %}'/>
   </head>
   <body>
     {% include "includes/header.html" %}
 
-    {% block content %} Dont load {%  endblock %}
-
-    {% if messages %}
-      {% for message in messages %}
-        <div role="alert">
-          {{message}}
+    <div class="container">
+      {% if messages %}
+        <div class="container mt-4">
+          {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
-    {% endif %}
+      {% endif %}
+    </div>
+
+    {% block content %} Dont load {%  endblock %}
 
     {% include "includes/footer.html" %}
 

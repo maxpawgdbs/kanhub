@@ -1,5 +1,8 @@
 __all__ = ()
 
+import calendar
+from datetime import datetime
+
 import django.conf
 import django.shortcuts
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -95,6 +98,7 @@ class RepositoryDelete(LoginRequiredMixin, django.views.generic.DeleteView):
         django.contrib.messages.success(request, "Репозиторий успешно удален!")
         return response
 
+
 class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_new.html"
@@ -151,8 +155,125 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
 
 class RepositoryCalendar(django.views.generic.DetailView):
     template_name = "repositories/repository_calendar.html"
-    context_object_name = "repository"
-    queryset = apps.repositories.models.Repository.objects.all()
+
+    def get_queryset(self):
+        queryset = apps.repositories.models.Repository.objects.all()
+
+        date = self.request.GET.get("date")
+        if date:
+            try:
+                input_date = datetime.strptime(date, "%Y-%m-%d").date()
+                _, last_day_of_month = calendar.monthrange(input_date.year,
+                                                           input_date.month)
+                last_day_of_month = input_date.replace(day=last_day_of_month)
+                queryset = queryset.filter(
+                    created_at__lte=last_day_of_month,
+                    updated_at__gte=input_date,
+                )
+            except ValueError:
+                pass
+        else:
+            today = datetime.today()
+            first_day_of_month = today.replace(day=1)
+            _, last_day_of_month = calendar.monthrange(today.year, today.month)
+            last_day_of_month = first_day_of_month.replace(
+                day=last_day_of_month)
+            queryset = queryset.filter(
+                created_at__lte=last_day_of_month,
+                updated_at__gte=first_day_of_month,
+            )
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["page_obj"] = self.get_queryset
+        context["disciplines"] = (
+            meropriations.models.Discipline.objects.values_list(
+                "name",
+                flat=True,
+            )
+            .distinct()
+            .order_by("name")
+        )
+        context["tips"] = (
+            meropriations.models.Meropriation.objects.values_list(
+                "tip__name",
+                flat=True,
+            )
+            .distinct()
+            .order_by("tip__name")
+        )
+        context["structures"] = (
+            meropriations.models.Meropriation.objects.values_list(
+                "structure__name",
+                flat=True,
+            )
+            .distinct()
+            .order_by("structure__name")
+        )
+        context["regions"] = (
+            meropriations.models.Meropriation.objects.values_list(
+                "region__name",
+                flat=True,
+            )
+            .distinct()
+            .order_by("region__name")
+        )
+        context["request"] = self.request
+        context["day_week_list"] = [
+            "Понедельник",
+            "Вторник",
+            "Среда",
+            "Четверг",
+            "Пятница",
+            "Суббота",
+            "Воскресенье",
+        ]
+
+        date = self.request.GET.get("date")
+
+        if date:
+            try:
+                input_date = datetime.strptime(date, "%Y-%m-%d").date()
+                date_delta = input_date.weekday()
+            except ValueError:
+                input_date = datetime.now()
+                date_delta = input_date.weekday()
+        else:
+            input_date = datetime.now()
+            date_delta = input_date.weekday()
+
+        queryset = self.get_queryset()
+        grouped_events = defaultdict(list)
+        for event in queryset:
+            start_date = event.date_start
+            end_date = event.date_end
+            current_date = start_date
+            while current_date <= end_date:
+                grouped_events[current_date.day].append(event)
+                current_date += timedelta(days=1)
+
+        _, days_in_month = calendar.monthrange(
+            input_date.year,
+            input_date.month,
+        )
+        weeks = []
+        current_week = [0] * date_delta
+        for day in range(1, days_in_month + 1):
+            events_for_day = grouped_events.get(day, [])
+            current_week.append({"date": day, "events": events_for_day})
+
+            if len(current_week) == 7:
+                weeks.append(current_week)
+                current_week = []
+
+        if current_week:
+            weeks.append(current_week)
+
+        context["calendar_weeks"] = weeks
+        return context
 
 
 class RepositoryTasks(django.views.generic.DetailView):

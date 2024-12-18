@@ -17,7 +17,6 @@ form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    padding: 20px;
 }
 
 input[type="text"],
@@ -39,7 +38,7 @@ input:focus, textarea:focus, select:focus {
     outline: none;
 }
 
-form button[type="submit"], form .btn {
+form-user-auth button[type="submit"], form .btn {
     display: block;
     width: 100%;
     max-width: 200px;
@@ -50,10 +49,12 @@ form button[type="submit"], form .btn {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    color: #fff;
 }
 
-form button[type="submit"]:hover, form .btn:hover {
+form-user-auth button[type="submit"]:hover, form .btn:hover {
     background-color: #0056b3;
+    color: #fff;
 }
 
 button[type="submit"]:focus {

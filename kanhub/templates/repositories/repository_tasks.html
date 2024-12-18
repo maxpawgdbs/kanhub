@@ -1,29 +1,41 @@
 {% extends "base.html" %}
-
-{% load static %}
+{% load i18n %}
 
 {% block title %}{{ repository.name }}{% endblock %}
 
 {% block content %}
-  <nav>
-    <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
-    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
-    <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
-    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
+<div class="container py-4">
+  <nav class="nav nav-pills mb-3">
+    <a href="{% url 'repositories:detail' pk=repository.id %}" class="nav-link">{% trans "Information" %}</a>
+    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="nav-link active">{% trans "Tasks" %}</a>
+    <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link">{% trans "History" %}</a>
+    <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link">{% trans "Settings" %}</a>
+    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link">{% trans "Calendar" %}</a>
   </nav>
 
-  <div class="container">
-    {% for task in tasks %}
-      <h4>{{ task.name }}</h4>
-      <a href="{% url 'repositories:delete_task' pk=repository.pk task_pk=task.id %}">Удалить</a>
-      <a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}" class="btn btn-warning">Редактировать</a>
-    {% empty %}
-      <h4>Задач нет</h4>
-    {% endfor %}
+  <div class="card shadow-sm">
+    <div class="card-body">
+      {% for task in tasks %}
+        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+          <h5 class="mb-0">{{ task.name }}</h5>
+          <div>
+            <a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}" class="btn btn-outline-secondary btn-sm">
+              <i class="bi bi-pencil"></i> {% trans "Edit" %}
+            </a>
+            <a href="{% url 'repositories:delete_task' pk=repository.pk task_pk=task.id %}" class="btn btn-outline-danger btn-sm">
+              <i class="bi bi-trash"></i> {% trans "Delete" %}
+            </a>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">{% trans "No tasks available." %}</p>
+      {% endfor %}
+    </div>
   </div>
-
   {% if is_can %}
-    <a href="{% url 'repositories:task_new' pk=repository.id %}">Новая задача</a>
+    <a href="{% url 'repositories:task_new' pk=repository.id %}" class="btn btn-primary mt-3">
+      <i class="bi bi-plus-circle"></i> {% trans "New Task" %}
+    </a>
   {% endif %}
+</div>
 {% endblock %}

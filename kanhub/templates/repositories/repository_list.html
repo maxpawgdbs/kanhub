@@ -8,12 +8,16 @@
   {% if user.is_authenticated %}
     <div class="row">
       {% for repository in repositories %}
-        {% include "includes/repository_card.html" with repository=repository %}
+        <div>
+          {% include "includes/repository_card.html" with repository=repository %}
+        </div>
       {% empty %}
         <p class="text-center">{% trans "У вас нет репозиториев" %}</p>
       {% endfor %}
     </div>
-    <a href="{% url 'repositories:new' %}">Новый репозиторий</a>
+    <a href="{% url 'repositories:new' %}" class="btn btn-primary mt-4">{% trans "Новый репозиторий" %}</a>
+  {% else %}
+    <p class="text-center">{% trans "Пожалуйста, войдите, чтобы увидеть ваши репозитории." %}</p>
   {% endif %}
 </div>
 {% endblock %}

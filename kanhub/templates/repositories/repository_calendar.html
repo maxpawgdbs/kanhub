@@ -1,20 +1,265 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load static %}
+
 {% block title %}{{ repository.name }}{% endblock %}
 
 {% block content %}
+<div class="container mt-4">
+  <nav class="nav nav-pills mb-3">
+    <a href="{% url 'repositories:detail' pk=repository.id %}" class="nav-link">{% trans "Information" %}</a>
+    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="nav-link">{% trans "Tasks" %}</a>
+    <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link">{% trans "History" %}</a>
+    <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link">{% trans "Settings" %}</a>
+    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link active">{% trans "Calendar" %}</a>
+  </nav>
 
-<nav>
-  <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
-  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
-  <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
-  <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
-</nav>
+  <h3 class="mt-4">{{ repository.name }}</h3>
 
-<div class="container">
-  <h3 class="card-title">{{ repository.name }}</h3>
+  <div class="row mt-3 mb-3">
+    <form method="GET" action="" class="d-flex flex-wrap justify-content-between">
+      <div class="form-group col-md-2">
+        <label for="tip">{% trans "Тип" %}</label>
+        <select name="tip" id="tip" class="form-control" onchange="this.form.submit()">
+          <option value="">{% trans "Все" %}</option>
+          {% for option in tips %}
+            <option value="{{ option }}" {% if option == request.GET.tip %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="structure">{% trans "Возрастная группа" %}</label>
+        <select name="structure" id="structure" class="form-control" onchange="this.form.submit()">
+          <option value="">{% trans "Все" %}</option>
+          {% for option in structures %}
+            <option value="{{ option }}" {% if option == request.GET.structure %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group col-md-2 text-center">
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-primary mx-2" id="prev-month"><</button>
+          <h4 id="month-year" class="m-0 text-uppercase"></h4>
+          <button type="button" class="btn btn-outline-primary mx-2" id="next-month">></button>
+          <input type="hidden" name="date" id="hidden-date" value="{{ request.GET.date }}">
+        </div>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="region">{% trans "Регион" %}</label>
+        <select name="region" id="region" class="form-control" onchange="this.form.submit()">
+          <option value="">{% trans "Все" %}</option>
+          {% for option in regions %}
+            <option value="{{ option }}" {% if option == request.GET.region %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="discipline">{% trans "Дисциплина" %}</label>
+        <select name="discipline" id="discipline" class="form-control" onchange="this.form.submit()">
+          <option value="">{% trans "Все" %}</option>
+          {% for option in disciplines %}
+            <option value="{{ option }}" {% if option == request.GET.discipline %}selected{% endif %}>{{ option }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <div class="calendar">
+    <div class="calendar-body">
+      <div class="d-flex">
+        {% for day_week in day_week_list %}
+          <div class="week-day position-relative">
+            <div class="week_numb">{{ day_week }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% for week in calendar_weeks %}
+        <div class="calendar-week d-flex">
+          {% for day in week %}
+            <div class="calendar-day position-relative">
+              <div class="day-number">{{ day.date }}</div>
+              {% if day.events %}
+                <ul class="events-list">
+                  {% for event in day.events %}
+                    <li class="event-item"><a href="{% url 'calendar:detail_event' event.id %}">{{ event.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
+
+<link href="{% static 'css/flatpickr.min.css' %}" rel="stylesheet">
+<script src="{% static 'js/flatpickr.js' %}"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  let currentDate = new Date();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const dateParam = urlParams.get('date');
+  if (dateParam) {
+    currentDate = new Date(dateParam);
+  }
+
+  function updateMonthYearDisplay() {
+    const monthYearElement = document.getElementById("month-year");
+    const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+  }
+
+  function updateDateParamInUrl() {
+    const newDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-01`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('date', newDate);
+    window.location.href = url.toString();
+  }
+
+  document.getElementById("prev-month").addEventListener("click", function () {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    updateMonthYearDisplay();
+    updateDateParamInUrl();
+  });
+
+  document.getElementById("next-month").addEventListener("click", function () {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateMonthYearDisplay();
+    updateDateParamInUrl();
+  });
+
+  updateMonthYearDisplay();
+});
+
+</script>
+
+<style>
+  /* Calendar Styles */
+  .calendar {
+    display: flex;
+    margin-top: 30px;
+    height: 100vh;
+    margin-bottom: 800px;
+    justify-content: center;
+  }
+
+  .calendar-body {
+    gap: 10px;
+    padding: 20px 10px;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    height: 100%;
+    grid-auto-rows: minmax(100px, 1fr);
+  }
+
+  .calendar-week {
+    display: contents;
+  }
+
+  .calendar-day {
+    height: 270px;
+    width: 250px;
+    position: relative;
+    padding: 15px;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+  }
+
+  body[data-bs-theme="light"] .week-day .calendar-day {
+    color: #434343;
+  }
+
+  body[data-bs-theme="dark"] .week-day .calendar-day {
+    color: #fff;
+  }
+
+  body[data-bs-theme="light"] .event-item {
+    color: #000;
+  }
+
+  body[data-bs-theme="dark"] .event-item {
+    color: #fff;
+  }
+
+  .week-day {
+    height: 20px;
+    width: 250px;
+    position: relative;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .week_numb {
+    font-size: 1.6rem;
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+  }
+
+
+  .calendar-day:hover {
+    background-color: #a1a1a1;
+    transform: translateY(-3px);
+  }
+
+  .day-number {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .events-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    margin-left: 10px;
+  }
+
+  .event-item {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+
+
+  /* Buttons */
+  .btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .calendar-body {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .calendar-body {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
 
 {% endblock %}

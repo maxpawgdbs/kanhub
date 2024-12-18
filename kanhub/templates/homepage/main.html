@@ -1,7 +1,53 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Homepage" %}{% endblock %}
+{% block title %}{% trans "Kanhub - Task Management Platform" %}{% endblock %}
+
 {% block content %}
-    <h1>{% trans "Homepage" %}</h1>
+<div class="container py-5">
+    <div class="row text-center mb-4">
+        <div class="col">
+            <h1 class="display-4">{% trans "Welcome to Kanhub" %}</h1>
+            <p class="lead">{% trans "A powerful platform for managing tasks across repositories." %}</p>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <i class="bi bi-journal-text display-4 text-primary"></i>
+                    <h5 class="card-title mt-3">{% trans "Create Tasks" %}</h5>
+                    <p class="card-text">{% trans "Easily create and describe tasks with titles, deadlines, and tags." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <i class="bi bi-link display-4 text-success"></i>
+                    <h5 class="card-title mt-3">{% trans "Link Commits" %}</h5>
+                    <p class="card-text">{% trans "Connect tasks to specific commits and track changes effortlessly." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart-line display-4 text-warning"></i>
+                    <h5 class="card-title mt-3">{% trans "Track Progress" %}</h5>
+                    <p class="card-text">{% trans "Monitor task completion and repository progress in one place." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col text-center">
+            <a href="{% url 'users:signup' %}" class="btn btn-primary btn-lg">
+                <i class="bi bi-clipboard-plus"></i> {% trans "Get Started" %}
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
