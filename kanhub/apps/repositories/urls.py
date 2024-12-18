@@ -36,9 +36,9 @@ urlpatterns = [
         name="delete_task",
     ),
     django.urls.path(
-        '<int:pk>/task/<int:task_pk>/edit/',
+        "<int:pk>/task/<int:task_pk>/edit/",
         apps.repositories.views.EditTaskView.as_view(),
-        name='edit_task',
+        name="edit_task",
     ),
     django.urls.path(
         "<int:pk>/tasks/",

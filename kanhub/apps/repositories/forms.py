@@ -1,13 +1,15 @@
+__all__ = ()
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-import apps.repositories.models
 import apps.repositories.forms
+import apps.repositories.models
 
 
 class SettingsForm(forms.ModelForm):
     add_user = forms.CharField(required=False)
     del_selected_users = forms.BooleanField(required=False)
+
     class Meta:
         model = apps.repositories.models.Repository
         fields = ("name", "is_published", "users")
@@ -15,12 +17,15 @@ class SettingsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if len(args) == 0 and self.instance and self.instance.user:
-            self.fields["users"].queryset = self.instance.users.all().exclude(id=self.instance.user.id)
+            self.fields["users"].queryset = self.instance.users.all().exclude(
+                id=self.instance.user.id,
+            )
+
 
 class RepositoryForm(forms.ModelForm):
     class Meta:
         model = apps.repositories.models.Repository
-        fields = ('name', 'is_published')
+        fields = ("name", "is_published")
 
 
 class TaskForm(forms.ModelForm):
@@ -37,7 +42,6 @@ class TaskForm(forms.ModelForm):
                 format="%Y-%m-%d",
             ),
         }
-
 
     def clean(self):
         cleaned_data = super().clean()

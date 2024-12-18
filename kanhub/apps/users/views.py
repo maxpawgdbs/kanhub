@@ -1,9 +1,12 @@
 __all__ = ()
 
+import django.conf
 from django.contrib.auth import views
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+import django.utils
 from django.utils.translation import gettext_lazy as _
+from django.views import View
 from django.views.generic.edit import FormView
 
 from apps.users.forms import UserForm
@@ -43,3 +46,20 @@ class AccountView(LoginRequiredMixin, FormView):
 
 class PasswordChangeDoneView(views.PasswordChangeDoneView):
     pass
+
+
+class UnblockView(View):
+    def get(self, *args, **kwargs):
+        obj = get_object_or_404(
+            User.objects,
+            username=kwargs.get("username"),
+        )
+        date = obj.blocked_time
+        hours = django.utils.timezone.now() - date
+        hours = hours.total_seconds() / 3600
+        if obj.attempts_count >= django.conf.settings.MAX_AUTH_ATTEMPTS:
+            if hours < 24 * 7:
+                obj.is_active = True
+                obj.save()
+
+        return redirect("users:login")

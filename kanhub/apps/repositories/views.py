@@ -1,9 +1,9 @@
 __all__ = ()
 
 import django.conf
-import django.shortcuts
 import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
+import django.shortcuts
 
 import apps.repositories.forms
 import apps.repositories.models
@@ -15,6 +15,7 @@ class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
 
     def get_queryset(self):
         return self.request.user.repositories_contributed.all()
+
 
 class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
     template_name = "repositories/repository_history.html"
@@ -34,13 +35,15 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
-        queryset = apps.repositories.models.Commit.objects.filter(
-            repository=repository
+        return apps.repositories.models.Commit.objects.filter(
+            repository=repository,
         )
-        return queryset
 
 
-class RepositoryHistoryTasks(LoginRequiredMixin, django.views.generic.ListView):
+class RepositoryHistoryTasks(
+    LoginRequiredMixin,
+    django.views.generic.ListView,
+):
     template_name = "repositories/repository_history_tasks.html"
     context_object_name = "tasks"
 
@@ -56,11 +59,10 @@ class RepositoryHistoryTasks(LoginRequiredMixin, django.views.generic.ListView):
     def get_queryset(self):
         commit_id = self.kwargs["commit_id"]
 
-        queryset = apps.repositories.models.Task.objects.filter(
+        return apps.repositories.models.Task.objects.filter(
             first_commit__id__lte=commit_id,
-            commit__id__gte=commit_id
+            commit__id__gte=commit_id,
         )
-        return queryset
 
 
 class RepositoryDetail(django.views.generic.DetailView):
@@ -95,6 +97,7 @@ class RepositoryDelete(LoginRequiredMixin, django.views.generic.DeleteView):
         response = super().delete(request, *args, **kwargs)
         django.contrib.messages.success(request, "Репозиторий успешно удален!")
         return response
+
 
 class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     model = apps.repositories.models.Task
@@ -136,9 +139,9 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
 
     def get_success_url(self):
         return django.urls.reverse(
-            'repositories:detail',
-           kwargs={'pk': self.kwargs['pk']}
-       )
+            "repositories:detail",
+            kwargs={"pk": self.kwargs["pk"]},
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -180,11 +183,16 @@ class RepositoryTasks(django.views.generic.DetailView):
         context["tasks"] = tasks
         context["is_can"] = user in users
 
-        task_to_edit = self.request.POST.get(
-            'task_pk') if 'task_pk' in self.request.POST else None
+        task_to_edit = (
+            self.request.POST.get("task_pk")
+            if "task_pk" in self.request.POST
+            else None
+        )
         if task_to_edit:
-            context['task_to_edit'] = django.shortcuts.get_object_or_404(
-                apps.repositories.models.Task, id=task_to_edit)
+            context["task_to_edit"] = django.shortcuts.get_object_or_404(
+                apps.repositories.models.Task,
+                id=task_to_edit,
+            )
 
         return context
 
@@ -198,6 +206,7 @@ class RepositoryTask(django.views.generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["repository"] = self.object.commit.repository
         return context
+
 
 class RepositoryTaskDelete(django.views.generic.View):
     def get(self, request, *args, **kwargs):
@@ -225,7 +234,9 @@ class RepositoryTaskDelete(django.views.generic.View):
         )
 
         if last_commit:
-            apps.repositories.models.Task.objects.filter(commit=last_commit).update(commit=commit)
+            apps.repositories.models.Task.objects.filter(
+                commit=last_commit,
+            ).update(commit=commit)
             task.commit = last_commit
             task.save()
 
@@ -242,32 +253,31 @@ class RepositoryTaskDelete(django.views.generic.View):
 
 class EditTaskView(django.views.generic.edit.UpdateView):
     model = apps.repositories.models.Task
-    template_name = 'repositories/task_update.html'
+    template_name = "repositories/task_update.html"
     form_class = apps.repositories.forms.TaskForm
 
     def get_object(self):
-        task_id = self.kwargs.get('task_pk')
-        repository_id = self.kwargs.get('pk')
-        task = django.shortcuts.get_object_or_404(
+        task_id = self.kwargs.get("task_pk")
+        repository_id = self.kwargs.get("pk")
+        return django.shortcuts.get_object_or_404(
             apps.repositories.models.Task,
             id=task_id,
             commit__repository_id=repository_id,
         )
-        return task
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         task = self.object
         repository = task.commit.repository
-        context['repository'] = repository
-        context['last_task'] = task
+        context["repository"] = repository
+        context["last_task"] = task
         return context
 
     def form_valid(self, form):
         last_commit = apps.repositories.models.Commit.objects.filter(
             repository=self.get_object().commit.repository,
         ).last()
-        last_task_id = self.request.POST.get('last_task')
+        last_task_id = self.request.POST.get("last_task")
         last_task = apps.repositories.models.Task.objects.get(id=last_task_id)
 
         last_task = apps.repositories.models.Task.objects.create(
@@ -284,7 +294,7 @@ class EditTaskView(django.views.generic.edit.UpdateView):
         commit = apps.repositories.models.Commit.objects.create(
             name=f"Edit task {task.name}",
             user=self.request.user,
-            repository=self.get_object().commit.repository
+            repository=self.get_object().commit.repository,
         )
 
         if last_commit:
@@ -306,7 +316,10 @@ class EditTaskView(django.views.generic.edit.UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return django.urls.reverse('repositories:tasks', kwargs={'pk': self.object.commit.repository.id})
+        return django.urls.reverse(
+            "repositories:tasks",
+            kwargs={"pk": self.object.commit.repository.id},
+        )
 
 
 class RepositorySettings(django.views.generic.DetailView):
@@ -326,36 +339,44 @@ class RepositorySettings(django.views.generic.DetailView):
         data = apps.repositories.forms.SettingsForm(self.request.POST)
         if data.is_valid():
             if self.request.user == rep.user:
-                if data.cleaned_data["name"] and rep.name != data.cleaned_data["name"]:
+                if (
+                    data.cleaned_data["name"]
+                    and rep.name != data.cleaned_data["name"]
+                ):
                     rep.name = data.cleaned_data["name"]
                     django.contrib.messages.success(
                         self.request,
                         "Репозиторий переименован",
                     )
+
                 if rep.is_published != data.cleaned_data["is_published"]:
                     rep.is_published = data.cleaned_data["is_published"]
                     django.contrib.messages.success(
                         self.request,
                         "Статус публикации сменён",
                     )
+
                 if data.cleaned_data["add_user"]:
                     try:
-                        new_user = django.contrib.auth.get_user_model().objects.get(username=data.cleaned_data["add_user"])
+                        new_user = (
+                            django.contrib.auth.get_user_model().objects.get(
+                                username=data.cleaned_data["add_user"],
+                            )
+                        )
                         rep.users.add(new_user)
                         django.contrib.messages.error(
                             self.request,
-                            "Юзер добавлен"
+                            "Юзер добавлен",
                         )
                     except Exception:
                         django.contrib.messages.error(
                             self.request,
-                            "Юзер не найден"
+                            "Юзер не найден",
                         )
-                print(data.cleaned_data["users"], data.cleaned_data["del_selected_users"])
+
                 if data.cleaned_data["del_selected_users"]:
                     for user in data.cleaned_data["users"]:
                         rep.users.remove(user)
-
 
                 rep.full_clean()
                 rep.save()
@@ -364,10 +385,12 @@ class RepositorySettings(django.views.generic.DetailView):
                     self.request,
                     "У вас нет прав на изменение этого репозитория",
                 )
+
         else:
             for error in data.errors:
                 django.contrib.messages.success(
                     self.request,
                     error,
                 )
+
         return django.shortcuts.redirect("repositories:settings", pk=rep.id)

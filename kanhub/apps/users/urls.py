@@ -28,6 +28,7 @@ urlpatterns = [
         views.AccountView.as_view(),
         name="account",
     ),
+    path("unblock/<username>/", views.UnblockView.as_view(), name="unblock"),
     path(
         "signup/",
         SignupView.as_view(

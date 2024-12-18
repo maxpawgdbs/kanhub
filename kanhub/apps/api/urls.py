@@ -1,11 +1,23 @@
-from django.urls import path, include
+from django.urls import path
 
-from apps.api.views import RepositoryAPIView, CommitAPIView, TaskAPIView
+from apps.api.views import CommitAPIView, RepositoryAPIView, TaskAPIView
 
 urlpatterns = [
     path("repositories/", RepositoryAPIView.as_view(), name="repository-list"),
-    path('repositories/<int:pk>/', RepositoryAPIView.as_view(), name='repository-detail'),
+    path(
+        "repositories/<int:pk>/",
+        RepositoryAPIView.as_view(),
+        name="repository-detail",
+    ),
     path("commits/", CommitAPIView.as_view(), name="commit-list"),
-    path("repositories/<int:repository_id>/tasks/", TaskAPIView.as_view(), name="task-list"),
-    path('repositories/<int:repository_id>/tasks/<int:pk>/', TaskAPIView.as_view(), name='task-detail'),
+    path(
+        "repositories/<int:repository_id>/tasks/",
+        TaskAPIView.as_view(),
+        name="task-list",
+    ),
+    path(
+        "repositories/<int:repository_id>/tasks/<int:pk>/",
+        TaskAPIView.as_view(),
+        name="task-detail",
+    ),
 ]

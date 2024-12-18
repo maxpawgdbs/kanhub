@@ -22,11 +22,11 @@ urlpatterns = [
         include("apps.repositories.urls"),
     ),
     path(
-        'api/',
-        include('apps.api.urls'),
+        "api/",
+        include("apps.api.urls"),
     ),
     path(
-        'api-token-auth/',
+        "api-token-auth/",
         token_views.obtain_auth_token,
     ),
     path(

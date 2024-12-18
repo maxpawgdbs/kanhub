@@ -1,7 +1,9 @@
 __all__ = ()
 
+import django.contrib.auth.base_user
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import django.utils
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import delete, get_thumbnail
 
@@ -12,6 +14,10 @@ class User(AbstractUser):
         upload_to="avatars/",
         null=True,
         blank=True,
+    )
+    attempts_count = models.IntegerField(default=0)
+    blocked_time = models.DateTimeField(
+        default=django.utils.timezone.now,
     )
 
     def has_avatar(self):

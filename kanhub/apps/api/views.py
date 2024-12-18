@@ -1,12 +1,17 @@
+__all__ = ()
+
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from apps.repositories.models import Tag, Repository, Commit, Task
-from apps.api.serializers import RepositorySerializer, \
-    CommitSerializer, TaskSerializer
+from apps.api.serializers import (
+    CommitSerializer,
+    RepositorySerializer,
+    TaskSerializer,
+)
+from apps.repositories.models import Commit, Repository, Tag, Task
 
 
 class RepositoryAPIView(APIView):
@@ -23,44 +28,58 @@ class RepositoryAPIView(APIView):
             repository = serializer.save(user=self.request.user)
             repository.users.add(self.request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
         try:
             repository = Repository.objects.get(pk=pk, user=request.user)
         except Repository.DoesNotExist:
-            return Response({"error": "Repository not found or access denied"},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Repository not found or access denied"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
         serializer = RepositorySerializer(repository, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, pk):
         try:
             repository = Repository.objects.get(pk=pk, user=request.user)
         except Repository.DoesNotExist:
-            return Response({"error": "Repository not found or access denied"},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Repository not found or access denied"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
-        serializer = RepositorySerializer(repository, data=request.data,
-                                          partial=True)
+        serializer = RepositorySerializer(
+            repository,
+            data=request.data,
+            partial=True,
+        )
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         try:
             repository = Repository.objects.get(id=pk, user=request.user)
             repository.delete()
-            return Response({"detail": "Repository deleted successfully"},
-                            status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"detail": "Repository deleted successfully"},
+                status=status.HTTP_204_NO_CONTENT,
+            )
         except Repository.DoesNotExist:
-            return Response({"error": "Repository not found or access denied"},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Repository not found or access denied"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
 
 class CommitAPIView(APIView):
@@ -76,6 +95,7 @@ class CommitAPIView(APIView):
         if serializer.is_valid():
             serializer.save(user=self.request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -83,7 +103,11 @@ class TaskAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, repository_id, pk=0, *args, **kwargs):
-        repository = get_object_or_404(Repository, pk=repository_id, user=request.user)
+        repository = get_object_or_404(
+            Repository,
+            pk=repository_id,
+            user=request.user,
+        )
 
         if pk:
             tasks = Task.objects.filter(
@@ -116,8 +140,8 @@ class TaskAPIView(APIView):
         )
 
         data = request.data.copy()
-        data['commit'] = commit.id
-        data['first_commit'] = commit.id
+        data["commit"] = commit.id
+        data["first_commit"] = commit.id
 
         serializer = TaskSerializer(data=data)
         if serializer.is_valid():
@@ -127,10 +151,16 @@ class TaskAPIView(APIView):
                 Task.objects.filter(commit=last_commit).update(commit=commit)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, repository_id, pk):
-        task = get_object_or_404(Task, pk=pk, commit__repository_id=repository_id, commit__repository__user=request.user)
+        task = get_object_or_404(
+            Task,
+            pk=pk,
+            commit__repository_id=repository_id,
+            commit__repository__user=request.user,
+        )
 
         repository = task.commit.repository
         last_commit = Commit.objects.filter(repository=repository).last()
@@ -138,12 +168,12 @@ class TaskAPIView(APIView):
         commit = Commit.objects.create(
             name=f"Edit task {task.name}",
             user=request.user,
-            repository=repository
+            repository=repository,
         )
 
         request_data = request.data.copy()
-        request_data['commit'] = commit.id
-        request_data['first_commit'] = commit.id
+        request_data["commit"] = commit.id
+        request_data["first_commit"] = commit.id
 
         if last_commit:
             Task.objects.filter(
@@ -155,12 +185,20 @@ class TaskAPIView(APIView):
         serializer = TaskSerializer(task, data=request_data)
         if serializer.is_valid():
             updated_task = serializer.save()
-            return Response(TaskSerializer(updated_task).data, status=status.HTTP_200_OK)
+            return Response(
+                TaskSerializer(updated_task).data,
+                status=status.HTTP_200_OK,
+            )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, repository_id, pk):
-        task = get_object_or_404(Task, pk=pk, commit__repository_id=repository_id, commit__repository__user=request.user)
+        task = get_object_or_404(
+            Task,
+            pk=pk,
+            commit__repository_id=repository_id,
+            commit__repository__user=request.user,
+        )
 
         repository = task.commit.repository
         last_commit = Commit.objects.filter(repository=repository).last()
@@ -168,12 +206,12 @@ class TaskAPIView(APIView):
         commit = Commit.objects.create(
             name=f"Edit task {task.name}",
             user=request.user,
-            repository=repository
+            repository=repository,
         )
 
         request_data = request.data.copy()
-        request_data['commit'] = commit.id
-        request_data['first_commit'] = commit.id
+        request_data["commit"] = commit.id
+        request_data["first_commit"] = commit.id
 
         if last_commit:
             Task.objects.filter(
@@ -185,7 +223,10 @@ class TaskAPIView(APIView):
         serializer = TaskSerializer(task, data=request_data, partial=True)
         if serializer.is_valid():
             updated_task = serializer.save()
-            return Response(TaskSerializer(updated_task).data, status=status.HTTP_200_OK)
+            return Response(
+                TaskSerializer(updated_task).data,
+                status=status.HTTP_200_OK,
+            )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -193,9 +234,17 @@ class TaskAPIView(APIView):
         repository_id = self.kwargs.get("repository_id")
         task_id = self.kwargs.get("pk")
 
-        repository = get_object_or_404(Repository, pk=repository_id, user=request.user)
+        repository = get_object_or_404(
+            Repository,
+            pk=repository_id,
+            user=request.user,
+        )
 
-        task = get_object_or_404(Task, id=task_id, commit__repository=repository)
+        task = get_object_or_404(
+            Task,
+            id=task_id,
+            commit__repository=repository,
+        )
 
         last_commit = Commit.objects.filter(repository=repository).last()
 
@@ -210,4 +259,9 @@ class TaskAPIView(APIView):
             task.commit = last_commit
             task.save()
 
-        return Response({"detail": "Task 'deleted' successfully (marked as removed with new commit)."}, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "detail": "Task 'deleted' successfully (marked as removed with new commit).",
+            },
+            status=status.HTTP_200_OK,
+        )
