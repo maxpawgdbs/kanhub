@@ -25,6 +25,7 @@ ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
 )
 
 INSTALLED_APPS = [
+    "apps.core.apps.CoreConfig",
     "apps.users.apps.UsersConfig",
     "apps.about.apps.AboutConfig",
     "apps.homepage.apps.HomepageConfig",
@@ -84,6 +85,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.core.context_processor.server_url",
             ],
         },
     },

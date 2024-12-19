@@ -1,0 +1,52 @@
+{% extends "api/base.html" %}
+{% load i18n %}
+
+{% block api_title %}{% trans "API Preamble" %}{% endblock %}
+
+{% block api_content %}
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th scope="row">{% trans "Basic API Path:" %}</th>
+        <td><a href="{{ server_url }}/api/">{{ server_url }}/api/</a></td>
+      </tr>
+      <tr>
+        <th scope="row">{% trans "API Documentation Version" %}</th>
+        <td>{{ settings.API_VERSION }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>{% trans "Welcome to the Datanar API service documentation!" %}</p>
+  <p>{% trans "This API is designed to help you manage repositories, commits, and tasks." %}</p>
+  <p>{% trans "It allows you to perform CRUD operations for repositories and tasks related to specific commits." %}</p>
+
+  <h3>{% trans "Available API Endpoints" %}</h3>
+  <ul>
+    <li>
+      <strong>{% trans "Repositories" %}</strong> - <a href="{{ server_url }}/api/repositories/">{% trans "List of Repositories" %}</a>
+    </li>
+    <li>
+      <strong>{% trans "Repository Details" %}</strong> - <a href="{{ server_url }}/api/repositories/<int:pk>/">{% trans "Retrieve a single repository" %}</a>
+    </li>
+    <li>
+      <strong>{% trans "Tasks" %}</strong> - <a href="{{ server_url }}/api/repositories/{% trans "repository_id" %}/tasks/">{% trans "List of Tasks for a Repository" %}</a>
+    </li>
+    <li>
+      <strong>{% trans "Task Details" %}</strong> - <a href="{{ server_url }}/api/repositories/{% trans "repository_id" %}/tasks/<int:task_id>/">{% trans "Retrieve a specific task" %}</a>
+    </li>
+    <li>
+      <strong>{% trans "Commits" %}</strong> - <a href="{{ server_url }}/api/commits/">{% trans "List of Commits" %}</a>
+    </li>
+  </ul>
+
+  <h4>{% trans "Authentication" %}</h4>
+  <p>{% trans "To use this API, you must authenticate using a token." %}</p>
+  <ul>
+    <li>{% trans "You can obtain your token by sending a POST request to /api-token-auth/ with your username and password." %}</li>
+    <li>{% trans "Use the token as the Authorization header in your requests, with the format: Token <your_token>." %}</li>
+  </ul>
+
+  <h4>{% trans "Additional Information" %}</h4>
+  <p>{% trans "For any questions or support, feel free to reach out to us at the provided contact email." %}</p>
+{% endblock %}

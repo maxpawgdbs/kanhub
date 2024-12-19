@@ -11,6 +11,7 @@
     <nav class="my-auto nav-item dropdown">
       <a href="{% url 'homepage:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "Главная" %}</a>
       <a href="{% url 'about:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "О проекте" %}</a>
+      <a href="{% url 'api:docs_preamble' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "API" %}</a>
     </nav>
     <nav class="d-flex">
       <nav class="my-auto nav-item dropdown me-2">
