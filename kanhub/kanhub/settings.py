@@ -206,8 +206,8 @@ REST_FRAMEWORK = {
 SOCIALACCOUNT_PROVIDERS = {
     'yandex': {
         'APP': {
-            'client_id': 'a61ee5a0cf7e459d9230135137c69237',
-            'secret': '7bef5b95e1a14ef88e2b1624c14bd363',
+            'client_id': os.getenv("KANHUB_DJANGO_YANDEX_CLIENT_ID", default="apikey"),
+            'secret': os.getenv("KANHUB_DJANGO_YANDEX_SECRET", default="apikey"),
             'key': ''
         },
         'SCOPE': [
