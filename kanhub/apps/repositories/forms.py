@@ -38,22 +38,24 @@ class RepositoryForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs["class"] = "form-control"
+
     class Meta:
         model = apps.repositories.models.Task
         fields = ("name", "tags", "text", "start_at", "end_at")
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control",
-                                           "placeholder": _(
+            "name": forms.TextInput(attrs={"placeholder": _(
                                                "Enter task name")}),
-            "tags": forms.SelectMultiple(attrs={"class": "form-select"}),
-            "text": CKEditorWidget(attrs={"class": "form-control",
-                                          "placeholder": _(
-                                              "Enter task description")}),
+            "tags": forms.SelectMultiple(),
+            "text": CKEditorWidget(),
             "start_at": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"},
+                attrs={"type": "date"},
                 format="%Y-%m-%d"),
             "end_at": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"},
+                attrs={"type": "date"},
                 format="%Y-%m-%d"),
         }
 
@@ -62,8 +64,9 @@ class TaskForm(forms.ModelForm):
         date_start = cleaned_data.get("start_at")
         date_end = cleaned_data.get("end_at")
 
-        if date_start and date_end and date_end < date_start:
-            raise forms.ValidationError(
-                _("The end date must be after the start date."))
+        if date_start and date_end:
+            if date_start >= date_end:
+                raise forms.ValidationError(
+                    _("The end date must be after the start date."))
 
         return cleaned_data

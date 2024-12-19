@@ -5,13 +5,7 @@
 
 {% block content %}
 <div class="container py-4">
-  <nav class="nav nav-pills mb-3">
-    <a href="{% url 'repositories:detail' pk=repository.id %}" class="nav-link">{% trans "Information" %}</a>
-    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="nav-link active">{% trans "Tasks" %}</a>
-    <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link">{% trans "History" %}</a>
-    <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link">{% trans "Settings" %}</a>
-    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link">{% trans "Calendar" %}</a>
-  </nav>
+  {% include "includes/header_of_repo.html" %}
 
   {% if user.is_authenticated %}
     <div class="row g-3">

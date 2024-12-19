@@ -7,34 +7,28 @@
 
 {% block content %}
 <div class="container mt-4">
-  <nav class="nav nav-pills mb-3">
-    <a href="{% url 'repositories:detail' pk=repository.id %}" class="nav-link">{% trans "Information" %}</a>
-    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="nav-link">{% trans "Tasks" %}</a>
-    <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link">{% trans "History" %}</a>
-    <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link">{% trans "Settings" %}</a>
-    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link active">{% trans "Calendar" %}</a>
-  </nav>
+  {% include "includes/header_of_repo.html" %}
 
   <h3 class="mt-4">{{ repository.name }}</h3>
 
   <div class="row mt-3 mb-3">
     <form method="GET" action="" class="d-flex flex-wrap justify-content-between">
       <div class="form-group col-md-2">
-        <label for="tip">{% trans "Тип" %}</label>
-        <select name="tip" id="tip" class="form-control" onchange="this.form.submit()">
+        <label for="tag">{% trans "Тег" %}</label>
+        <select name="tag" id="tag" class="form-control" onchange="this.form.submit()">
           <option value="">{% trans "Все" %}</option>
-          {% for option in tips %}
-            <option value="{{ option }}" {% if option == request.GET.tip %}selected{% endif %}>{{ option }}</option>
+          {% for tag in tags %}
+            <option value="{{ tag }}" {% if tag == request.GET.tag %}selected{% endif %}>{{ tag }}</option>
           {% endfor %}
         </select>
       </div>
 
       <div class="form-group col-md-2">
-        <label for="structure">{% trans "Возрастная группа" %}</label>
-        <select name="structure" id="structure" class="form-control" onchange="this.form.submit()">
+        <label for="commit">{% trans "Коммит" %}</label>
+        <select name="commit" id="commit" class="form-control" onchange="this.form.submit()">
           <option value="">{% trans "Все" %}</option>
-          {% for option in structures %}
-            <option value="{{ option }}" {% if option == request.GET.structure %}selected{% endif %}>{{ option }}</option>
+          {% for commit in commits %}
+            <option value="{{ commit }}" {% if commit == request.GET.commit %}selected{% endif %}>{{ commit }}</option>
           {% endfor %}
         </select>
       </div>
@@ -49,23 +43,13 @@
       </div>
 
       <div class="form-group col-md-2">
-        <label for="region">{% trans "Регион" %}</label>
-        <select name="region" id="region" class="form-control" onchange="this.form.submit()">
-          <option value="">{% trans "Все" %}</option>
-          {% for option in regions %}
-            <option value="{{ option }}" {% if option == request.GET.region %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
+        <label for="start_at">{% trans "Дата начала" %}</label>
+        <input type="date" name="start_at" id="start_at" class="form-control" value="{{ request.GET.start_at }}">
       </div>
 
       <div class="form-group col-md-2">
-        <label for="discipline">{% trans "Дисциплина" %}</label>
-        <select name="discipline" id="discipline" class="form-control" onchange="this.form.submit()">
-          <option value="">{% trans "Все" %}</option>
-          {% for option in disciplines %}
-            <option value="{{ option }}" {% if option == request.GET.discipline %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
+        <label for="end_at">{% trans "Дата конца" %}</label>
+        <input type="date" name="end_at" id="end_at" class="form-control" value="{{ request.GET.end_at }}">
       </div>
     </form>
   </div>
@@ -84,10 +68,10 @@
           {% for day in week %}
             <div class="calendar-day position-relative">
               <div class="day-number">{{ day.date }}</div>
-              {% if day.events %}
+              {% if day.tasks %}
                 <ul class="events-list">
-                  {% for event in day.events %}
-                    <li class="event-item"><a href="{% url 'calendar:detail_event' event.id %}">{{ event.name }}</a></li>
+                  {% for task in day.tasks %}
+                  <li class="event-item"><a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}"><h3>{{ task.name }}</h3></a></li>
                   {% endfor %}
                 </ul>
               {% endif %}

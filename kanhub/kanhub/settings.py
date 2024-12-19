@@ -53,7 +53,11 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'width': '100%',
-    },
+        'extraPlugins': 'autogrow',
+        'autoGrow_maxHeight': 500,
+        'removePlugins': 'resize',
+        'placeholder': 'Enter task description',
+    }
 }
 
 MIDDLEWARE = [

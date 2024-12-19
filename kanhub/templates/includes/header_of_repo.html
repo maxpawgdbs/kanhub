@@ -1,0 +1,10 @@
+{% load i18n %}
+<nav class="nav nav-pills mb-3">
+    {% with request.resolver_match.view_name as view_name %}
+    <a href="{% url 'repositories:detail' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:detail' %}active{% endif %}">{% trans "Information" %}</a>
+    <a href="{% url 'repositories:tasks' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:tasks' %}active{% endif %}">{% trans "Tasks" %}</a>
+    <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:history' %}active{% endif %}">{% trans "History" %}</a>
+    <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:settings' %}active{% endif %}">{% trans "Settings" %}</a>
+    <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:calendar' %}active{% endif %}">{% trans "Calendar" %}</a>
+    {% endwith %}
+</nav>

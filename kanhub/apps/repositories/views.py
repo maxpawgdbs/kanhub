@@ -1,14 +1,14 @@
 __all__ = ()
 
 import calendar
-from datetime import datetime
-
-import django.conf
-import django.shortcuts
-from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import datetime, timedelta
 
 import apps.repositories.forms
 import apps.repositories.models
+import django.conf
+import django.shortcuts
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy
 
 
 class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
@@ -17,6 +17,7 @@ class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
 
     def get_queryset(self):
         return self.request.user.repositories_contributed.all()
+
 
 class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
     template_name = "repositories/repository_history.html"
@@ -42,7 +43,8 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
         return queryset
 
 
-class RepositoryHistoryTasks(LoginRequiredMixin, django.views.generic.ListView):
+class RepositoryHistoryTasks(LoginRequiredMixin,
+                             django.views.generic.ListView):
     template_name = "repositories/repository_history_tasks.html"
     context_object_name = "tasks"
 
@@ -140,8 +142,8 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     def get_success_url(self):
         return django.urls.reverse(
             'repositories:detail',
-           kwargs={'pk': self.kwargs['pk']}
-       )
+            kwargs={'pk': self.kwargs['pk']}
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -153,117 +155,86 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
         return context
 
 
-class RepositoryCalendar(django.views.generic.DetailView):
+class RepositoryCalendar(django.views.generic.ListView):
     template_name = "repositories/repository_calendar.html"
 
     def get_queryset(self):
-        queryset = apps.repositories.models.Repository.objects.all()
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
 
-        date = self.request.GET.get("date")
-        if date:
+        commit = apps.repositories.models.Commit.objects.filter(
+            repository=repository,
+        ).last()
+
+        if not commit:
+            return apps.repositories.models.Task.objects.none()
+
+        queryset = apps.repositories.models.Task.objects.filter(commit=commit)
+
+        tag = self.request.GET.get("tag")
+        if tag:
+            queryset = queryset.filter(tags__name__icontains=tag)
+
+        start_date = self.request.GET.get("start_at")
+        if start_date:
             try:
-                input_date = datetime.strptime(date, "%Y-%m-%d").date()
-                _, last_day_of_month = calendar.monthrange(input_date.year,
-                                                           input_date.month)
-                last_day_of_month = input_date.replace(day=last_day_of_month)
-                queryset = queryset.filter(
-                    created_at__lte=last_day_of_month,
-                    updated_at__gte=input_date,
-                )
+                start_date_obj = datetime.strptime(start_date, "%Y-%m-%d").date()
+                queryset = queryset.filter(start_at__gte=start_date_obj)
             except ValueError:
                 pass
-        else:
-            today = datetime.today()
-            first_day_of_month = today.replace(day=1)
-            _, last_day_of_month = calendar.monthrange(today.year, today.month)
-            last_day_of_month = first_day_of_month.replace(
-                day=last_day_of_month)
-            queryset = queryset.filter(
-                created_at__lte=last_day_of_month,
-                updated_at__gte=first_day_of_month,
-            )
+
+        end_date = self.request.GET.get("end_at")
+        if end_date:
+            try:
+                end_date_obj = datetime.strptime(end_date, "%Y-%m-%d").date()
+                queryset = queryset.filter(end_at__lte=end_date_obj)
+            except ValueError:
+                pass
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context["page_obj"] = self.get_queryset
-        context["disciplines"] = (
-            meropriations.models.Discipline.objects.values_list(
-                "name",
-                flat=True,
-            )
-            .distinct()
-            .order_by("name")
-        )
-        context["tips"] = (
-            meropriations.models.Meropriation.objects.values_list(
-                "tip__name",
-                flat=True,
-            )
-            .distinct()
-            .order_by("tip__name")
-        )
-        context["structures"] = (
-            meropriations.models.Meropriation.objects.values_list(
-                "structure__name",
-                flat=True,
-            )
-            .distinct()
-            .order_by("structure__name")
-        )
-        context["regions"] = (
-            meropriations.models.Meropriation.objects.values_list(
-                "region__name",
-                flat=True,
-            )
-            .distinct()
-            .order_by("region__name")
-        )
-        context["request"] = self.request
-        context["day_week_list"] = [
-            "Понедельник",
-            "Вторник",
-            "Среда",
-            "Четверг",
-            "Пятница",
-            "Суббота",
-            "Воскресенье",
-        ]
+        context["tasks"] = self.get_queryset()
 
         date = self.request.GET.get("date")
-
         if date:
             try:
                 input_date = datetime.strptime(date, "%Y-%m-%d").date()
                 date_delta = input_date.weekday()
             except ValueError:
-                input_date = datetime.now()
+                input_date = datetime.now().date()
                 date_delta = input_date.weekday()
         else:
-            input_date = datetime.now()
+            input_date = datetime.now().date()
             date_delta = input_date.weekday()
 
         queryset = self.get_queryset()
-        grouped_events = defaultdict(list)
-        for event in queryset:
-            start_date = event.date_start
-            end_date = event.date_end
+        grouped_task = {}
+
+        for task in queryset:
+            start_date = task.start_at
+            end_date = task.end_at
             current_date = start_date
             while current_date <= end_date:
-                grouped_events[current_date.day].append(event)
+                date_key = f"{current_date.year}-{current_date.month:02d}-{current_date.day:02d}"
+
+                if date_key not in grouped_task:
+                    grouped_task[date_key] = []
+
+                grouped_task[date_key].append(task)
                 current_date += timedelta(days=1)
 
-        _, days_in_month = calendar.monthrange(
-            input_date.year,
-            input_date.month,
-        )
+        _, days_in_month = calendar.monthrange(input_date.year,
+                                               input_date.month)
         weeks = []
-        current_week = [0] * date_delta
+        current_week = [None] * date_delta
         for day in range(1, days_in_month + 1):
-            events_for_day = grouped_events.get(day, [])
-            current_week.append({"date": day, "events": events_for_day})
+            date_key = f"{input_date.year}-{input_date.month:02d}-{day:02d}"
+            tasks_for_day = grouped_task.get(date_key, [])
+            current_week.append({"date": day, "tasks": tasks_for_day})
 
             if len(current_week) == 7:
                 weeks.append(current_week)
@@ -273,6 +244,29 @@ class RepositoryCalendar(django.views.generic.DetailView):
             weeks.append(current_week)
 
         context["calendar_weeks"] = weeks
+
+        # Дополнительные данные для фильтрации
+        context["tags"] = apps.repositories.models.Tag.objects.values_list(
+            "name", flat=True).distinct()
+        context["commits"] = apps.repositories.models.Commit.objects.filter(
+            repository=self.kwargs["pk"]).values_list("name",
+                                                      flat=True).distinct()
+
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        context["repository"] = repository
+        context["day_week_list"] = [
+            gettext_lazy("Monday"),
+            gettext_lazy("Tuesday"),
+            gettext_lazy("Wednesday"),
+            gettext_lazy("Thursday"),
+            gettext_lazy("Friday"),
+            gettext_lazy("Saturday"),
+            gettext_lazy("Sunday"),
+        ]
+
         return context
 
 
@@ -319,6 +313,7 @@ class RepositoryTask(django.views.generic.DetailView):
         context["repository"] = self.object.commit.repository
         return context
 
+
 class RepositoryTaskDelete(django.views.generic.View):
     def get(self, request, *args, **kwargs):
         repository_id = self.kwargs.get("pk")
@@ -345,7 +340,8 @@ class RepositoryTaskDelete(django.views.generic.View):
         )
 
         if last_commit:
-            apps.repositories.models.Task.objects.filter(commit=last_commit).update(commit=commit)
+            apps.repositories.models.Task.objects.filter(
+                commit=last_commit).update(commit=commit)
             task.commit = last_commit
             task.save()
 
@@ -426,7 +422,8 @@ class EditTaskView(django.views.generic.edit.UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return django.urls.reverse('repositories:tasks', kwargs={'pk': self.object.commit.repository.id})
+        return django.urls.reverse('repositories:tasks', kwargs={
+            'pk': self.object.commit.repository.id})
 
 
 class RepositorySettings(django.views.generic.DetailView):

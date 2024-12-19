@@ -9,9 +9,11 @@
       <span class="ms-2 fw-bold">Kanhub</span>
     </a>
     <nav class="my-auto nav-item dropdown">
+      {% with request.resolver_match.view_name as view_name %}
       <a href="{% url 'homepage:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "Главная" %}</a>
-      <a href="{% url 'about:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "О проекте" %}</a>
-      <a href="{% url 'api:docs_preamble' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "API" %}</a>
+      <a href="{% url 'about:main' %}" class="{% if view_name == 'about:main' %}active{% endif %}">{% trans "О проекте" %}</a>
+      <a href="{% url 'api:docs_preamble' %}" class="{% if view_name == 'api:docs_preamble' %}active{% endif %}">{% trans "API" %}</a>
+      {% endwith %}
     </nav>
     <nav class="d-flex">
       <nav class="my-auto nav-item dropdown me-2">
