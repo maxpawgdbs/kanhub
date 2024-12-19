@@ -9,6 +9,7 @@
 - [Структура проекта](#структура-проекта)
   - [Стек технологий](#используемые-фреймворки--библиотеки)
   - [База данных](#база-данных)
+- [Развёртывание](#развёртывание)
 - [Авторы](#авторы)
 
 ## Введение
@@ -49,6 +50,97 @@ Kanhub предоставляет пользователю весь этот ф�
 ### База данных
 Функциональная структура базы данных следующая:
 ![scheme](ER.jpg)
+
+## Развёртывание
+
+### Клонируем проект
+
+```
+git clone https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/
+```
+
+### Устанавливаем venv
+
+```
+python -m venv venv
+```
+
+### Активируем activate
+
+```
+source venv/bin/activate
+```
+
+### Устанавливаем зависимости
+
+```
+pip install -r requirements/prod.txt
+pip install -r requirements/dev.txt
+pip install -r requirements/test.txt
+pip install -r requirements/flake8.txt
+```
+
+### Копируем env
+
+```
+copy .env.example .env
+```
+
+### Переходим в папку с manage.py
+
+```
+cd lyceum
+```
+
+### Настраиваем язык (django-admin makemessages)
+
+```
+django-admin makemessages -l en
+django-admin makemessages -l ru
+```
+
+### Скомпилировать в двоичный язык (django-admin compilemessages)
+
+```
+django-admin compilemessages -l en
+django-admin compilemessages -l ru
+```
+
+### Настраиваем миграции
+
+```
+python manage.py migrate
+```
+
+### Загружаем фикструры
+
+```
+python manage.py loaddata fixtures/data.json
+```
+
+### Сбор статики 
+
+```
+python manage.py collectstatic
+```
+
+### Тестирование проекта
+
+```
+python manage.py test
+```
+
+### Запускаем сервер 
+
+```
+python manage.py runserver
+```
+
+### Переходим на сайт
+
+```
+http://127.0.0.1:8000/
+```
 
 ## Авторы:
 <div style="display: flex; align-items: center;">

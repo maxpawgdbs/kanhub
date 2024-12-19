@@ -6,5 +6,6 @@
     <a href="{% url 'repositories:history' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:history' %}active{% endif %}">{% trans "History" %}</a>
     <a href="{% url 'repositories:settings' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:settings' %}active{% endif %}">{% trans "Settings" %}</a>
     <a href="{% url 'repositories:calendar' pk=repository.id %}" class="nav-link {% if view_name == 'repositories:calendar' %}active{% endif %}">{% trans "Calendar" %}</a>
+    <a href="{% url 'stats:stat' pk=repository.id %}" class="nav-link {% if view_name == 'stats:stat' %}active{% endif %}">{% trans "Stats" %}</a>
     {% endwith %}
 </nav>

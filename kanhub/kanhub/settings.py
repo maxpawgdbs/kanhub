@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "apps.users.apps.UsersConfig",
     "apps.about.apps.AboutConfig",
     "apps.homepage.apps.HomepageConfig",
+    "apps.stats.apps.StatsConfig",
     "apps.api.apps.ApiConfig",
     "apps.repositories.apps.RepositoriesConfig",
     "django.contrib.admin",

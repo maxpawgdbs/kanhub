@@ -7,8 +7,14 @@ import apps.repositories.forms
 import apps.repositories.models
 import django.conf
 import django.shortcuts
+from django.http import Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext_lazy
+
+
+def check_repository_access(repository, user):
+    if not repository.is_published and user not in repository.users.all() and repository.user != user:
+        raise Http404("Репозиторий недоступен.")
 
 
 class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
@@ -19,7 +25,7 @@ class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
         return self.request.user.repositories_contributed.all()
 
 
-class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
+class RepositoryHistory(django.views.generic.ListView):
     template_name = "repositories/repository_history.html"
     context_object_name = "histories"
 
@@ -29,6 +35,7 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
+        check_repository_access(repository, self.request.user)
         context["repository"] = repository
         return context
 
@@ -43,8 +50,7 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
         return queryset
 
 
-class RepositoryHistoryTasks(LoginRequiredMixin,
-                             django.views.generic.ListView):
+class RepositoryHistoryTasks(django.views.generic.ListView):
     template_name = "repositories/repository_history_tasks.html"
     context_object_name = "tasks"
 
@@ -54,6 +60,9 @@ class RepositoryHistoryTasks(LoginRequiredMixin,
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
+
+        check_repository_access(repository, self.request.user)
+
         context["repository"] = repository
         return context
 
@@ -71,6 +80,15 @@ class RepositoryDetail(django.views.generic.DetailView):
     template_name = "repositories/repository_detail.html"
     context_object_name = "repository"
     queryset = apps.repositories.models.Repository.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+        return context
 
 
 class RepositoryNew(LoginRequiredMixin, django.views.generic.CreateView):
@@ -151,6 +169,8 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
+        if not repository.is_published and self.request.user not in repository.users.all() and repository.user != self.request.user:
+            raise Http404("Репозиторий недоступен.")
         context["repository"] = repository
         return context
 
@@ -197,6 +217,13 @@ class RepositoryCalendar(django.views.generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+
         context["tasks"] = self.get_queryset()
 
         date = self.request.GET.get("date")
@@ -245,17 +272,12 @@ class RepositoryCalendar(django.views.generic.ListView):
 
         context["calendar_weeks"] = weeks
 
-        # Дополнительные данные для фильтрации
         context["tags"] = apps.repositories.models.Tag.objects.values_list(
             "name", flat=True).distinct()
         context["commits"] = apps.repositories.models.Commit.objects.filter(
             repository=self.kwargs["pk"]).values_list("name",
                                                       flat=True).distinct()
 
-        repository = django.shortcuts.get_object_or_404(
-            apps.repositories.models.Repository,
-            pk=self.kwargs["pk"],
-        )
         context["repository"] = repository
         context["day_week_list"] = [
             gettext_lazy("Monday"),
@@ -278,6 +300,8 @@ class RepositoryTasks(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         repository = self.object
+
+        check_repository_access(repository, self.request.user)
 
         commits = apps.repositories.models.Commit.objects.filter(
             repository=repository,
@@ -311,6 +335,10 @@ class RepositoryTask(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["repository"] = self.object.commit.repository
+        repository = context["repository"]
+
+        check_repository_access(repository, self.request.user)
+
         return context
 
 
@@ -323,6 +351,9 @@ class RepositoryTaskDelete(django.views.generic.View):
             apps.repositories.models.Repository,
             pk=repository_id,
         )
+
+        check_repository_access(repository, self.request.user)
+
         task = django.shortcuts.get_object_or_404(
             apps.repositories.models.Task,
             id=task_id,
@@ -375,6 +406,9 @@ class EditTaskView(django.views.generic.edit.UpdateView):
         context = super().get_context_data(**kwargs)
         task = self.object
         repository = task.commit.repository
+
+        check_repository_access(repository, self.request.user)
+
         context['repository'] = repository
         context['last_task'] = task
         return context
@@ -436,6 +470,7 @@ class RepositorySettings(django.views.generic.DetailView):
         context["settings_form"] = apps.repositories.forms.SettingsForm(
             instance=self.object,
         )
+        check_repository_access(self.object, self.request.user)
         return context
 
     def post(self, *args, **kwargs):

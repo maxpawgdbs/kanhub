@@ -22,6 +22,10 @@ urlpatterns = [
         include("apps.repositories.urls"),
     ),
     path(
+        "stats/",
+        include("apps.stats.urls"),
+    ),
+    path(
         'api/',
         include('apps.api.urls'),
     ),
