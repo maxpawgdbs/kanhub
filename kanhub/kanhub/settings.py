@@ -51,10 +51,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "ckeditor",
+'django.contrib.sites',
     "allauth",
     "allauth.account",
+'allauth.socialaccount',
+    'allauth.socialaccount.providers.yandex',
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -200,3 +203,22 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+SOCIALACCOUNT_PROVIDERS = {
+    'yandex': {
+        'APP': {
+            'client_id': 'a61ee5a0cf7e459d9230135137c69237',
+            'secret': '7bef5b95e1a14ef88e2b1624c14bd363',
+            'key': ''
+        },
+        'SCOPE': [
+            'login:info',
+            'login:email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+'REDIRECT_URL': 'http://127.0.0.1:8000/auth/yandex/login/callback/'
+    }
+
+}
+SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"

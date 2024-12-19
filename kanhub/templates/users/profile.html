@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load socialaccount %}
 
 {% block title %}{% trans "my_profile" %}{% endblock %}
 
@@ -46,5 +47,5 @@
     <a class="btn btn-outline" href="{% url 'users:password_change' %}">{% trans "change_password" %}</a>
   </div>
 </form>
-
+<a href="{% provider_login_url 'yandex' %}">Войти через Яндекс</a>
 {% endblock %}
