@@ -11,13 +11,8 @@ class AuthenticateBackend(django.contrib.auth.backends.ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
             if "@" in username:
-                normalized_email = (
-                    apps.users.models.User.objects.normalize_email(
-                        username,
-                    )
-                )
                 user = apps.users.models.User.objects.by_mail(
-                    email=normalized_email,
+                    email=username,
                 )
             else:
                 user = apps.users.models.User.objects.get(username=username)

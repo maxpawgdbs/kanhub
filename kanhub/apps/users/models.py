@@ -8,7 +8,15 @@ from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import delete, get_thumbnail
 
 
+class Manager(django.contrib.auth.base_user.BaseUserManager):
+    def by_mail(self, email):
+        return self.get(
+            **{self.model.EMAIL_FIELD: self.normalize_email(email)},
+        )
+
+
 class User(AbstractUser):
+    objects = Manager()
     avatar = models.ImageField(
         _("avatar"),
         upload_to="avatars/",
