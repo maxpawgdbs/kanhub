@@ -17,17 +17,13 @@ class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
         return self.request.user.repositories_contributed.all()
 
 
-class RepositoryHistory(LoginRequiredMixin, django.views.generic.ListView):
+class RepositoryHistory(LoginRequiredMixin, django.views.generic.DetailView):
     template_name = "repositories/repository_history.html"
     context_object_name = "histories"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        repository = django.shortcuts.get_object_or_404(
-            apps.repositories.models.Repository,
-            pk=self.kwargs["pk"],
-        )
-        context["repository"] = repository
+        context["repository"] = self.object
         return context
 
     def get_queryset(self):
@@ -329,8 +325,9 @@ class RepositorySettings(django.views.generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        obj = self.object
         context["settings_form"] = apps.repositories.forms.SettingsForm(
-            instance=self.object,
+            instance=obj,
         )
         return context
 

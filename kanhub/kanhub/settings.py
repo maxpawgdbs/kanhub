@@ -22,6 +22,12 @@ DEFAULT_USER_IS_ACTIVE = load_bool("KANHUB_DJANGO_IS_ACTIVE", DEBUG)
 MAX_AUTH_ATTEMPTS = int(
     os.getenv("KANHUB_DJANGO_MAX_AUTH_ATTEMPTS", default=3),
 )
+if DEBUG:
+    def show_toolbar(request):
+        return True
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+    }
 
 ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
     ",",
