@@ -1,5 +1,6 @@
-import django.test
+__all__ = ()
 import django.shortcuts
+import django.test
 
 import apps.repositories.models
 
@@ -29,7 +30,7 @@ class TestRepositories(django.test.TestCase):
 
     def test_status_code(self):
         response = django.test.Client().get(
-            django.shortcuts.reverse("repositories:list")
+            django.shortcuts.reverse("repositories:list"),
         )
         self.assertEqual(response.status_code, 302)
 
@@ -39,7 +40,7 @@ class TestRepositories(django.test.TestCase):
         data = {"name": "rep2test", "is_published": True}
         self.client.post(django.shortcuts.reverse("repositories:new"), data)
         response = self.client.get(
-            django.shortcuts.reverse("repositories:list")
+            django.shortcuts.reverse("repositories:list"),
         )
         self.assertEqual(2, len(response.context["repositories"]))
 
@@ -47,7 +48,7 @@ class TestRepositories(django.test.TestCase):
         data = {"name": "rep1test", "is_published": True}
         self.client.post(django.shortcuts.reverse("repositories:new"), data)
         response = self.client.get(
-            django.shortcuts.reverse("repositories:detail", args=[1])
+            django.shortcuts.reverse("repositories:detail", args=[1]),
         )
 
         rep = django.shortcuts.get_object_or_404(

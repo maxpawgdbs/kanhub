@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import django.conf
 import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 import django.shortcuts
 from django.utils.translation import gettext_lazy
 
@@ -130,6 +130,12 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_new.html"
     form_class = apps.repositories.forms.TaskForm
+
+    def get(self, *args, **kwargs):
+        if self.request.user != self.get_object().first_commit.repository.user:
+            return HttpResponseForbidden()
+
+        return super().get(self, *args, **kwargs)
 
     def form_valid(self, form):
         repository = django.shortcuts.get_object_or_404(
@@ -327,7 +333,7 @@ class RepositoriesCalendar(django.views.generic.ListView):
 
     def get_queryset(self):
         queryset = apps.repositories.models.Repository.objects.filter(
-            is_published=True
+            is_published=True,
         )
 
         # Фильтр по дате создания
@@ -335,7 +341,8 @@ class RepositoriesCalendar(django.views.generic.ListView):
         if created_from:
             try:
                 created_from_date = datetime.strptime(
-                    created_from, "%Y-%m-%d"
+                    created_from,
+                    "%Y-%m-%d",
                 ).date()
                 queryset = queryset.filter(created_at__gte=created_from_date)
             except ValueError:
@@ -345,7 +352,8 @@ class RepositoriesCalendar(django.views.generic.ListView):
         if created_to:
             try:
                 created_to_date = datetime.strptime(
-                    created_to, "%Y-%m-%d"
+                    created_to,
+                    "%Y-%m-%d",
                 ).date()
                 queryset = queryset.filter(created_at__lte=created_to_date)
             except ValueError:
@@ -356,7 +364,8 @@ class RepositoriesCalendar(django.views.generic.ListView):
         if updated_from:
             try:
                 updated_from_date = datetime.strptime(
-                    updated_from, "%Y-%m-%d"
+                    updated_from,
+                    "%Y-%m-%d",
                 ).date()
                 queryset = queryset.filter(updated_at__gte=updated_from_date)
             except ValueError:
@@ -366,7 +375,8 @@ class RepositoriesCalendar(django.views.generic.ListView):
         if updated_to:
             try:
                 updated_to_date = datetime.strptime(
-                    updated_to, "%Y-%m-%d"
+                    updated_to,
+                    "%Y-%m-%d",
                 ).date()
                 queryset = queryset.filter(updated_at__lte=updated_to_date)
             except ValueError:
@@ -395,7 +405,10 @@ class RepositoriesCalendar(django.views.generic.ListView):
 
         for repository in queryset:
             created_date = repository.created_at.date()
-            date_key = f"{created_date.year}-{created_date.month:02d}-{created_date.day:02d}"
+            year = created_date.year
+            month = created_date.month
+            day = created_date.day
+            date_key = f"{year}-{month:02d}-{day:02d}"
 
             if date_key not in grouped_repositories:
                 grouped_repositories[date_key] = []
@@ -403,7 +416,8 @@ class RepositoriesCalendar(django.views.generic.ListView):
             grouped_repositories[date_key].append(repository)
 
         _, days_in_month = calendar.monthrange(
-            input_date.year, input_date.month
+            input_date.year,
+            input_date.month,
         )
         weeks = []
         current_week = [None] * date_delta
@@ -411,7 +425,7 @@ class RepositoriesCalendar(django.views.generic.ListView):
             date_key = f"{input_date.year}-{input_date.month:02d}-{day:02d}"
             repositories_for_day = grouped_repositories.get(date_key, [])
             current_week.append(
-                {"date": day, "repositories": repositories_for_day}
+                {"date": day, "repositories": repositories_for_day},
             )
 
             if len(current_week) == 7:
@@ -499,6 +513,8 @@ class RepositoryTaskDelete(django.views.generic.View):
             apps.repositories.models.Repository,
             pk=repository_id,
         )
+        if self.request.user != repository.user:
+            return HttpResponseForbidden()
 
         check_repository_access(repository, self.request.user)
 
@@ -540,6 +556,12 @@ class EditTaskView(django.views.generic.edit.UpdateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_update.html"
     form_class = apps.repositories.forms.TaskForm
+
+    def get(self, *args, **kwargs):
+        if self.request.user == self.get_object().first_commit.repository.user:
+            return super().get(self, *args, **kwargs)
+
+        return HttpResponseForbidden()
 
     def get_object(self):
         task_id = self.kwargs.get("task_pk")
@@ -625,6 +647,12 @@ class RepositorySettings(django.views.generic.DetailView):
         )
         check_repository_access(self.object, self.request.user)
         return context
+
+    def get(self, *args, **kwargs):
+        if self.request.user == self.get_object().user:
+            return super().get(self, *args, **kwargs)
+
+        return HttpResponseForbidden()
 
     def post(self, *args, **kwargs):
         rep = self.get_object()

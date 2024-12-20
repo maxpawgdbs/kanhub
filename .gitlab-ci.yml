@@ -1,5 +1,5 @@
 stages:
-  [ 'linting', 'refactoring' ]
+  [ 'linting', 'refactoring', 'test' ]
 
 flake8:
   stage: linting
@@ -13,3 +13,10 @@ black:
   image: registry.gitlab.com/pipeline-components/black:latest
   script:
     - black --check .
+
+test:
+  stage: test
+  image: python3.11
+  script:
+    - pip install -r requirements/test.txt
+    - python3 kanhub/manage.py test
