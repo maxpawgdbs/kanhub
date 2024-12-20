@@ -14,7 +14,11 @@ import apps.repositories.models
 
 
 def check_repository_access(repository, user):
-    if not repository.is_published and user not in repository.users.all() and repository.user != user:
+    if (
+        not repository.is_published
+        and user not in repository.users.all()
+        and repository.user != user
+    ):
         raise Http404("Репозиторий недоступен.")
 
 
@@ -169,7 +173,11 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
-        if not repository.is_published and self.request.user not in repository.users.all() and repository.user != self.request.user:
+        if (
+            not repository.is_published
+            and self.request.user not in repository.users.all()
+            and repository.user != self.request.user
+        ):
             raise Http404("Репозиторий недоступен.")
         context["repository"] = repository
         return context
@@ -200,8 +208,9 @@ class RepositoryCalendar(django.views.generic.ListView):
         start_date = self.request.GET.get("start_at")
         if start_date:
             try:
-                start_date_obj = datetime.strptime(start_date,
-                                                   "%Y-%m-%d").date()
+                start_date_obj = datetime.strptime(
+                    start_date, "%Y-%m-%d"
+                ).date()
                 queryset = queryset.filter(start_at__gte=start_date_obj)
             except ValueError:
                 pass
@@ -255,8 +264,9 @@ class RepositoryCalendar(django.views.generic.ListView):
                 grouped_task[date_key].append(task)
                 current_date += timedelta(days=1)
 
-        _, days_in_month = calendar.monthrange(input_date.year,
-                                               input_date.month)
+        _, days_in_month = calendar.monthrange(
+            input_date.year, input_date.month
+        )
         weeks = []
         current_week = [None] * date_delta
         for day in range(1, days_in_month + 1):
@@ -274,10 +284,15 @@ class RepositoryCalendar(django.views.generic.ListView):
         context["calendar_weeks"] = weeks
 
         context["tags"] = apps.repositories.models.Tag.objects.values_list(
-            "name", flat=True).distinct()
-        context["commits"] = apps.repositories.models.Commit.objects.filter(
-            repository=self.kwargs["pk"]).values_list("name",
-                                                      flat=True).distinct()
+            "name", flat=True
+        ).distinct()
+        context["commits"] = (
+            apps.repositories.models.Commit.objects.filter(
+                repository=self.kwargs["pk"]
+            )
+            .values_list("name", flat=True)
+            .distinct()
+        )
 
         context["repository"] = repository
         context["day_week_list"] = [
@@ -417,8 +432,8 @@ class EditTaskView(django.views.generic.edit.UpdateView):
 
         check_repository_access(repository, self.request.user)
 
-        context['repository'] = repository
-        context['last_task'] = task
+        context["repository"] = repository
+        context["last_task"] = task
         return context
 
     def form_valid(self, form):
@@ -490,8 +505,8 @@ class RepositorySettings(django.views.generic.DetailView):
         if data.is_valid():
             if self.request.user == rep.user:
                 if (
-                        data.cleaned_data["name"]
-                        and rep.name != data.cleaned_data["name"]
+                    data.cleaned_data["name"]
+                    and rep.name != data.cleaned_data["name"]
                 ):
                     rep.name = data.cleaned_data["name"]
                     django.contrib.messages.success(

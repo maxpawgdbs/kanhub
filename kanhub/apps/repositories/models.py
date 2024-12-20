@@ -73,7 +73,11 @@ class Repository(django.db.models.Model):
     def get_statistics(self):
         commits_count = self.commit_set.count()
         tasks_count = self.task_set.count()
-        unique_tags_count = Tag.objects.filter(task__commit__repository=self).distinct().count()
+        unique_tags_count = (
+            Tag.objects.filter(task__commit__repository=self)
+            .distinct()
+            .count()
+        )
         active_users_count = self.users.count()
 
         return {
@@ -82,6 +86,7 @@ class Repository(django.db.models.Model):
             "unique_tags_count": unique_tags_count,
             "active_users_count": active_users_count,
         }
+
 
 class Commit(django.db.models.Model):
     name = django.db.models.CharField(

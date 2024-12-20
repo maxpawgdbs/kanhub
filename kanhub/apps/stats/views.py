@@ -20,7 +20,9 @@ class RepositoryStatistics(TemplateView):
             raise Http404("Репозиторий недоступен.")
 
         commits_count = repository.commit_set.count()
-        tasks_count = Task.objects.filter(commit__repository=repository).count()
+        tasks_count = Task.objects.filter(
+            commit__repository=repository
+        ).count()
         latest_commit = repository.commit_set.order_by("-created_at").first()
 
         tasks_by_tags = (
@@ -29,11 +31,13 @@ class RepositoryStatistics(TemplateView):
             .annotate(count=Count("tags"))
         )
 
-        context.update({
-            "repository": repository,
-            "commits_count": commits_count,
-            "tasks_count": tasks_count,
-            "latest_commit": latest_commit,
-            "tasks_by_tags": tasks_by_tags,
-        })
+        context.update(
+            {
+                "repository": repository,
+                "commits_count": commits_count,
+                "tasks_count": tasks_count,
+                "latest_commit": latest_commit,
+                "tasks_by_tags": tasks_by_tags,
+            }
+        )
         return context

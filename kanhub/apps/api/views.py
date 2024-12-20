@@ -2,8 +2,6 @@ __all__ = ()
 
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -63,7 +61,6 @@ class APIDocsTokenGetView(TemplateView):
 
 class APIDocsTokenCreateView(TemplateView):
     template_name = "api/docs/token_create.html"
-
 
 
 class RepositoryAPIView(APIView):
@@ -177,7 +174,9 @@ class TaskAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, repository_id, *args, **kwargs):
-        repository = get_object_or_404(Repository, pk=repository_id, user=request.user)
+        repository = get_object_or_404(
+            Repository, pk=repository_id, user=request.user,
+        )
 
         last_commit = Commit.objects.filter(repository=repository).last()
 

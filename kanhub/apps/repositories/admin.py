@@ -1,3 +1,4 @@
+__all__ = ()
 import django.contrib.admin
 import django.core.exceptions
 
@@ -10,9 +11,7 @@ class RepositoryAdmin(django.contrib.admin.ModelAdmin):
         Repository.name.field.name,
         Repository.is_published.field.name,
     )
-    list_editable = (
-        Repository.is_published.field.name,
-    )
+    list_editable = (Repository.is_published.field.name,)
     list_display_links = (Repository.name.field.name,)
     filter_horizontal = (Repository.users.field.name,)
     readonly_fields = (
@@ -46,4 +45,3 @@ class CommitAdmin(django.contrib.admin.ModelAdmin):
 @django.contrib.admin.register(Tag)
 class TagAdmin(django.contrib.admin.ModelAdmin):
     list_display = (Tag.name.field.name,)
-

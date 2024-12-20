@@ -1,7 +1,7 @@
 __all__ = ()
+from ckeditor.widgets import CKEditorWidget
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from ckeditor.widgets import CKEditorWidget
 
 import apps.repositories.forms
 import apps.repositories.models
@@ -15,11 +15,15 @@ class SettingsForm(forms.ModelForm):
         model = apps.repositories.models.Repository
         fields = ("name", "is_published", "users")
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control",
-                                           "placeholder": _(
-                                               "Enter repository name")}),
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": _("Enter repository name"),
+                },
+            ),
             "is_published": forms.CheckboxInput(
-                attrs={"class": "form-check-input"}),
+                attrs={"class": "form-check-input"},
+            ),
             "users": forms.SelectMultiple(attrs={"class": "form-select"}),
         }
 
@@ -29,21 +33,22 @@ class SettingsForm(forms.ModelForm):
             self.fields["users"].queryset = self.instance.users.all().exclude(
                 id=self.instance.user.id,
             )
-        # if self.instance and self.instance.user:
-        #     self.fields["users"].queryset = self.fields[
-        #         "users"].queryset.exclude(id=self.instance.user.id)
 
 
 class RepositoryForm(forms.ModelForm):
     class Meta:
         model = apps.repositories.models.Repository
-        fields = ('name', 'is_published')
+        fields = ("name", "is_published")
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control",
-                                           "placeholder": _(
-                                               "Enter repository name")}),
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": _("Enter repository name"),
+                },
+            ),
             "is_published": forms.CheckboxInput(
-                attrs={"class": "form-check-input"}),
+                attrs={"class": "form-check-input"},
+            ),
         }
 
 
@@ -57,16 +62,17 @@ class TaskForm(forms.ModelForm):
         model = apps.repositories.models.Task
         fields = ("name", "tags", "text", "start_at", "end_at")
         widgets = {
-            "name": forms.TextInput(attrs={"placeholder": _(
-                                               "Enter task name")}),
+            "name": forms.TextInput(
+                attrs={"placeholder": _("Enter task name")},
+            ),
             "tags": forms.SelectMultiple(),
             "text": CKEditorWidget(),
             "start_at": forms.DateInput(
-                attrs={"type": "date"},
-                format="%Y-%m-%d"),
+                attrs={"type": "date"}, format="%Y-%m-%d",
+            ),
             "end_at": forms.DateInput(
-                attrs={"type": "date"},
-                format="%Y-%m-%d"),
+                attrs={"type": "date"}, format="%Y-%m-%d",
+            ),
         }
 
     def clean(self):
@@ -77,6 +83,7 @@ class TaskForm(forms.ModelForm):
         if date_start and date_end:
             if date_start >= date_end:
                 raise forms.ValidationError(
-                    _("The end date must be after the start date."))
+                    _("The end date must be after the start date."),
+                )
 
         return cleaned_data

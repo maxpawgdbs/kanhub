@@ -5,11 +5,27 @@ from apps.api import views
 app_name = "api"
 
 urlpatterns = [
-    path("repositories/", views.RepositoryAPIView.as_view(), name="repository-list"),
-    path('repositories/<int:pk>/', views.RepositoryAPIView.as_view(), name='repository-detail'),
+    path(
+        "repositories/",
+        views.RepositoryAPIView.as_view(),
+        name="repository-list",
+    ),
+    path(
+        "repositories/<int:pk>/",
+        views.RepositoryAPIView.as_view(),
+        name="repository-detail",
+    ),
     path("commits/", views.CommitAPIView.as_view(), name="commit-list"),
-    path("repositories/<int:repository_id>/tasks/", views.TaskAPIView.as_view(), name="task-list"),
-    path('repositories/<int:repository_id>/tasks/<int:pk>/', views.TaskAPIView.as_view(), name='task-detail'),
+    path(
+        "repositories/<int:repository_id>/tasks/",
+        views.TaskAPIView.as_view(),
+        name="task-list",
+    ),
+    path(
+        "repositories/<int:repository_id>/tasks/<int:pk>/",
+        views.TaskAPIView.as_view(),
+        name="task-detail",
+    ),
     path("docs/", views.APIDocsPreambleView.as_view(), name="docs_preamble"),
     path(
         "docs/qr_code_get",

@@ -23,10 +23,12 @@ MAX_AUTH_ATTEMPTS = int(
     os.getenv("KANHUB_DJANGO_MAX_AUTH_ATTEMPTS", default=3),
 )
 if DEBUG:
+
     def show_toolbar(request):
         return True
+
     DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+        "SHOW_TOOLBAR_CALLBACK": show_toolbar,
     }
 
 ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
@@ -53,24 +55,24 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "ckeditor",
-'django.contrib.sites',
+    "django.contrib.sites",
     "allauth",
     "allauth.account",
-'allauth.socialaccount',
-    'allauth.socialaccount.providers.yandex',
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.yandex",
 ]
 SITE_ID = 1
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'width': '100%',
-        'extraPlugins': 'autogrow',
-        'autoGrow_maxHeight': 500,
-        'removePlugins': 'resize',
-        'placeholder': 'Enter task description',
+    "default": {
+        "toolbar": "full",
+        "width": "100%",
+        "extraPlugins": "autogrow",
+        "autoGrow_maxHeight": 500,
+        "removePlugins": "resize",
+        "placeholder": "Enter task description",
     }
 }
 
@@ -206,7 +208,7 @@ DEFAULT_FROM_EMAIL = os.getenv(
     "KANHUB_MAIL_USER",
     default="webmaster@localhost",
 )
-EMAIL_HOST_USER = os.getenv("KANHUB_MAIL_USER", default="webmaster@localhost")
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
 EMAIL_HOST_PASSWORD = os.getenv(
     "KANHUB_MAIL_PASSWORD",
     default="secret_key",
@@ -221,20 +223,26 @@ REST_FRAMEWORK = {
     ],
 }
 SOCIALACCOUNT_PROVIDERS = {
-    'yandex': {
-        'APP': {
-            'client_id': os.getenv("KANHUB_DJANGO_YANDEX_CLIENT_ID", default="apikey"),
-            'secret': os.getenv("KANHUB_DJANGO_YANDEX_SECRET", default="apikey"),
-            'key': ''
+    "yandex": {
+        "APP": {
+            "client_id": os.getenv(
+                "KANHUB_DJANGO_YANDEX_CLIENT_ID", default="apikey"
+            ),
+            "secret": os.getenv(
+                "KANHUB_DJANGO_YANDEX_SECRET", default="apikey"
+            ),
+            "key": "",
         },
-        'SCOPE': [
-            'login:info',
-            'login:email',
+        "SCOPE": [
+            "login:info",
+            "login:email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
+        "AUTH_PARAMS": {
+            "access_type": "online",
         },
-'REDIRECT_URL': 'http://127.0.0.1:8000/auth/yandex/login/callback/'
+        "REDIRECT_URL": "http://127.0.0.1:8000/auth/yandex/login/callback/",
     }
 }
-SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"
+SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = (
+    "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"
+)
