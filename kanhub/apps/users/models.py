@@ -1,6 +1,6 @@
 __all__ = ()
 
-import django.contrib.auth.base_user
+import django.contrib.auth.models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 import django.utils
@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import delete, get_thumbnail
 
 
-class Manager(django.contrib.auth.base_user.BaseUserManager):
+class Manager(django.contrib.auth.models.UserManager):
     def by_mail(self, email):
         return self.get(
             **{self.model.EMAIL_FIELD: self.normalize_email(email)},
