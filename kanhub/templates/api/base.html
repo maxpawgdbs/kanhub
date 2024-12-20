@@ -2,7 +2,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Kanhub API Docs{% endblock %}
+{% block title %}{%trans "Kanhub API Docs" %}{% endblock %}
 
 {% block css %}
   <link href="{% static 'css/api/style.css' %}" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 {% block content %}
 
-<div class="container">
+<div class="container mb-4 mt-4">
   <h1 class="text-center mt-3">{% trans "kanhub_api_docs" %}</h1>
   <div class="d-flex flex-md-row flex-column flex-grow-1 mt-2">
     {% with request.resolver_match.view_name as view_name %}
@@ -28,48 +28,48 @@
           </li>
           <li class="mb-1 d-flex flex-column">
             <button class="nav-link btn-toggle d-inline-flex align-items-center border-0 mb-1" data-bs-toggle="collapse" data-bs-target="#token-collapse" {% if view_name == 'api:docs_token_create' or view_name == 'api:docs_token_get' %}aria-expanded="true"{% endif %}>
-              Token
+              {% trans "Token" %}
             </button>
             <div class="collapse {% if view_name == 'api:docs_token_create' or view_name == 'api:docs_token_get' %}show{% endif %}" id="token-collapse">
               <ul class="list-unstyled">
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_token_create' %}" class="nav-link {% if view_name == 'api:docs_token_create' %}active{% endif %}">Token - {% trans "creating" %}</a></li>
-                <li class="nav-item ms-4"><a href="{% url 'api:docs_token_get' %}" class="nav-link {% if view_name == 'api:docs_token_get' %}active{% endif %}">Token - {% trans "receiving" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_token_create' %}" class="nav-link {% if view_name == 'api:docs_token_create' %}active{% endif %}">{% trans "Token" %} - {% trans "creating" %}</a></li>
+                <li class="nav-item ms-4"><a href="{% url 'api:docs_token_get' %}" class="nav-link {% if view_name == 'api:docs_token_get' %}active{% endif %}">{% trans "Token" %} - {% trans "receiving" %}</a></li>
               </ul>
             </div>
           </li>
           <li class="mb-1 d-flex flex-column">
             <button class="nav-link btn-toggle d-inline-flex align-items-center border-0 mb-1" data-bs-toggle="collapse" data-bs-target="#repository-collapse" {% if view_name == 'api:docs_repository_create' or view_name == 'api:docs_repository_get' or view_name == 'api:docs_repository_delete' %}aria-expanded="true"{% endif %}>
-              Repository
+              {% trans "Repository" %}
             </button>
             <div class="collapse {% if view_name == 'api:docs_repository_create' or view_name == 'api:docs_repository_get' or view_name == 'api:docs_repository_update' or view_name == 'api:docs_repository_delete' %}show{% endif %}" id="repository-collapse">
               <ul class="list-unstyled">
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_create' %}" class="nav-link {% if view_name == 'api:docs_repository_create' %}active{% endif %}">Repository - {% trans "creating" %}</a></li>
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_get' %}" class="nav-link {% if view_name == 'api:docs_repository_get' %}active{% endif %}">Repository - {% trans "receiving" %}</a></li>
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_update' %}" class="nav-link {% if view_name == 'api:docs_repository_update' %}active{% endif %}">Repository - {% trans "update" %}</a></li>
-                <li class="nav-item ms-4"><a href="{% url 'api:docs_repository_delete' %}" class="nav-link {% if view_name == 'api:docs_repository_delete' %}active{% endif %}">Repository - {% trans "deleting" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_create' %}" class="nav-link {% if view_name == 'api:docs_repository_create' %}active{% endif %}">{% trans "Repository" %} - {% trans "creating" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_get' %}" class="nav-link {% if view_name == 'api:docs_repository_get' %}active{% endif %}">{% trans "Repository" %} - {% trans "receiving" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_repository_update' %}" class="nav-link {% if view_name == 'api:docs_repository_update' %}active{% endif %}">{% trans "Repository" %} - {% trans "update" %}</a></li>
+                <li class="nav-item ms-4"><a href="{% url 'api:docs_repository_delete' %}" class="nav-link {% if view_name == 'api:docs_repository_delete' %}active{% endif %}">{% trans "Repository" %} - {% trans "deleting" %}</a></li>
               </ul>
             </div>
           </li>
           <li class="mb-1 d-flex flex-column">
             <button class="nav-link btn-toggle d-inline-flex align-items-center border-0 mb-1" data-bs-toggle="collapse" data-bs-target="#task-collapse" {% if view_name == 'api:docs_task_create' or view_name == 'api:docs_task_get' or view_name == 'api:docs_task_delete' %}aria-expanded="true"{% endif %}>
-              Task
+              {% trans "Task" %}
             </button>
             <div class="collapse {% if view_name == 'api:docs_task_create' or view_name == 'api:docs_task_get' or view_name == 'api:docs_task_update' or view_name == 'api:docs_task_delete' %}show{% endif %}" id="task-collapse">
               <ul class="list-unstyled">
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_create' %}" class="nav-link {% if view_name == 'api:docs_task_create' %}active{% endif %}">Task - {% trans "creating" %}</a></li>
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_get' %}" class="nav-link {% if view_name == 'api:docs_task_get' %}active{% endif %}">Task - {% trans "receiving" %}</a></li>
-                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_update' %}" class="nav-link {% if view_name == 'api:docs_task_update' %}active{% endif %}">Task - {% trans "update" %}</a></li>
-                <li class="nav-item ms-4"><a href="{% url 'api:docs_task_delete' %}" class="nav-link {% if view_name == 'api:docs_task_delete' %}active{% endif %}">Task - {% trans "deleting" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_create' %}" class="nav-link {% if view_name == 'api:docs_task_create' %}active{% endif %}">{% trans "Task" %} - {% trans "creating" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_get' %}" class="nav-link {% if view_name == 'api:docs_task_get' %}active{% endif %}">{% trans "Task" %} - {% trans "receiving" %}</a></li>
+                <li class="nav-item ms-4 mb-1"><a href="{% url 'api:docs_task_update' %}" class="nav-link {% if view_name == 'api:docs_task_update' %}active{% endif %}">{% trans "Task" %} - {% trans "update" %}</a></li>
+                <li class="nav-item ms-4"><a href="{% url 'api:docs_task_delete' %}" class="nav-link {% if view_name == 'api:docs_task_delete' %}active{% endif %}">{% trans "Task" %} - {% trans "deleting" %}</a></li>
               </ul>
             </div>
           </li>
           <li class="d-flex flex-column">
             <button class="nav-link btn-toggle d-inline-flex align-items-center border-0 mb-1" data-bs-toggle="collapse" data-bs-target="#commits-collapse" {% if view_name == 'api:docs_commits_get' %}aria-expanded="true"{% endif %}>
-              Commits
+              {% trans "Commits" %}
             </button>
             <div class="collapse {% if view_name == 'api:docs_commits_get' %}show{% endif %}" id="commits-collapse">
               <ul class="list-unstyled">
-                <li class="nav-item ms-4"><a href="{% url 'api:docs_commits_get' %}" class="nav-link {% if view_name == 'api:docs_commits_get' %}active{% endif %}">Commits - {% trans "receiving" %}</a></li>
+                <li class="nav-item ms-4"><a href="{% url 'api:docs_commits_get' %}" class="nav-link {% if view_name == 'api:docs_commits_get' %}active{% endif %}">{% trans "Commits" %} - {% trans "receiving" %}</a></li>
               </ul>
             </div>
           </li>

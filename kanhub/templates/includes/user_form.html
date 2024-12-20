@@ -47,7 +47,7 @@
       <button class="btn btn-outline mt-3 py-2 ms-auto me-auto" type="submit">{{ submit_text }}</button>
       {% if view_name == "users:login" %}
         <div class="ms-auto me-auto mt-3">
-          <a href="{% provider_login_url 'yandex' %}">Войти через Яндекс</a>
+          <a href="{% provider_login_url 'yandex' %}" class="btn btn-primary col-md-8 mx-auto mt-1 mb-3">{% trans "Signin via Yandex" %}</a>
           <p class="text-center">{% trans "dont_have_account_yet" %} <a href="{% url 'users:signup' %}" class="text-center">{% trans "create_it" %}</a></p>
           <p class="text-center"><a href="{% url 'users:password_reset' %}" class="text-center">{% trans "forgot_password" %}</a></p>
         </div>

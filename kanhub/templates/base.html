@@ -20,7 +20,7 @@
 
     <div class="container">
       {% if messages %}
-        <div class="container mt-4">
+        <div class="container mt-4 mb-4">
           {% for message in messages %}
             <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} alert-dismissible fade show" role="alert">
               {{ message }}

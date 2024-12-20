@@ -1,102 +1,140 @@
 {% extends "base.html" %}
 {% load i18n %}
-
 {% load static %}
 
 {% block title %}{{ repository.name }}{% endblock %}
 
 {% block content %}
-
-<div class="container mt-4">
+<div class="container mt-4 mb-4">
   {% include "includes/header_of_repo.html" %}
 
-  <h1>Статистика репозитория: {{ repository.name }}</h1>
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+      <h2>
+        <i class="bi bi-bar-chart-line"></i>
+        {% trans "Статистика репозитория" %}: {{ repository.name }}
+      </h2>
+    </div>
+    <div class="card-body">
+      <div class="mb-4">
+        <h3 class="text-secondary">
+          <i class="bi bi-info-circle"></i>
+          {% trans "Общая информация" %}
+        </h3>
+        <ul class="list-group">
+          <li class="list-group-item d-flex align-items-center">
+            {% trans "Количество коммитов" %}:
+            <span class="badge bg-success rounded-pill">{{ commits_count }}</span>
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            {% trans "Количество задач" %}:
+            <span class="badge bg-info rounded-pill">{{ tasks_count }}</span>
+          </li>
+          {% if latest_commit %}
+          <li class="list-group-item">
+            {% trans "Последний коммит" %}:
+            <strong>{{ latest_commit.name }}</strong>
+            <span class="text-muted">({{ latest_commit.created_at }})</span>
+          </li>
+          {% else %}
+          <li class="list-group-item text-danger">
+            {% trans "Нет коммитов" %}
+          </li>
+          {% endif %}
+        </ul>
+      </div>
 
-  <div class="statistics">
-    <h2>Общая информация</h2>
-    <p>Количество коммитов: {{ commits_count }}</p>
-    <p>Количество задач: {{ tasks_count }}</p>
-    {% if latest_commit %}
-    <p>Последний коммит: {{ latest_commit.name }} ({{ latest_commit.created_at }})</p>
-    {% else %}
-    <p>Нет коммитов</p>
-    {% endif %}
+      <div class="mb-4">
+        <h3 class="text-secondary">
+          <i class="bi bi-tags"></i>
+          {% trans "Задачи по тегам" %}
+        </h3>
+        <ul class="list-group">
+          {% for tag in tasks_by_tags %}
+          <li class="list-group-item d-flex align-items-center">
+            {{ tag.tags__name }}:
+            <span class="badge bg-warning rounded-pill">{{ tag.count }}</span>
+          </li>
+          {% empty %}
+          <li class="list-group-item text-muted">
+            {% trans "Нет задач с тегами" %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-secondary">
+          <i class="bi bi-graph-up"></i>
+          {% trans "График задач по тегам" %}
+        </h3>
+        <div class="chart-container" style="position: relative; height:40vh; width:100%;">
+          <canvas id="tasksChart"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="tasks-by-tags">
-    <h2>Задачи по тегам</h2>
-    <ul>
-      {% for tag in tasks_by_tags %}
-      <li>{{ tag.tags__name }}: {{ tag.count }}</li>
-      {% empty %}
-      <li>Нет задач с тегами</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-  <div class="chart">
-    <h2>График задач по тегам</h2>
-    <canvas id="tasksChart" width="400" height="200"></canvas>
-  </div>
-
 </div>
 
 <link href="{% static 'css/stats.css' %}" rel="stylesheet">
 <script src="{% static 'js/chart.js' %}"></script>
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
   const labels = [
-  {% for tag in tasks_by_tags %}
-  "{{ tag.tags__name }}",
-  {% endfor %}
+    {% for tag in tasks_by_tags %}
+    "{{ tag.tags__name }}",
+    {% endfor %}
   ];
 
   const data = {
-  labels: labels,
-  datasets: [{
-    label: "Количество задач по тегам",
-    data: [
-      {% for tag in tasks_by_tags %}
-      {{ tag.count }},
-      {% endfor %}
-    ],
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(255, 206, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(255, 159, 64, 0.2)'
-    ],
-    borderColor: [
-      'rgba(255, 99, 132, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)',
-      'rgba(153, 102, 255, 1)',
-      'rgba(255, 159, 64, 1)'
-    ],
-    borderWidth: 1
-  }]
+    labels: labels,
+    datasets: [
+      {
+        label: "{% trans 'Количество задач по тегам' %}",
+        data: [
+          {% for tag in tasks_by_tags %}
+          {{ tag.count }},
+          {% endfor %}
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }
+    ]
   };
 
   const config = {
-  type: 'bar',
-  data: data,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    },
-    responsive: true,
-    maintainAspectRatio: false
-  }
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    }
   };
 
-  const tasksChart = new Chart(
-  document.getElementById('tasksChart'),
-  config
-  );
+  const ctx = document.getElementById('tasksChart').getContext('2d');
+  new Chart(ctx, config);
+});
+
 </script>
 
 {% endblock %}

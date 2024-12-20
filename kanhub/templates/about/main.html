@@ -8,117 +8,117 @@
 {% block content %}
 
 <div class="container py-5">
-    <div class="row text-center mb-4">
-        <div class="col">
-            <h1 class="display-4">{% trans "About Kanhub" %}</h1>
-            <p class="lead">{% trans "A powerful task management platform for repositories and commits" %}</p>
-        </div>
+  <div class="row text-center mb-4">
+    <div class="col">
+      <h1 class="display-4">{% trans "About Kanhub" %}</h1>
+      <p class="lead">{% trans "A powerful task management platform for repositories and commits" %}</p>
     </div>
+  </div>
 
-    <div class="row mb-5">
-        <div class="col-md-6">
-            <h2>{% trans "What is Kanhub?" %}</h2>
-            <p>
-                {% trans "Kanhub is a cutting-edge platform designed to help you manage tasks in your repositories with ease. It allows you to link tasks to specific commits, monitor progress, and collaborate with your team more effectively." %}
-            </p>
-            <p>
-                {% trans "Whether you're working on a small personal project or a large-scale team repository, Kanhub provides the tools you need to stay organized and productive." %}
-            </p>
-        </div>
-        <div class="col-md-6">
-            <img src="{% static 'img/logo.svg' %}" alt="{% trans 'Kanhub Overview' %}" class="img-fluid rounded shadow">
-        </div>
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <h2>{% trans "What is Kanhub?" %}</h2>
+      <p>
+        {% trans "Kanhub is a cutting-edge platform designed to help you manage tasks in your repositories with ease. It allows you to link tasks to specific commits, monitor progress, and collaborate with your team more effectively." %}
+      </p>
+      <p>
+        {% trans "Whether you're working on a small personal project or a large-scale team repository, Kanhub provides the tools you need to stay organized and productive." %}
+      </p>
     </div>
+    <div class="col-md-6">
+      <img src="{% static 'img/logo.svg' %}" alt="{% trans 'Kanhub Overview' %}" class="img-fluid rounded shadow">
+    </div>
+  </div>
 
-    <h2 class="text-center mb-4">{% trans "Key Features" %}</h2>
-    <div class="row text-center">
+  <h2 class="text-center mb-4">{% trans "Key Features" %}</h2>
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <i class="bi bi-journal-text display-4 text-primary"></i>
+          <h5 class="card-title mt-3">{% trans "Task Creation" %}</h5>
+          <p class="card-text">{% trans "Create tasks with detailed descriptions, deadlines, and tags. Effortlessly assign tasks to repositories and commits." %}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <i class="bi bi-link display-4 text-success"></i>
+          <h5 class="card-title mt-3">{% trans "Link Tasks to Commits" %}</h5>
+          <p class="card-text">{% trans "Associate tasks directly with commits to track changes and keep your project organized." %}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <i class="bi bi-bar-chart-line display-4 text-warning"></i>
+          <h5 class="card-title mt-3">{% trans "Progress Tracking" %}</h5>
+          <p class="card-text">{% trans "Easily track task completion and repository progress. Stay on top of deadlines and project milestones." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-6">
+      <img src="{% static 'img/how_it_works.png' %}" alt="{% trans 'How It Works' %}" class="img-fluid rounded shadow" width="500px">
+    </div>
+    <div class="col-md-6">
+      <h2>{% trans "How It Works" %}</h2>
+      <p>{% trans "Kanhub is designed to be intuitive and user-friendly. Here's how it works:" %}</p>
+      <ul>
+        <li>{% trans "Create a new task by providing details such as title, description, deadline, and tags." %}</li>
+        <li>{% trans "Link the task to specific commits in your repository to track code changes and related work." %}</li>
+        <li>{% trans "Monitor the progress of your tasks through an easy-to-use dashboard that updates in real-time." %}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <h2 class="text-center">{% trans "Why Choose Kanhub?" %}</h2>
+      <p class="text-center">{% trans "Kanhub brings numerous benefits that make it an essential tool for developers and teams working with repositories." %}</p>
+      <div class="row">
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <i class="bi bi-journal-text display-4 text-primary"></i>
-                    <h5 class="card-title mt-3">{% trans "Task Creation" %}</h5>
-                    <p class="card-text">{% trans "Create tasks with detailed descriptions, deadlines, and tags. Effortlessly assign tasks to repositories and commits." %}</p>
-                </div>
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="bi bi-person-check display-4 text-primary"></i>
+              <h5 class="card-title mt-3">{% trans "Collaboration" %}</h5>
+              <p class="card-text">{% trans "Easily collaborate with team members by assigning tasks, tracking progress, and sharing updates in real-time." %}</p>
             </div>
+          </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <i class="bi bi-link display-4 text-success"></i>
-                    <h5 class="card-title mt-3">{% trans "Link Tasks to Commits" %}</h5>
-                    <p class="card-text">{% trans "Associate tasks directly with commits to track changes and keep your project organized." %}</p>
-                </div>
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="bi bi-clock display-4 text-info"></i>
+              <h5 class="card-title mt-3">{% trans "Time Efficiency" %}</h5>
+              <p class="card-text">{% trans "Save time by linking tasks directly to commits, reducing the need for manual tracking." %}</p>
             </div>
+          </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <i class="bi bi-bar-chart-line display-4 text-warning"></i>
-                    <h5 class="card-title mt-3">{% trans "Progress Tracking" %}</h5>
-                    <p class="card-text">{% trans "Easily track task completion and repository progress. Stay on top of deadlines and project milestones." %}</p>
-                </div>
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="bi bi-shield-check display-4 text-success"></i>
+              <h5 class="card-title mt-3">{% trans "Secure & Reliable" %}</h5>
+              <p class="card-text">{% trans "Kanhub is built with security and reliability in mind. You can trust the platform to keep your data safe." %}</p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div class="row mb-5">
-        <div class="col-md-6">
-            <img src="{% static 'img/how_it_works.png' %}" alt="{% trans 'How It Works' %}" class="img-fluid rounded shadow" width="500px">
-        </div>
-        <div class="col-md-6">
-            <h2>{% trans "How It Works" %}</h2>
-            <p>{% trans "Kanhub is designed to be intuitive and user-friendly. Here's how it works:" %}</p>
-            <ul>
-                <li>{% trans "Create a new task by providing details such as title, description, deadline, and tags." %}</li>
-                <li>{% trans "Link the task to specific commits in your repository to track code changes and related work." %}</li>
-                <li>{% trans "Monitor the progress of your tasks through an easy-to-use dashboard that updates in real-time." %}</li>
-            </ul>
-        </div>
+  <div class="row mt-5">
+    <div class="col text-center">
+      <a href="{% url 'users:signup' %}" class="btn btn-primary btn-lg">
+        <i class="bi bi-clipboard-plus"></i> {% trans "Get Started" %}
+      </a>
     </div>
-
-    <div class="row mb-5">
-        <div class="col">
-            <h2 class="text-center">{% trans "Why Choose Kanhub?" %}</h2>
-            <p class="text-center">{% trans "Kanhub brings numerous benefits that make it an essential tool for developers and teams working with repositories." %}</p>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="bi bi-person-check display-4 text-primary"></i>
-                            <h5 class="card-title mt-3">{% trans "Collaboration" %}</h5>
-                            <p class="card-text">{% trans "Easily collaborate with team members by assigning tasks, tracking progress, and sharing updates in real-time." %}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="bi bi-clock display-4 text-info"></i>
-                            <h5 class="card-title mt-3">{% trans "Time Efficiency" %}</h5>
-                            <p class="card-text">{% trans "Save time by linking tasks directly to commits, reducing the need for manual tracking." %}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0">
-                        <div class="card-body">
-                            <i class="bi bi-shield-check display-4 text-success"></i>
-                            <h5 class="card-title mt-3">{% trans "Secure & Reliable" %}</h5>
-                            <p class="card-text">{% trans "Kanhub is built with security and reliability in mind. You can trust the platform to keep your data safe." %}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col text-center">
-            <a href="{% url 'users:signup' %}" class="btn btn-primary btn-lg">
-                <i class="bi bi-clipboard-plus"></i> {% trans "Get Started" %}
-            </a>
-        </div>
-    </div>
+  </div>
 </div>
 
 {% endblock %}

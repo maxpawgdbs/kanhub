@@ -83,7 +83,7 @@ class TaskForm(forms.ModelForm):
         date_end = cleaned_data.get("end_at")
 
         if date_start and date_end:
-            if date_start >= date_end:
+            if date_start > date_end:
                 raise forms.ValidationError(
                     _("The end date must be after the start date."),
                 )
