@@ -13,7 +13,7 @@
 
   <div class="row mt-3 mb-3">
     <form method="GET" action="" class="d-flex flex-wrap justify-content-between">
-      <div class="form-group col-md-12 text-center">
+      <div class="form-group col-md-2 text-center">
         <div class="d-flex justify-content-center">
           <button type="button" class="btn btn-outline-primary mx-2" id="prev-month"><</button>
           <h4 id="month-year" class="m-0 text-uppercase"></h4>

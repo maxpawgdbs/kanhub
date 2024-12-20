@@ -23,6 +23,7 @@
       <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-primary w-100">
         {% trans "Подробнее" %}
       </a>
+
     </div>
   </div>
 </div>

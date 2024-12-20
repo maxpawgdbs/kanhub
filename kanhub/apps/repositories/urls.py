@@ -16,6 +16,11 @@ urlpatterns = [
         name="detail",
     ),
     django.urls.path(
+        "calendar/",
+        apps.repositories.views.RepositoriesCalendar.as_view(),
+        name="calendar_repos",
+    ),
+    django.urls.path(
         "<int:pk>/delete/",
         apps.repositories.views.RepositoryDelete.as_view(),
         name="repository_delete",

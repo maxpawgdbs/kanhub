@@ -212,10 +212,14 @@ class RepositoryCalendar(django.views.generic.ListView):
         start_date = self.request.GET.get("start_at")
         if start_date:
             try:
+<<<<<<< Updated upstream
                 start_date_obj = datetime.strptime(
                     start_date,
                     "%Y-%m-%d",
                 ).date()
+=======
+                start_date_obj = datetime.strptime(start_date, "%Y-%m-%d").date()
+>>>>>>> Stashed changes
                 queryset = queryset.filter(start_at__gte=start_date_obj)
             except ValueError:
                 pass

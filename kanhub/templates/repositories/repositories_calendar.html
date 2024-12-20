@@ -7,9 +7,7 @@
 
 {% block content %}
 <div class="container mt-4">
-  {% include "includes/header_of_repo.html" %}
-
-  <h3 class="mt-4">{{ repository.name }}</h3>
+  <h3 class="mt-4">{% trans "Calendar of repositories" %}</h3>
 
   <div class="row mt-3 mb-3">
     <form method="GET" action="" class="d-flex flex-wrap justify-content-between">
@@ -38,10 +36,10 @@
           {% for day in week %}
             <div class="calendar-day position-relative">
               <div class="day-number">{{ day.date }}</div>
-              {% if day.tasks %}
+              {% if day.repositories %}
                 <ul class="events-list">
-                  {% for task in day.tasks %}
-                  <li class="event-item"><a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}"><h3>{{ task.name }}</h3></a></li>
+                  {% for task in day.repositories %}
+                  <li class="event-item"><h3>{{ task.name }}</h3></li>
                   {% endfor %}
                 </ul>
               {% endif %}
@@ -96,6 +94,3 @@
 </script>
 
 {% endblock %}
-
-
-__all__ = ()
