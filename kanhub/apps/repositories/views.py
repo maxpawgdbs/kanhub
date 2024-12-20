@@ -326,13 +326,17 @@ class RepositoriesCalendar(django.views.generic.ListView):
     context_object_name = "repositories"
 
     def get_queryset(self):
-        queryset = apps.repositories.models.Repository.objects.filter(is_published=True)
+        queryset = apps.repositories.models.Repository.objects.filter(
+            is_published=True
+        )
 
         # Фильтр по дате создания
         created_from = self.request.GET.get("created_from")
         if created_from:
             try:
-                created_from_date = datetime.strptime(created_from, "%Y-%m-%d").date()
+                created_from_date = datetime.strptime(
+                    created_from, "%Y-%m-%d"
+                ).date()
                 queryset = queryset.filter(created_at__gte=created_from_date)
             except ValueError:
                 pass
@@ -340,7 +344,9 @@ class RepositoriesCalendar(django.views.generic.ListView):
         created_to = self.request.GET.get("created_to")
         if created_to:
             try:
-                created_to_date = datetime.strptime(created_to, "%Y-%m-%d").date()
+                created_to_date = datetime.strptime(
+                    created_to, "%Y-%m-%d"
+                ).date()
                 queryset = queryset.filter(created_at__lte=created_to_date)
             except ValueError:
                 pass
@@ -349,7 +355,9 @@ class RepositoriesCalendar(django.views.generic.ListView):
         updated_from = self.request.GET.get("updated_from")
         if updated_from:
             try:
-                updated_from_date = datetime.strptime(updated_from, "%Y-%m-%d").date()
+                updated_from_date = datetime.strptime(
+                    updated_from, "%Y-%m-%d"
+                ).date()
                 queryset = queryset.filter(updated_at__gte=updated_from_date)
             except ValueError:
                 pass
@@ -357,7 +365,9 @@ class RepositoriesCalendar(django.views.generic.ListView):
         updated_to = self.request.GET.get("updated_to")
         if updated_to:
             try:
-                updated_to_date = datetime.strptime(updated_to, "%Y-%m-%d").date()
+                updated_to_date = datetime.strptime(
+                    updated_to, "%Y-%m-%d"
+                ).date()
                 queryset = queryset.filter(updated_at__lte=updated_to_date)
             except ValueError:
                 pass
@@ -392,13 +402,17 @@ class RepositoriesCalendar(django.views.generic.ListView):
 
             grouped_repositories[date_key].append(repository)
 
-        _, days_in_month = calendar.monthrange(input_date.year, input_date.month)
+        _, days_in_month = calendar.monthrange(
+            input_date.year, input_date.month
+        )
         weeks = []
         current_week = [None] * date_delta
         for day in range(1, days_in_month + 1):
             date_key = f"{input_date.year}-{input_date.month:02d}-{day:02d}"
             repositories_for_day = grouped_repositories.get(date_key, [])
-            current_week.append({"date": day, "repositories": repositories_for_day})
+            current_week.append(
+                {"date": day, "repositories": repositories_for_day}
+            )
 
             if len(current_week) == 7:
                 weeks.append(current_week)
