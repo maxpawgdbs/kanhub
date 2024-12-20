@@ -3,6 +3,7 @@ import django.shortcuts
 
 import apps.repositories.models
 
+
 class TestRepositories(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()
@@ -27,7 +28,9 @@ class TestRepositories(django.test.TestCase):
         self.client.post(django.shortcuts.reverse("users:login"), data)
 
     def test_status_code(self):
-        response = django.test.Client().get(django.shortcuts.reverse("repositories:list"))
+        response = django.test.Client().get(
+            django.shortcuts.reverse("repositories:list")
+        )
         self.assertEqual(response.status_code, 302)
 
     def test_create_repository(self):
@@ -35,13 +38,17 @@ class TestRepositories(django.test.TestCase):
         self.client.post(django.shortcuts.reverse("repositories:new"), data)
         data = {"name": "rep2test", "is_published": True}
         self.client.post(django.shortcuts.reverse("repositories:new"), data)
-        response = self.client.get(django.shortcuts.reverse("repositories:list"))
+        response = self.client.get(
+            django.shortcuts.reverse("repositories:list")
+        )
         self.assertEqual(2, len(response.context["repositories"]))
 
     def test_repository_detail(self):
         data = {"name": "rep1test", "is_published": True}
         self.client.post(django.shortcuts.reverse("repositories:new"), data)
-        response = self.client.get(django.shortcuts.reverse("repositories:detail", args=[1]))
+        response = self.client.get(
+            django.shortcuts.reverse("repositories:detail", args=[1])
+        )
 
         rep = django.shortcuts.get_object_or_404(
             apps.repositories.models.Repository,
