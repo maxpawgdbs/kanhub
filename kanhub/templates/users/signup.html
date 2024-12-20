@@ -9,7 +9,9 @@
 {% endblock %}
 
 {% block content %}
-  {% trans "greeting" as greeting %}
-  {% trans "register" as register %}
-  {% include "includes/user_form.html" with title=greeting submit_text=register %}
+
+{% trans "greeting" as greeting %}
+{% trans "register" as register %}
+{% include "includes/user_form.html" with title=greeting submit_text=register %}
+
 {% endblock %}

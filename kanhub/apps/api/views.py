@@ -1,6 +1,9 @@
 __all__ = ()
 
 from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -12,6 +15,55 @@ from apps.api.serializers import (
     TaskSerializer,
 )
 from apps.repositories.models import Commit, Repository, Tag, Task
+
+
+class APIDocsPreambleView(TemplateView):
+    template_name = "api/docs/preamble.html"
+
+
+class APIDocsCommitGetView(TemplateView):
+    template_name = "api/docs/commits_get.html"
+
+
+class APIDocsRepositoryGetView(TemplateView):
+    template_name = "api/docs/repository_get.html"
+
+
+class APIDocsRepositoryCreateView(TemplateView):
+    template_name = "api/docs/repository_create.html"
+
+
+class APIDocsRepositoryUpdateView(TemplateView):
+    template_name = "api/docs/repository_update.html"
+
+
+class APIDocsRepositoryDeleteView(TemplateView):
+    template_name = "api/docs/repository_delete.html"
+
+
+class APIDocsTaskGetView(TemplateView):
+    template_name = "api/docs/task_get.html"
+
+
+class APIDocsTaskCreateView(TemplateView):
+    template_name = "api/docs/task_create.html"
+
+
+class APIDocsTaskUpdateView(TemplateView):
+    template_name = "api/docs/task_update.html"
+
+
+class APIDocsTaskDeleteView(TemplateView):
+    template_name = "api/docs/task_delete.html"
+
+
+class APIDocsTokenGetView(TemplateView):
+    template_name = "api/docs/token_get.html"
+
+
+class APIDocsTokenCreateView(TemplateView):
+    template_name = "api/docs/token_create.html"
+
 
 
 class RepositoryAPIView(APIView):
@@ -124,12 +176,8 @@ class TaskAPIView(APIView):
         serializer = TaskSerializer(tasks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request, *args, **kwargs):
-        repository = get_object_or_404(
-            Repository,
-            pk=request.data.get("repository"),
-            user=request.user,
-        )
+    def post(self, request, repository_id, *args, **kwargs):
+        repository = get_object_or_404(Repository, pk=repository_id, user=request.user)
 
         last_commit = Commit.objects.filter(repository=repository).last()
 

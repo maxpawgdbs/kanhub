@@ -1,33 +1,37 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% load static %}
 {% block title %}{{ repository.name }}{% endblock %}
 
 {% block content %}
 
-<nav>
-  <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
-  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
-  <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
-  <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
-</nav>
+<div class="container py-4">
+  {% include "includes/header_of_repo.html" %}
 
-<form method="post" action="{% url 'repositories:settings' pk=repository.id%}">
-  {% csrf_token %}
-  {{ settings_form.as_p }}
-  <button type="submit">Изменить</button>
-</form>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        {{ settings_form.as_p }}
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-gear"></i> {% trans "Save Changes" %}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
-      function clearSelection() {
-          const selectElement = document.getElementById('id_users');
-          for (let i = 0; i < selectElement.options.length; i++) {
-              selectElement.options[i].selected = false;
-          }
-      }
-      window.onload = function() {
-          clearSelection();
-      };
-  </script>
+  function clearSelection() {
+    const selectElement = document.getElementById('id_users');
+    for (let i = 0; i < selectElement.options.length; i++) {
+      selectElement.options[i].selected = false;
+    }
+  }
+  window.onload = function() {
+    clearSelection();
+  };
+</script>
 
 {% endblock %}
+

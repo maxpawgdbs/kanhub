@@ -1,51 +1,49 @@
 import django.contrib.admin
 import django.core.exceptions
 
-import apps.repositories.models
+from apps.repositories.models import Commit, Repository, Tag, Task
 
 
-@django.contrib.admin.register(apps.repositories.models.Repository)
+@django.contrib.admin.register(Repository)
 class RepositoryAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
-        apps.repositories.models.Repository.name.field.name,
-        apps.repositories.models.Repository.is_published.field.name,
+        Repository.name.field.name,
+        Repository.is_published.field.name,
     )
     list_editable = (
-        apps.repositories.models.Repository.is_published.field.name,
+        Repository.is_published.field.name,
     )
-    list_display_links = (apps.repositories.models.Repository.name.field.name,)
-    filter_horizontal = (apps.repositories.models.Repository.users.field.name,)
+    list_display_links = (Repository.name.field.name,)
+    filter_horizontal = (Repository.users.field.name,)
     readonly_fields = (
-        apps.repositories.models.Repository.created_at.field.name,
-        apps.repositories.models.Repository.updated_at.field.name,
+        Repository.created_at.field.name,
+        Repository.updated_at.field.name,
     )
 
 
-@django.contrib.admin.register(apps.repositories.models.Task)
+@django.contrib.admin.register(Task)
 class TaskAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
-        apps.repositories.models.Task.name.field.name,
-        apps.repositories.models.Task.text.field.name,
-        apps.repositories.models.Task.start_at.field.name,
-        apps.repositories.models.Task.end_at.field.name,
+        Task.name.field.name,
+        Task.text.field.name,
+        Task.start_at.field.name,
+        Task.end_at.field.name,
     )
-    filter_horizontal = (apps.repositories.models.Task.tags.field.name,)
-    list_display_links = (apps.repositories.models.Task.name.field.name,)
+    filter_horizontal = (Task.tags.field.name,)
+    list_display_links = (Task.name.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Commit)
+@django.contrib.admin.register(Commit)
 class CommitAdmin(django.contrib.admin.ModelAdmin):
     list_display = (
-        apps.repositories.models.Commit.name.field.name,
-        apps.repositories.models.Commit.repository.field.name,
+        Commit.name.field.name,
+        Commit.repository.field.name,
     )
-    list_display_links = (apps.repositories.models.Commit.name.field.name,)
-    readonly_fields = (apps.repositories.models.Commit.created_at.field.name,)
+    list_display_links = (Commit.name.field.name,)
+    readonly_fields = (Commit.created_at.field.name,)
 
 
-@django.contrib.admin.register(apps.repositories.models.Tag)
+@django.contrib.admin.register(Tag)
 class TagAdmin(django.contrib.admin.ModelAdmin):
-    list_display = (apps.repositories.models.Tag.name.field.name,)
+    list_display = (Tag.name.field.name,)
 
-
-__all__ = ()

@@ -1,16 +1,21 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% load static %}
-{% block title %}{{ repository.name }}{% endblock %}
+{% block title %}{% trans "Удалить репозиторий" %}{% endblock %}
 
 {% block content %}
 
-<h2>Удалить репозиторий "{{ object.name }}"?</h2>
-<p>Вы действительно хотите удалить этот репозиторий? Это действие невозможно отменить.</p>
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Удалить</button>
-  <a href="{% url 'repositories:list' %}" class="btn btn-secondary">Отмена</a>
-</form>
+<div class="container mt-4">
+  <h2>{% trans "Удалить репозиторий" %} "{{ object.name }}"?</h2>
+  <p>{% trans "Вы действительно хотите удалить этот репозиторий? Это действие невозможно отменить." %}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mt-3">
+      <button type="submit" class="btn btn-danger">{% trans "Удалить" %}</button>
+      <a href="{% url 'repositories:list' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

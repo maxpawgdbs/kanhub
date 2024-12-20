@@ -1,20 +1,61 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load static %}
+
 {% block title %}{{ repository.name }}{% endblock %}
+
+{% block css %}
+  <link href="{% static 'css/flatpickr.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/calendar.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+  <script src="{% static 'js/flatpickr.js' %}"></script>
+  <script src="{% static 'js/calendar.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
-<nav>
-  <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">Информация</a>
-  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-light btn-sm">Задачи</a>
-  <a href="{% url 'repositories:history' pk=repository.id %}" class="btn btn-light btn-sm">История изменений</a>
-  <a href="{% url 'repositories:settings' pk=repository.id %}" class="btn btn-light btn-sm">Настройки</a>
-  <a href="{% url 'repositories:calendar' pk=repository.id %}" class="btn btn-light btn-sm">Календарь</a>
-</nav>
+<div class="container mt-4">
+  {% include "includes/header_of_repo.html" %}
 
-<div class="container">
-  <h3 class="card-title">{{ repository.name }}</h3>
+  <div class="row mt-3 mb-3">
+    <form method="GET" action="" class="d-flex justify-content-center align-items-center">
+      <button type="button" class="btn btn-outline-secondary mx-3" id="prev-month">&lt;</button>
+      <h4 id="month-year" class="m-0 text-uppercase"></h4>
+      <button type="button" class="btn btn-outline-secondary mx-3" id="next-month">&gt;</button>
+      <input type="hidden" name="date" id="hidden-date" value="{{ request.GET.date }}">
+    </form>
+  </div>
+
+  <div class="calendar">
+    <div class="calendar-body">
+      <div class="d-flex">
+        {% for day_week in day_week_list %}
+          <div class="week-day position-relative">
+            <div class="week_numb">{{ day_week }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% for week in calendar_weeks %}
+        <div class="calendar-week d-flex">
+          {% for day in week %}
+            <div class="calendar-day position-relative">
+              <div class="day-number">{{ day.date }}</div>
+              {% if day.tasks %}
+                <ul class="events-list">
+                  {% for task in day.tasks %}
+                  <li class="event-item"><a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}"><h3>{{ task.name }}</h3></a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -34,9 +34,11 @@ ALLOWED_HOSTS = os.getenv("KANHUB_DJANGO_ALLOWED_HOSTS", default="*").split(
 )
 
 INSTALLED_APPS = [
+    "apps.core.apps.CoreConfig",
     "apps.users.apps.UsersConfig",
     "apps.about.apps.AboutConfig",
     "apps.homepage.apps.HomepageConfig",
+    "apps.stats.apps.StatsConfig",
     "apps.api.apps.ApiConfig",
     "apps.repositories.apps.RepositoriesConfig",
     "django.contrib.admin",
@@ -58,6 +60,20 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.yandex',
 ]
 SITE_ID = 1
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'width': '100%',
+        'extraPlugins': 'autogrow',
+        'autoGrow_maxHeight': 500,
+        'removePlugins': 'resize',
+        'placeholder': 'Enter task description',
+    }
+}
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -87,6 +103,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.core.context_processor.server_url",
             ],
         },
     },
@@ -219,6 +236,5 @@ SOCIALACCOUNT_PROVIDERS = {
         },
 'REDIRECT_URL': 'http://127.0.0.1:8000/auth/yandex/login/callback/'
     }
-
 }
 SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"

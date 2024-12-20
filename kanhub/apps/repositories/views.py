@@ -4,9 +4,18 @@ import django.conf
 import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 import django.shortcuts
+from django.utils.translation import gettext_lazy
+from django.http import Http404
+import calendar
+from datetime import datetime, timedelta
 
 import apps.repositories.forms
 import apps.repositories.models
+
+
+def check_repository_access(repository, user):
+    if not repository.is_published and user not in repository.users.all() and repository.user != user:
+        raise Http404("Репозиторий недоступен.")
 
 
 class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
@@ -17,13 +26,18 @@ class RepositoryList(LoginRequiredMixin, django.views.generic.ListView):
         return self.request.user.repositories_contributed.all()
 
 
-class RepositoryHistory(LoginRequiredMixin, django.views.generic.DetailView):
+class RepositoryHistory(django.views.generic.ListView):
     template_name = "repositories/repository_history.html"
     context_object_name = "histories"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["repository"] = self.object
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+        context["repository"] = repository
         return context
 
     def get_queryset(self):
@@ -31,15 +45,13 @@ class RepositoryHistory(LoginRequiredMixin, django.views.generic.DetailView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
-        return apps.repositories.models.Commit.objects.filter(
-            repository=repository,
+        queryset = apps.repositories.models.Commit.objects.filter(
+            repository=repository
         )
+        return queryset
 
 
-class RepositoryHistoryTasks(
-    LoginRequiredMixin,
-    django.views.generic.ListView,
-):
+class RepositoryHistoryTasks(django.views.generic.ListView):
     template_name = "repositories/repository_history_tasks.html"
     context_object_name = "tasks"
 
@@ -49,6 +61,9 @@ class RepositoryHistoryTasks(
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
+
+        check_repository_access(repository, self.request.user)
+
         context["repository"] = repository
         return context
 
@@ -65,6 +80,15 @@ class RepositoryDetail(django.views.generic.DetailView):
     template_name = "repositories/repository_detail.html"
     context_object_name = "repository"
     queryset = apps.repositories.models.Repository.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+        return context
 
 
 class RepositoryNew(LoginRequiredMixin, django.views.generic.CreateView):
@@ -145,14 +169,128 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
+        if not repository.is_published and self.request.user not in repository.users.all() and repository.user != self.request.user:
+            raise Http404("Репозиторий недоступен.")
         context["repository"] = repository
         return context
 
 
-class RepositoryCalendar(django.views.generic.DetailView):
+class RepositoryCalendar(django.views.generic.ListView):
     template_name = "repositories/repository_calendar.html"
-    context_object_name = "repository"
-    queryset = apps.repositories.models.Repository.objects.all()
+
+    def get_queryset(self):
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+
+        commit = apps.repositories.models.Commit.objects.filter(
+            repository=repository,
+        ).last()
+
+        if not commit:
+            return apps.repositories.models.Task.objects.none()
+
+        queryset = apps.repositories.models.Task.objects.filter(commit=commit)
+
+        tag = self.request.GET.get("tag")
+        if tag:
+            queryset = queryset.filter(tags__name__icontains=tag)
+
+        start_date = self.request.GET.get("start_at")
+        if start_date:
+            try:
+                start_date_obj = datetime.strptime(start_date,
+                                                   "%Y-%m-%d").date()
+                queryset = queryset.filter(start_at__gte=start_date_obj)
+            except ValueError:
+                pass
+
+        end_date = self.request.GET.get("end_at")
+        if end_date:
+            try:
+                end_date_obj = datetime.strptime(end_date, "%Y-%m-%d").date()
+                queryset = queryset.filter(end_at__lte=end_date_obj)
+            except ValueError:
+                pass
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+
+        context["tasks"] = self.get_queryset()
+
+        date = self.request.GET.get("date")
+        if date:
+            try:
+                input_date = datetime.strptime(date, "%Y-%m-%d").date()
+                date_delta = input_date.weekday()
+            except ValueError:
+                input_date = datetime.now().date()
+                date_delta = input_date.weekday()
+        else:
+            input_date = datetime.now().date()
+            date_delta = input_date.weekday()
+
+        queryset = self.get_queryset()
+        grouped_task = {}
+
+        for task in queryset:
+            start_date = task.start_at
+            end_date = task.end_at
+            current_date = start_date
+            while current_date <= end_date:
+                date_key = f"{current_date.year}-{current_date.month:02d}-{current_date.day:02d}"
+
+                if date_key not in grouped_task:
+                    grouped_task[date_key] = []
+
+                grouped_task[date_key].append(task)
+                current_date += timedelta(days=1)
+
+        _, days_in_month = calendar.monthrange(input_date.year,
+                                               input_date.month)
+        weeks = []
+        current_week = [None] * date_delta
+        for day in range(1, days_in_month + 1):
+            date_key = f"{input_date.year}-{input_date.month:02d}-{day:02d}"
+            tasks_for_day = grouped_task.get(date_key, [])
+            current_week.append({"date": day, "tasks": tasks_for_day})
+
+            if len(current_week) == 7:
+                weeks.append(current_week)
+                current_week = []
+
+        if current_week:
+            weeks.append(current_week)
+
+        context["calendar_weeks"] = weeks
+
+        context["tags"] = apps.repositories.models.Tag.objects.values_list(
+            "name", flat=True).distinct()
+        context["commits"] = apps.repositories.models.Commit.objects.filter(
+            repository=self.kwargs["pk"]).values_list("name",
+                                                      flat=True).distinct()
+
+        context["repository"] = repository
+        context["day_week_list"] = [
+            gettext_lazy("Monday"),
+            gettext_lazy("Tuesday"),
+            gettext_lazy("Wednesday"),
+            gettext_lazy("Thursday"),
+            gettext_lazy("Friday"),
+            gettext_lazy("Saturday"),
+            gettext_lazy("Sunday"),
+        ]
+
+        return context
 
 
 class RepositoryTasks(django.views.generic.DetailView):
@@ -163,6 +301,8 @@ class RepositoryTasks(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         repository = self.object
+
+        check_repository_access(repository, self.request.user)
 
         commits = apps.repositories.models.Commit.objects.filter(
             repository=repository,
@@ -201,6 +341,10 @@ class RepositoryTask(django.views.generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["repository"] = self.object.commit.repository
+        repository = context["repository"]
+
+        check_repository_access(repository, self.request.user)
+
         return context
 
 
@@ -213,6 +357,9 @@ class RepositoryTaskDelete(django.views.generic.View):
             apps.repositories.models.Repository,
             pk=repository_id,
         )
+
+        check_repository_access(repository, self.request.user)
+
         task = django.shortcuts.get_object_or_404(
             apps.repositories.models.Task,
             id=task_id,
@@ -267,6 +414,11 @@ class EditTaskView(django.views.generic.edit.UpdateView):
         repository = task.commit.repository
         context["repository"] = repository
         context["last_task"] = task
+
+        check_repository_access(repository, self.request.user)
+
+        context['repository'] = repository
+        context['last_task'] = task
         return context
 
     def form_valid(self, form):
@@ -329,6 +481,7 @@ class RepositorySettings(django.views.generic.DetailView):
         context["settings_form"] = apps.repositories.forms.SettingsForm(
             instance=obj,
         )
+        check_repository_access(self.object, self.request.user)
         return context
 
     def post(self, *args, **kwargs):
@@ -337,8 +490,8 @@ class RepositorySettings(django.views.generic.DetailView):
         if data.is_valid():
             if self.request.user == rep.user:
                 if (
-                    data.cleaned_data["name"]
-                    and rep.name != data.cleaned_data["name"]
+                        data.cleaned_data["name"]
+                        and rep.name != data.cleaned_data["name"]
                 ):
                     rep.name = data.cleaned_data["name"]
                     django.contrib.messages.success(

@@ -1,15 +1,24 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Редактировать задачу{% endblock %}
+{% block title %}{% trans "Редактировать задачу" %}{% endblock %}
 
 {% block content %}
-  <h2>Редактирование задачи</h2>
-  <form method="post">
+
+<div class="container mt-4">
+  <h2>{% trans "Редактирование задачи" %}</h2>
+
+  <form method="post" class="form-group">
     {% csrf_token %}
     {{ form.as_p }}
+
     <input type="hidden" name="last_task" value="{{ last_task.id }}">
-    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">{% trans "Сохранить изменения" %}</button>
+      <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-secondary">{% trans "Назад к задачам" %}</a>
+    </div>
   </form>
-  <br>
-  <a href="{% url 'repositories:tasks' pk=repository.id %}" class="btn btn-secondary">Назад к задачам</a>
+</div>
+
 {% endblock %}
