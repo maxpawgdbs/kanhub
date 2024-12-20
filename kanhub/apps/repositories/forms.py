@@ -29,9 +29,9 @@ class SettingsForm(forms.ModelForm):
             self.fields["users"].queryset = self.instance.users.all().exclude(
                 id=self.instance.user.id,
             )
-        if self.instance and self.instance.user:
-            self.fields["users"].queryset = self.fields[
-                "users"].queryset.exclude(id=self.instance.user.id)
+        # if self.instance and self.instance.user:
+        #     self.fields["users"].queryset = self.fields[
+        #         "users"].queryset.exclude(id=self.instance.user.id)
 
 
 class RepositoryForm(forms.ModelForm):
