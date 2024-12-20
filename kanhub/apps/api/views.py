@@ -12,7 +12,7 @@ from apps.api.serializers import (
     RepositorySerializer,
     TaskSerializer,
 )
-from apps.repositories.models import Commit, Repository, Tag, Task
+from apps.repositories.models import Commit, Repository, Task
 
 
 class APIDocsPreambleView(TemplateView):
@@ -175,7 +175,9 @@ class TaskAPIView(APIView):
 
     def post(self, request, repository_id, *args, **kwargs):
         repository = get_object_or_404(
-            Repository, pk=repository_id, user=request.user,
+            Repository,
+            pk=repository_id,
+            user=request.user,
         )
 
         last_commit = Commit.objects.filter(repository=repository).last()
@@ -308,7 +310,10 @@ class TaskAPIView(APIView):
 
         return Response(
             {
-                "detail": "Task 'deleted' successfully (marked as removed with new commit).",
+                "detail": (
+                    "Task 'deleted' successfully "
+                    "(marked as removed with new commit)."
+                ),
             },
             status=status.HTTP_200_OK,
         )

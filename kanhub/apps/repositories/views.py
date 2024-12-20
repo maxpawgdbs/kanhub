@@ -1,13 +1,14 @@
 __all__ = ()
 
+import calendar
+from datetime import datetime, timedelta
+
 import django.conf
 import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 import django.shortcuts
 from django.utils.translation import gettext_lazy
-from django.http import Http404
-import calendar
-from datetime import datetime, timedelta
 
 import apps.repositories.forms
 import apps.repositories.models
@@ -49,10 +50,9 @@ class RepositoryHistory(django.views.generic.ListView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
-        queryset = apps.repositories.models.Commit.objects.filter(
-            repository=repository
+        return apps.repositories.models.Commit.objects.filter(
+            repository=repository,
         )
-        return queryset
 
 
 class RepositoryHistoryTasks(django.views.generic.ListView):
@@ -86,13 +86,12 @@ class RepositoryDetail(django.views.generic.DetailView):
     queryset = apps.repositories.models.Repository.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
         repository = django.shortcuts.get_object_or_404(
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
         check_repository_access(repository, self.request.user)
-        return context
+        return super().get_context_data(**kwargs)
 
 
 class RepositoryNew(LoginRequiredMixin, django.views.generic.CreateView):
@@ -118,9 +117,8 @@ class RepositoryDelete(LoginRequiredMixin, django.views.generic.DeleteView):
         return self.model.objects.filter(user=self.request.user)
 
     def delete(self, request, *args, **kwargs):
-        response = super().delete(request, *args, **kwargs)
         django.contrib.messages.success(request, "Репозиторий успешно удален!")
-        return response
+        return super().delete(request, *args, **kwargs)
 
 
 class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
@@ -179,6 +177,7 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
             and repository.user != self.request.user
         ):
             raise Http404("Репозиторий недоступен.")
+
         context["repository"] = repository
         return context
 
@@ -209,7 +208,8 @@ class RepositoryCalendar(django.views.generic.ListView):
         if start_date:
             try:
                 start_date_obj = datetime.strptime(
-                    start_date, "%Y-%m-%d"
+                    start_date,
+                    "%Y-%m-%d",
                 ).date()
                 queryset = queryset.filter(start_at__gte=start_date_obj)
             except ValueError:
@@ -256,7 +256,11 @@ class RepositoryCalendar(django.views.generic.ListView):
             end_date = task.end_at
             current_date = start_date
             while current_date <= end_date:
-                date_key = f"{current_date.year}-{current_date.month:02d}-{current_date.day:02d}"
+                year = current_date.year
+                month = current_date.month
+                day = current_date.day
+
+                date_key = f"{year}-{month:02d}-{day:02d}"
 
                 if date_key not in grouped_task:
                     grouped_task[date_key] = []
@@ -265,7 +269,8 @@ class RepositoryCalendar(django.views.generic.ListView):
                 current_date += timedelta(days=1)
 
         _, days_in_month = calendar.monthrange(
-            input_date.year, input_date.month
+            input_date.year,
+            input_date.month,
         )
         weeks = []
         current_week = [None] * date_delta
@@ -284,11 +289,13 @@ class RepositoryCalendar(django.views.generic.ListView):
         context["calendar_weeks"] = weeks
 
         context["tags"] = apps.repositories.models.Tag.objects.values_list(
-            "name", flat=True
+            "name",
+            flat=True,
         ).distinct()
+        commit_objects = apps.repositories.models.Commit.objects
         context["commits"] = (
-            apps.repositories.models.Commit.objects.filter(
-                repository=self.kwargs["pk"]
+            commit_objects.filter(
+                repository=self.kwargs["pk"],
             )
             .values_list("name", flat=True)
             .distinct()

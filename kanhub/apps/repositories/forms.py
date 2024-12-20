@@ -68,10 +68,12 @@ class TaskForm(forms.ModelForm):
             "tags": forms.SelectMultiple(),
             "text": CKEditorWidget(),
             "start_at": forms.DateInput(
-                attrs={"type": "date"}, format="%Y-%m-%d",
+                attrs={"type": "date"},
+                format="%Y-%m-%d",
             ),
             "end_at": forms.DateInput(
-                attrs={"type": "date"}, format="%Y-%m-%d",
+                attrs={"type": "date"},
+                format="%Y-%m-%d",
             ),
         }
 

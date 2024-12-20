@@ -73,7 +73,7 @@ CKEDITOR_CONFIGS = {
         "autoGrow_maxHeight": 500,
         "removePlugins": "resize",
         "placeholder": "Enter task description",
-    }
+    },
 }
 
 MIDDLEWARE = [
@@ -226,10 +226,12 @@ SOCIALACCOUNT_PROVIDERS = {
     "yandex": {
         "APP": {
             "client_id": os.getenv(
-                "KANHUB_DJANGO_YANDEX_CLIENT_ID", default="apikey"
+                "KANHUB_DJANGO_YANDEX_CLIENT_ID",
+                default="apikey",
             ),
             "secret": os.getenv(
-                "KANHUB_DJANGO_YANDEX_SECRET", default="apikey"
+                "KANHUB_DJANGO_YANDEX_SECRET",
+                default="apikey",
             ),
             "key": "",
         },
@@ -241,7 +243,7 @@ SOCIALACCOUNT_PROVIDERS = {
             "access_type": "online",
         },
         "REDIRECT_URL": "http://127.0.0.1:8000/auth/yandex/login/callback/",
-    }
+    },
 }
 SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = (
     "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"

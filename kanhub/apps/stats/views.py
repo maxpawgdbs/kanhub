@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404
-from django.http import Http404
+__all__ = ()
 from django.db.models import Count
+from django.http import Http404
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
 
-from apps.repositories.models import Repository, Commit, Task
+from apps.repositories.models import Repository, Task
 
 
 class RepositoryStatistics(TemplateView):
@@ -21,7 +22,7 @@ class RepositoryStatistics(TemplateView):
 
         commits_count = repository.commit_set.count()
         tasks_count = Task.objects.filter(
-            commit__repository=repository
+            commit__repository=repository,
         ).count()
         latest_commit = repository.commit_set.order_by("-created_at").first()
 
@@ -38,6 +39,6 @@ class RepositoryStatistics(TemplateView):
                 "tasks_count": tasks_count,
                 "latest_commit": latest_commit,
                 "tasks_by_tags": tasks_by_tags,
-            }
+            },
         )
         return context
