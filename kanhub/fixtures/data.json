@@ -1,0 +1,170 @@
+[
+{
+    "model": "repositories.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Новое",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Срочно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 3,
+    "fields": {
+        "name": "В процессе",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Обязательно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Сложно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Нормально",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 7,
+    "fields": {
+        "name": "Легко",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 8,
+    "fields": {
+        "name": "Практическое",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 9,
+    "fields": {
+        "name": "Теоретическое",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.repository",
+    "pk": 1,
+    "fields": {
+        "name": "Новый год",
+        "is_published": true,
+        "user": 1,
+        "created_at": "2024-12-20T20:49:31.048Z",
+        "updated_at": "2024-12-20T20:49:31.064Z",
+        "users": [
+            1
+        ]
+    }
+},
+{
+    "model": "repositories.commit",
+    "pk": 1,
+    "fields": {
+        "name": "Create task Собрать елку",
+        "user": 1,
+        "repository": 1,
+        "created_at": "2024-12-20T20:54:18.160Z"
+    }
+},
+{
+    "model": "repositories.commit",
+    "pk": 2,
+    "fields": {
+        "name": "Create task Накрыть стол",
+        "user": 1,
+        "repository": 1,
+        "created_at": "2024-12-20T20:55:51.851Z"
+    }
+},
+{
+    "model": "repositories.commit",
+    "pk": 3,
+    "fields": {
+        "name": "Create task Подарить подарки",
+        "user": 1,
+        "repository": 1,
+        "created_at": "2024-12-20T20:57:50.980Z"
+    }
+},
+{
+    "model": "repositories.task",
+    "pk": 1,
+    "fields": {
+        "name": "Собрать елку",
+        "text": "Для красивой зимы",
+        "start_at": "2024-12-27",
+        "end_at": "2024-12-29",
+        "first_commit": 1,
+        "commit": 3,
+        "tags": [
+            1,
+            6,
+            8
+        ]
+    }
+},
+{
+    "model": "repositories.task",
+    "pk": 2,
+    "fields": {
+        "name": "Накрыть стол",
+        "text": "Очень важная часть новогоднего праздника",
+        "start_at": "2024-12-30",
+        "end_at": "2024-12-31",
+        "first_commit": 2,
+        "commit": 3,
+        "tags": [
+            2,
+            4,
+            5,
+            8
+        ]
+    }
+},
+{
+    "model": "repositories.task",
+    "pk": 3,
+    "fields": {
+        "name": "Подарить подарки",
+        "text": "Дарим всем веселое настроение",
+        "start_at": "2024-12-01",
+        "end_at": "2024-12-31",
+        "first_commit": 3,
+        "commit": 3,
+        "tags": [
+            3,
+            7,
+            8
+        ]
+    }
+}
+]

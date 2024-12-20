@@ -191,11 +191,11 @@ msgstr "English"
 
 #: .\kanhub\kanhub\settings.py:165
 msgid "Русский"
-msgstr "Russian"
+msgstr "Русский"
 
 #: .\kanhub\kanhub\settings.py:169
 msgid "Deutsch"
-msgstr "German"
+msgstr "Deutsch"
 
 #: .\kanhub\templates\about\main.html:6
 msgid "About"
@@ -1500,10 +1500,6 @@ msgstr "You don't have any repositories"
 #: .\kanhub\templates\repositories\repository_list.html:19
 msgid "Please log in to see your repositories."
 msgstr "Please log in to see your repositories."
-
-#: .\kanhub\templates\repositories\repository_materials.html:19
-msgid "No materials available."
-msgstr "No materials available."
 
 #: .\kanhub\templates\repositories\repository_new.html:4
 msgid "New Repository"

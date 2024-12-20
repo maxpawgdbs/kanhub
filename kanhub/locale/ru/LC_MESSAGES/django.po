@@ -28,166 +28,166 @@ msgstr "О проекте"
 
 #: .\kanhub\apps\api\apps.py:9
 msgid "api"
-msgstr ""
+msgstr "api"
 
 #: .\kanhub\apps\core\apps.py:9
 msgid "core"
-msgstr ""
+msgstr "core"
 
 #: .\kanhub\apps\homepage\apps.py:9
 msgid "homepage"
-msgstr ""
+msgstr "главная"
 
 #: .\kanhub\apps\repositories\apps.py:9
 #: .\kanhub\templates\includes\header.html:71
 msgid "repositories"
-msgstr ""
+msgstr "репозитории"
 
 #: .\kanhub\apps\repositories\forms.py:21
 #: .\kanhub\apps\repositories\forms.py:46
 msgid "Enter repository name"
-msgstr ""
+msgstr "Введите название репозитория"
 
 #: .\kanhub\apps\repositories\forms.py:66
 msgid "Enter task name"
-msgstr ""
+msgstr "Введите название задачи"
 
 #: .\kanhub\apps\repositories\forms.py:88
 msgid "The end date must be after the start date."
-msgstr ""
+msgstr "Дата окончания должна быть позже даты начала."
 
 #: .\kanhub\apps\repositories\models.py:8
 #: .\kanhub\apps\repositories\models.py:32
 #: .\kanhub\apps\repositories\models.py:93
 #: .\kanhub\apps\repositories\models.py:127
 msgid "название"
-msgstr ""
+msgstr "Название"
 
 #: .\kanhub\apps\repositories\models.py:12
 #: .\kanhub\apps\repositories\models.py:36
 #: .\kanhub\apps\repositories\models.py:97
 #: .\kanhub\apps\repositories\models.py:131
 msgid "max 150 символов"
-msgstr ""
+msgstr "Макс. 150 символов"
 
 #: .\kanhub\apps\repositories\models.py:18
 #: .\kanhub\apps\repositories\models.py:42
 msgid "опубликовано"
-msgstr ""
+msgstr "Опубликовано"
 
 #: .\kanhub\apps\repositories\models.py:23
 msgid "тег"
-msgstr ""
+msgstr "Тег"
 
 #: .\kanhub\apps\repositories\models.py:24
 #: .\kanhub\apps\repositories\models.py:138
 msgid "теги"
-msgstr ""
+msgstr "Теги"
 
 #: .\kanhub\apps\repositories\models.py:47
 msgid "создатель"
-msgstr ""
+msgstr "Создатель"
 
 #: .\kanhub\apps\repositories\models.py:53
 msgid "пользователи"
-msgstr ""
+msgstr "Пользователи"
 
 #: .\kanhub\apps\repositories\models.py:67
 #: .\kanhub\apps\repositories\models.py:109
 msgid "репозиторий"
-msgstr ""
+msgstr "Репозиторий"
 
 #: .\kanhub\apps\repositories\models.py:68
 msgid "репозитории"
-msgstr ""
+msgstr "Репозитории"
 
 #: .\kanhub\apps\repositories\models.py:104
 msgid "пользователь"
-msgstr ""
+msgstr "Пользователь"
 
 #: .\kanhub\apps\repositories\models.py:118
 #: .\kanhub\apps\repositories\models.py:158
 msgid "коммит"
-msgstr ""
+msgstr "Коммит"
 
 #: .\kanhub\apps\repositories\models.py:119
 msgid "коммиты"
-msgstr ""
+msgstr "Коммиты"
 
 #: .\kanhub\apps\repositories\models.py:141
 msgid "текст"
-msgstr ""
+msgstr "Текст"
 
 #: .\kanhub\apps\repositories\models.py:142
 msgid "Вспомогательный текст"
-msgstr ""
+msgstr "Вспомогательный текст"
 
 #: .\kanhub\apps\repositories\models.py:152
 msgid "первый комит"
-msgstr ""
+msgstr "первый комит"
 
 #: .\kanhub\apps\repositories\models.py:163
 msgid "задача"
-msgstr ""
+msgstr "Задача"
 
 #: .\kanhub\apps\repositories\models.py:164
 msgid "задачи"
-msgstr ""
+msgstr "Задачи"
 
 #: .\kanhub\apps\repositories\views.py:35
 msgid "Опубликовано, Не опубликовано"
-msgstr ""
+msgstr "Опубликовано, Не опубликовано"
 
 #: .\kanhub\apps\repositories\views.py:311
 #: .\kanhub\apps\repositories\views.py:412
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 #: .\kanhub\apps\repositories\views.py:312
 #: .\kanhub\apps\repositories\views.py:413
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 #: .\kanhub\apps\repositories\views.py:313
 #: .\kanhub\apps\repositories\views.py:414
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 #: .\kanhub\apps\repositories\views.py:314
 #: .\kanhub\apps\repositories\views.py:415
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 #: .\kanhub\apps\repositories\views.py:315
 #: .\kanhub\apps\repositories\views.py:416
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 #: .\kanhub\apps\repositories\views.py:316
 #: .\kanhub\apps\repositories\views.py:417
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 #: .\kanhub\apps\repositories\views.py:317
 #: .\kanhub\apps\repositories\views.py:418
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 #: .\kanhub\apps\stats\apps.py:9
 msgid "stats"
-msgstr ""
+msgstr "Статистика"
 
 #: .\kanhub\apps\users\apps.py:10
 msgid "users"
-msgstr ""
+msgstr "Пользователи"
 
 #: .\kanhub\apps\users\models.py:21
 msgid "avatar"
-msgstr ""
+msgstr "Аватар"
 
 #: .\kanhub\apps\users\views.py:38
 msgid "username_is_already_taken"
-msgstr ""
+msgstr "Такое имя пользователя уже занято!"
 
 #: .\kanhub\kanhub\settings.py:161
 msgid "English"
@@ -207,15 +207,15 @@ msgstr "О проекте"
 
 #: .\kanhub\templates\about\main.html:13
 msgid "About Kanhub"
-msgstr ""
+msgstr "О Kanhub"
 
 #: .\kanhub\templates\about\main.html:14
 msgid "A powerful task management platform for repositories and commits"
-msgstr ""
+msgstr "Мощная платформа управления задачами для репозиториев и коммитов"
 
 #: .\kanhub\templates\about\main.html:20
 msgid "What is Kanhub?"
-msgstr ""
+msgstr "Что такое Kanhub?"
 
 #: .\kanhub\templates\about\main.html:22
 msgid ""
@@ -223,6 +223,9 @@ msgid ""
 "repositories with ease. It allows you to link tasks to specific commits, "
 "monitor progress, and collaborate with your team more effectively."
 msgstr ""
+"Kanhub — это передовая платформа, призванная помочь вам с легкостью управлять задачами в ваших "
+"репозиториях. Она позволяет вам связывать задачи с определенными коммитами, "
+"отслеживать прогресс и более эффективно сотрудничать с вашей командой."
 
 #: .\kanhub\templates\about\main.html:25
 msgid ""
@@ -230,195 +233,217 @@ msgid ""
 "repository, Kanhub provides the tools you need to stay organized and "
 "productive."
 msgstr ""
+"Работаете ли вы над небольшим личным проектом или над большим командным"
+"репозиторием Kanhub предоставляет инструменты, необходимые для того, чтобы оставаться организованным и "
+"продуктивный."
 
 #: .\kanhub\templates\about\main.html:29
 msgid "Kanhub Overview"
-msgstr ""
+msgstr "Обзор Overview"
 
 #: .\kanhub\templates\about\main.html:33
 msgid "Key Features"
-msgstr ""
+msgstr "Основные характеристики"
 
 #: .\kanhub\templates\about\main.html:39
 msgid "Task Creation"
-msgstr ""
+msgstr "Создание задачи"
 
 #: .\kanhub\templates\about\main.html:40
 msgid ""
 "Create tasks with detailed descriptions, deadlines, and tags. Effortlessly "
 "assign tasks to repositories and commits."
 msgstr ""
+"Создавайте задачи с подробными описаниями, сроками и тегами. Легко "
+"назначайте задачи репозиториям и коммитам."
 
 #: .\kanhub\templates\about\main.html:48
 msgid "Link Tasks to Commits"
-msgstr ""
+msgstr "Связать задачи с коммитами"
 
 #: .\kanhub\templates\about\main.html:49
 msgid ""
 "Associate tasks directly with commits to track changes and keep your project "
 "organized."
-msgstr ""
+msgstr "Свяжите задачи напрямую с коммитами, чтобы отслеживать изменения и поддерживать организованность вашего проекта."
 
 #: .\kanhub\templates\about\main.html:57
 msgid "Progress Tracking"
-msgstr ""
+msgstr "Отслеживание прогресса"
 
 #: .\kanhub\templates\about\main.html:58
 msgid ""
 "Easily track task completion and repository progress. Stay on top of "
 "deadlines and project milestones."
 msgstr ""
+"Легко отслеживайте выполнение задач и ход выполнения репозитория. Будьте в курсе "
+"сроков и контрольных точек проекта."
 
 #: .\kanhub\templates\about\main.html:66 .\kanhub\templates\about\main.html:69
 msgid "How It Works"
-msgstr ""
+msgstr "Как это работает"
 
 #: .\kanhub\templates\about\main.html:70
 msgid ""
 "Kanhub is designed to be intuitive and user-friendly. Here's how it works:"
 msgstr ""
+"Kanhub разработан так, чтобы быть интуитивно понятным и удобным для пользователя. Вот как это работает:"
 
 #: .\kanhub\templates\about\main.html:72
 msgid ""
 "Create a new task by providing details such as title, description, deadline, "
 "and tags."
 msgstr ""
+"Создайте новую задачу, указав такие данные, как название, описание, срок выполнения, "
+"и теги."
 
 #: .\kanhub\templates\about\main.html:73
 msgid ""
 "Link the task to specific commits in your repository to track code changes "
 "and related work."
 msgstr ""
+"Свяжите задачу с определенными коммитами в вашем репозитории, чтобы отслеживать изменения кода "
+"и связанную с этим работу."
 
 #: .\kanhub\templates\about\main.html:74
 msgid ""
 "Monitor the progress of your tasks through an easy-to-use dashboard that "
 "updates in real-time."
 msgstr ""
+"Отслеживайте ход выполнения своих задач с помощью простой в использовании панели инструментов, которая "
+"обновляется в режиме реального времени."
 
 #: .\kanhub\templates\about\main.html:81
 msgid "Why Choose Kanhub?"
-msgstr ""
+msgstr "Почему стоит выбрать Kanhub?"
 
 #: .\kanhub\templates\about\main.html:82
 msgid ""
 "Kanhub brings numerous benefits that make it an essential tool for "
 "developers and teams working with repositories."
 msgstr ""
+"Kanhub обладает многочисленными преимуществами, которые делают его незаменимым инструментом для "
+"разработчиков и команд, работающих с репозиториями."
 
 #: .\kanhub\templates\about\main.html:88
 msgid "Collaboration"
-msgstr ""
+msgstr "Сотрудничество"
 
 #: .\kanhub\templates\about\main.html:89
 msgid ""
 "Easily collaborate with team members by assigning tasks, tracking progress, "
 "and sharing updates in real-time."
 msgstr ""
+"Легко сотрудничайте с членами команды, назначая задачи, отслеживая прогресс и делясь обновлениями в режиме реального времени."
 
 #: .\kanhub\templates\about\main.html:97
 msgid "Time Efficiency"
-msgstr ""
+msgstr "Эффективное распределение времени"
 
 #: .\kanhub\templates\about\main.html:98
 msgid ""
 "Save time by linking tasks directly to commits, reducing the need for manual "
 "tracking."
 msgstr ""
+"Экономьте время, напрямую связывая задачи с коммитами, сокращая необходимость в ручном "
+"отслеживании."
 
 #: .\kanhub\templates\about\main.html:106
 msgid "Secure & Reliable"
-msgstr ""
+msgstr "Безопасно и надежно"
 
 #: .\kanhub\templates\about\main.html:107
 msgid ""
 "Kanhub is built with security and reliability in mind. You can trust the "
 "platform to keep your data safe."
 msgstr ""
+"Kanhub создан с учетом безопасности и надежности. Вы можете доверять "
+"платформе, которая будет хранить ваши данные в безопасности."
 
 #: .\kanhub\templates\about\main.html:118
 #: .\kanhub\templates\homepage\main.html:49
 msgid "Get Started"
-msgstr ""
+msgstr "Начать"
 
 #: .\kanhub\templates\api\base.html:5
 msgid "Kanhub API Docs"
-msgstr ""
+msgstr "Документация API Kanhub"
 
 #: .\kanhub\templates\api\base.html:19
 msgid "kanhub_api_docs"
-msgstr ""
+msgstr "Документация API Kanhub"
 
 #: .\kanhub\templates\api\base.html:26
 msgid "preamble"
-msgstr ""
+msgstr "Предисловие"
 
 #: .\kanhub\templates\api\base.html:31 .\kanhub\templates\api\base.html:35
 #: .\kanhub\templates\api\base.html:36
 msgid "Token"
-msgstr ""
+msgstr "Токен"
 
 #: .\kanhub\templates\api\base.html:35 .\kanhub\templates\api\base.html:46
 #: .\kanhub\templates\api\base.html:59
 #: .\kanhub\templates\api\docs\task_create.html:4
 msgid "creating"
-msgstr ""
+msgstr "создание"
 
 #: .\kanhub\templates\api\base.html:36 .\kanhub\templates\api\base.html:47
 #: .\kanhub\templates\api\base.html:60 .\kanhub\templates\api\base.html:72
 msgid "receiving"
-msgstr ""
+msgstr "получение"
 
 #: .\kanhub\templates\api\base.html:42 .\kanhub\templates\api\base.html:46
 #: .\kanhub\templates\api\base.html:47 .\kanhub\templates\api\base.html:48
 #: .\kanhub\templates\api\base.html:49
 msgid "Repository"
-msgstr ""
+msgstr "Репозиторий"
 
 #: .\kanhub\templates\api\base.html:48 .\kanhub\templates\api\base.html:61
 msgid "update"
-msgstr ""
+msgstr "обновлять"
 
 #: .\kanhub\templates\api\base.html:49 .\kanhub\templates\api\base.html:62
 #: .\kanhub\templates\api\docs\task_delete.html:4
 msgid "deleting"
-msgstr ""
+msgstr "удаление"
 
 #: .\kanhub\templates\api\base.html:55 .\kanhub\templates\api\base.html:59
 #: .\kanhub\templates\api\base.html:60 .\kanhub\templates\api\base.html:61
 #: .\kanhub\templates\api\base.html:62
 msgid "Task"
-msgstr ""
+msgstr "Задача"
 
 #: .\kanhub\templates\api\base.html:68 .\kanhub\templates\api\base.html:72
 #: .\kanhub\templates\api\docs\preamble.html:40
 msgid "Commits"
-msgstr ""
+msgstr "Коммиты"
 
 #: .\kanhub\templates\api\base.html:81
 msgid "copy"
-msgstr ""
+msgstr "Копировать"
 
 #: .\kanhub\templates\api\base.html:81
 msgid "coped"
-msgstr ""
+msgstr "Скопировано"
 
 #: .\kanhub\templates\api\docs\commits_get.html:4
 #: .\kanhub\templates\api\docs\repository_get.html:4
 #: .\kanhub\templates\api\docs\task_get.html:4
 msgid "Fetching"
-msgstr ""
+msgstr "Извлечение"
 
 #: .\kanhub\templates\api\docs\commits_get.html:10
 msgid ""
 "To fetch the list of commits, send a GET request with the token in headers."
 msgstr ""
+"Чтобы получить список коммитов, отправьте GET-запрос с токеном в заголовках."
 
 #: .\kanhub\templates\api\docs\commits_get.html:12
 #: .\kanhub\templates\api\docs\repository_delete.html:12
 #: .\kanhub\templates\api\docs\repository_get.html:12
 msgid "Request Headers:"
-msgstr ""
+msgstr "Заголовки запроса:"
 
 #: .\kanhub\templates\api\docs\commits_get.html:18
 #: .\kanhub\templates\api\docs\repository_create.html:70
@@ -428,12 +453,13 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_create.html:43
 #: .\kanhub\templates\api\docs\token_get.html:43
 msgid "Response Parameters:"
-msgstr ""
+msgstr "Параметры ответа:"
 
 #: .\kanhub\templates\api\docs\commits_get.html:19
 msgid ""
 "The response will include a list of commits with details about each commit."
 msgstr ""
+"Ответ будет включать список коммитов с подробностями о каждом коммите."
 
 #: .\kanhub\templates\api\docs\commits_get.html:21
 #: .\kanhub\templates\api\docs\repository_create.html:129
@@ -444,7 +470,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_create.html:67
 #: .\kanhub\templates\api\docs\token_get.html:67
 msgid "Response Codes:"
-msgstr ""
+msgstr "Коды ответов:"
 
 #: .\kanhub\templates\api\docs\commits_get.html:26
 #: .\kanhub\templates\api\docs\repository_create.html:134
@@ -455,7 +481,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_create.html:72
 #: .\kanhub\templates\api\docs\token_get.html:72
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: .\kanhub\templates\api\docs\commits_get.html:27
 #: .\kanhub\templates\api\docs\repository_create.html:21
@@ -476,11 +502,11 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:52
 #: .\kanhub\templates\api\docs\token_get.html:73
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: .\kanhub\templates\api\docs\commits_get.html:33
 msgid "Successfully fetched commits"
-msgstr ""
+msgstr "Успешно извлеченные коммиты"
 
 #: .\kanhub\templates\api\docs\commits_get.html:37
 #: .\kanhub\templates\api\docs\repository_create.html:153
@@ -489,11 +515,11 @@ msgstr ""
 #: .\kanhub\templates\api\docs\repository_update.html:149
 #: .\kanhub\templates\api\docs\task_get.html:122
 msgid "Invalid or missing token"
-msgstr ""
+msgstr "Недействительный или отсутствующий токен"
 
 #: .\kanhub\templates\api\docs\commits_get.html:41
 msgid "No commits found or incorrect URL"
-msgstr ""
+msgstr "Не найдено ни одного коммита или неверный URL"
 
 #: .\kanhub\templates\api\docs\commits_get.html:45
 #: .\kanhub\templates\api\docs\repository_create.html:157
@@ -502,15 +528,15 @@ msgstr ""
 #: .\kanhub\templates\api\docs\repository_update.html:153
 #: .\kanhub\templates\api\docs\task_get.html:130
 msgid "Invalid HTTP method"
-msgstr ""
+msgstr "Неверный метод HTTP"
 
 #: .\kanhub\templates\api\docs\commits_get.html:51
 msgid "Example Request to Fetch Commits:"
-msgstr ""
+msgstr "Пример запроса на получение коммитов:"
 
 #: .\kanhub\templates\api\docs\commits_get.html:57
 msgid "Example Response after Fetching Commits:"
-msgstr ""
+msgstr "Пример ответа после получения коммитов:"
 
 #: .\kanhub\templates\api\docs\commits_get.html:75
 #: .\kanhub\templates\api\docs\repository_create.html:182
@@ -521,122 +547,133 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_create.html:104
 #: .\kanhub\templates\api\docs\token_get.html:104
 msgid "Python Code Example"
-msgstr ""
+msgstr "Пример кода на Python"
 
 #: .\kanhub\templates\api\docs\preamble.html:4
 msgid "API Preamble"
-msgstr ""
+msgstr "Предисловие к API"
 
 #: .\kanhub\templates\api\docs\preamble.html:11
 msgid "Basic API Path:"
-msgstr ""
+msgstr "Базовый путь API:"
 
 #: .\kanhub\templates\api\docs\preamble.html:15
 msgid "API Documentation Version"
-msgstr ""
+msgstr "Версия документации API"
 
 #: .\kanhub\templates\api\docs\preamble.html:21
 msgid "Welcome to the Datanar API service documentation!"
-msgstr ""
+msgstr "Добро пожаловать в документацию по сервису API Datanar!"
 
 #: .\kanhub\templates\api\docs\preamble.html:22
 msgid ""
 "This API is designed to help you manage repositories, commits, and tasks."
 msgstr ""
+"Этот API разработан, чтобы помочь вам управлять репозиториями, коммитами и задачами."
 
 #: .\kanhub\templates\api\docs\preamble.html:23
 msgid ""
 "It allows you to perform CRUD operations for repositories and tasks related "
 "to specific commits."
 msgstr ""
+"Он позволяет выполнять операции CRUD для репозиториев и задач, связанных с "
+"определенными коммитами."
 
 #: .\kanhub\templates\api\docs\preamble.html:25
 msgid "Available API Endpoints"
-msgstr ""
+msgstr "Доступные конечные точки API"
 
 #: .\kanhub\templates\api\docs\preamble.html:28
 #: .\kanhub\templates\repositories\repository_list.html:4
 msgid "Repositories"
-msgstr ""
+msgstr "Репозитории"
 
 #: .\kanhub\templates\api\docs\preamble.html:28
 msgid "List of Repositories"
-msgstr ""
+msgstr "Список репозиториев"
 
 #: .\kanhub\templates\api\docs\preamble.html:31
 msgid "Repository Details"
-msgstr ""
+msgstr "Подробности репозитория"
 
 #: .\kanhub\templates\api\docs\preamble.html:31
 msgid "Retrieve a single repository"
-msgstr ""
+msgstr "Получить один репозиторий"
 
 #: .\kanhub\templates\api\docs\preamble.html:34
 #: .\kanhub\templates\includes\header_of_repo.html:5
 msgid "Tasks"
-msgstr ""
+msgstr "Задачи"
 
 #: .\kanhub\templates\api\docs\preamble.html:34
 #: .\kanhub\templates\api\docs\preamble.html:37
 msgid "repository_id"
-msgstr ""
+msgstr "ID репозитория"
 
 #: .\kanhub\templates\api\docs\preamble.html:34
 msgid "List of Tasks for a Repository"
-msgstr ""
+msgstr "Список задач для репозитория"
 
 #: .\kanhub\templates\api\docs\preamble.html:37
 #: .\kanhub\templates\repositories\task_new.html:24
 msgid "Task Details"
-msgstr ""
+msgstr "Task Details"
 
 #: .\kanhub\templates\api\docs\preamble.html:37
 msgid "Retrieve a specific task"
-msgstr ""
+msgstr "Получить конкретную задачу"
 
 #: .\kanhub\templates\api\docs\preamble.html:40
 msgid "List of Commits"
-msgstr ""
+msgstr "Список коммитов"
 
 #: .\kanhub\templates\api\docs\preamble.html:44
 msgid "Authentication"
-msgstr ""
+msgstr "Аутентификация"
 
 #: .\kanhub\templates\api\docs\preamble.html:45
 msgid "To use this API, you must authenticate using a token."
-msgstr ""
+msgstr "Для использования этого API необходимо пройти аутентификацию с использованием токена."
 
 #: .\kanhub\templates\api\docs\preamble.html:47
 msgid ""
 "You can obtain your token by sending a POST request to /api-token-auth/ with "
 "your username and password."
 msgstr ""
+"Вы можете получить свой токен, отправив запрос POST на /api-token-auth/ с "
+"вашим именем пользователя и паролем."
 
 #: .\kanhub\templates\api\docs\preamble.html:48
 msgid ""
 "Use the token as the Authorization header in your requests, with the format: "
 "Token <your_token>."
 msgstr ""
+"Используйте токен в качестве заголовка авторизации в ваших запросах в формате: "
+"Токен <your_token>."
 
 #: .\kanhub\templates\api\docs\preamble.html:51
 msgid "Additional Information"
-msgstr ""
+msgstr "Дополнительная информация"
 
 #: .\kanhub\templates\api\docs\preamble.html:52
 msgid ""
 "For any questions or support, feel free to reach out to us at the provided "
 "contact email."
 msgstr ""
+"Если у вас есть вопросы или вам нужна поддержка, обращайтесь к нам по указанному "
+"контактному адресу электронной почты."
 
 #: .\kanhub\templates\api\docs\repository_create.html:4
 msgid "Create/Update"
-msgstr ""
+msgstr "Создать/Обновить"
 
 #: .\kanhub\templates\api\docs\repository_create.html:10
 msgid ""
 "To create or update a repository, send a POST request with authentication "
 "token in headers and required data in the body."
 msgstr ""
+"Чтобы создать или обновить репозиторий, отправьте запрос POST с аутентификацией "
+"токеном в заголовках и необходимыми данными в теле."
 
 #: .\kanhub\templates\api\docs\repository_create.html:12
 #: .\kanhub\templates\api\docs\repository_update.html:12
@@ -644,7 +681,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_create.html:12
 #: .\kanhub\templates\api\docs\token_get.html:12
 msgid "Request Parameters:"
-msgstr ""
+msgstr "Параметры запроса:"
 
 #: .\kanhub\templates\api\docs\repository_create.html:17
 #: .\kanhub\templates\api\docs\repository_create.html:75
@@ -657,7 +694,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:17
 #: .\kanhub\templates\api\docs\token_get.html:48
 msgid "Attribute Name"
-msgstr ""
+msgstr "Имя атрибута"
 
 #: .\kanhub\templates\api\docs\repository_create.html:18
 #: .\kanhub\templates\api\docs\repository_create.html:76
@@ -670,7 +707,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:18
 #: .\kanhub\templates\api\docs\token_get.html:49
 msgid "Location"
-msgstr ""
+msgstr "Расположение"
 
 #: .\kanhub\templates\api\docs\repository_create.html:19
 #: .\kanhub\templates\api\docs\repository_create.html:77
@@ -683,7 +720,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:19
 #: .\kanhub\templates\api\docs\token_get.html:50
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: .\kanhub\templates\api\docs\repository_create.html:20
 #: .\kanhub\templates\api\docs\repository_create.html:78
@@ -694,7 +731,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:20
 #: .\kanhub\templates\api\docs\token_get.html:51
 msgid "Required"
-msgstr ""
+msgstr "Необходимый"
 
 #: .\kanhub\templates\api\docs\repository_create.html:29
 #: .\kanhub\templates\api\docs\repository_create.html:36
@@ -725,163 +762,169 @@ msgstr ""
 #: .\kanhub\templates\api\docs\token_get.html:36
 #: .\kanhub\templates\api\docs\token_get.html:60
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: .\kanhub\templates\api\docs\repository_create.html:30
 #: .\kanhub\templates\api\docs\repository_create.html:95
 #: .\kanhub\templates\api\docs\repository_update.html:30
 #: .\kanhub\templates\api\docs\repository_update.html:95
 msgid "Name of the repository"
-msgstr ""
+msgstr "Название репозитория"
 
 #: .\kanhub\templates\api\docs\repository_create.html:37
 #: .\kanhub\templates\api\docs\repository_update.html:37
 msgid "Text or description of the repository"
-msgstr ""
+msgstr "Текст или описание репозитория"
 
 #: .\kanhub\templates\api\docs\repository_create.html:44
 #: .\kanhub\templates\api\docs\repository_create.html:109
 #: .\kanhub\templates\api\docs\repository_update.html:44
 #: .\kanhub\templates\api\docs\repository_update.html:109
 msgid "Start date of the repository's activity"
-msgstr ""
+msgstr "Дата начала деятельности репозитория"
 
 #: .\kanhub\templates\api\docs\repository_create.html:51
 #: .\kanhub\templates\api\docs\repository_create.html:116
 #: .\kanhub\templates\api\docs\repository_update.html:51
 #: .\kanhub\templates\api\docs\repository_update.html:116
 msgid "End date of the repository's activity"
-msgstr ""
+msgstr "Дата окончания деятельности репозитория"
 
 #: .\kanhub\templates\api\docs\repository_create.html:58
 #: .\kanhub\templates\api\docs\repository_update.html:58
 msgid "Whether the repository is published or not"
-msgstr ""
+msgstr "Опубликован ли репозиторий или нет"
 
 #: .\kanhub\templates\api\docs\repository_create.html:64
 #: .\kanhub\templates\api\docs\repository_update.html:64
 msgid "Headers for Authentication:"
-msgstr ""
+msgstr "Заголовки для аутентификации:"
 
 #: .\kanhub\templates\api\docs\repository_create.html:88
 #: .\kanhub\templates\api\docs\repository_update.html:88
 msgid "Unique identifier for the repository"
-msgstr ""
+msgstr "Уникальный идентификатор репозитория"
 
 #: .\kanhub\templates\api\docs\repository_create.html:102
 #: .\kanhub\templates\api\docs\repository_update.html:102
 msgid "Description or text related to the repository"
-msgstr ""
+msgstr "Описание или текст, относящийся к репозиторию"
 
 #: .\kanhub\templates\api\docs\repository_create.html:123
 #: .\kanhub\templates\api\docs\repository_update.html:123
 msgid "Indicates if the repository is published"
-msgstr ""
+msgstr "Указывает, опубликован ли репозиторий"
 
 #: .\kanhub\templates\api\docs\repository_create.html:141
 msgid "Repository successfully created"
-msgstr ""
+msgstr "Репозиторий успешно создан"
 
 #: .\kanhub\templates\api\docs\repository_create.html:145
 #: .\kanhub\templates\api\docs\repository_update.html:141
 msgid "Repository successfully updated"
-msgstr ""
+msgstr "Репозиторий успешно обновлен"
 
 #: .\kanhub\templates\api\docs\repository_create.html:149
 msgid "Missing required fields"
-msgstr ""
+msgstr "Отсутствуют обязательные поля"
 
 #: .\kanhub\templates\api\docs\repository_create.html:163
 msgid "Example Request for Creating or Updating Repository:"
-msgstr ""
+msgstr "Пример запроса на создание или обновление репозитория:"
 
 #: .\kanhub\templates\api\docs\repository_create.html:172
 msgid "Example Response for Creating or Updating Repository:"
-msgstr ""
+msgstr "Пример ответа для создания или обновления репозитория:"
 
 #: .\kanhub\templates\api\docs\repository_delete.html:4
 msgid "Deleting"
-msgstr ""
+msgstr "Удаление"
 
 #: .\kanhub\templates\api\docs\repository_delete.html:10
 msgid ""
 "To delete a repository, send a DELETE request with the repository ID and the "
 "token in headers."
 msgstr ""
+"Чтобы удалить репозиторий, отправьте запрос DELETE с идентификатором репозитория и "
+"токеном в заголовках."
 
 #: .\kanhub\templates\api\docs\repository_delete.html:19
 msgid "There are no response parameters for a successful deletion."
-msgstr ""
+msgstr "Параметры ответа для успешного удаления отсутствуют."
 
 #: .\kanhub\templates\api\docs\repository_delete.html:33
 msgid "Repository deleted successfully"
-msgstr ""
+msgstr "Репозиторий успешно удален"
 
 #: .\kanhub\templates\api\docs\repository_delete.html:41
 msgid "Repository not found"
-msgstr ""
+msgstr "Репозиторий не найден"
 
 #: .\kanhub\templates\api\docs\repository_delete.html:51
 msgid "Example Request to Delete Repository:"
-msgstr ""
+msgstr "Пример запроса на удаление репозитория:"
 
 #: .\kanhub\templates\api\docs\repository_delete.html:57
 msgid "Example Response after Deleting Repository:"
-msgstr ""
+msgstr "Пример ответа после удаления репозитория:"
 
 #: .\kanhub\templates\api\docs\repository_get.html:10
 msgid ""
 "To fetch repositories, send a GET request with the authentication token in "
 "headers."
 msgstr ""
+"Чтобы получить репозитории, отправьте запрос GET с токеном аутентификации в "
+"заголовках."
 
 #: .\kanhub\templates\api\docs\repository_get.html:30
 msgid "Successfully fetched the repository details"
-msgstr ""
+msgstr "Успешно получена информация о репозитории"
 
 #: .\kanhub\templates\api\docs\repository_get.html:44
 msgid "Example Request for Fetching Repositories:"
-msgstr ""
+msgstr "Пример запроса на извлечения репозиториев:"
 
 #: .\kanhub\templates\api\docs\repository_get.html:50
 msgid "Example Response for Fetching Repositories:"
-msgstr ""
+msgstr "Пример ответа для извлечения репозиториев:"
 
 #: .\kanhub\templates\api\docs\repository_update.html:4
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: .\kanhub\templates\api\docs\repository_update.html:10
 msgid ""
 "To update a repository, send a PUT request with authentication token in "
 "headers and the new data in the body."
 msgstr ""
+"Чтобы обновить репозиторий, отправьте запрос PUT с токеном аутентификации в "
+"заголовках и новыми данными в теле."
 
 #: .\kanhub\templates\api\docs\repository_update.html:145
 msgid "Missing required fields or invalid data"
-msgstr ""
+msgstr "Отсутствуют обязательные поля или неверные данные"
 
 #: .\kanhub\templates\api\docs\repository_update.html:159
 msgid "Example Request for Updating Repository:"
-msgstr ""
+msgstr "Пример запроса на обновление репозитория:"
 
 #: .\kanhub\templates\api\docs\repository_update.html:168
 msgid "Example Response for Updating Repository:"
-msgstr ""
+msgstr "Пример ответа для обновления репозитория:"
 
 #: .\kanhub\templates\api\docs\task_create.html:10
 msgid "to_create_a_new_task_provide_the_task_data"
-msgstr ""
+msgstr "Для создания новой задачи укажите её данные"
 
 #: .\kanhub\templates\api\docs\task_create.html:10
 msgid "task_will_be_created_in_specified_repository"
-msgstr ""
+msgstr "Задача будет создана в указанном репозитории"
 
 #: .\kanhub\templates\api\docs\task_create.html:12
 #: .\kanhub\templates\api\docs\task_delete.html:12
 #: .\kanhub\templates\api\docs\task_update.html:12
 msgid "request_parameters:"
-msgstr ""
+msgstr "Параметры запроса:"
 
 #: .\kanhub\templates\api\docs\task_create.html:17
 #: .\kanhub\templates\api\docs\task_create.html:69
@@ -890,7 +933,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:17
 #: .\kanhub\templates\api\docs\task_update.html:69
 msgid "attribute_name"
-msgstr ""
+msgstr "Имя атрибута"
 
 #: .\kanhub\templates\api\docs\task_create.html:18
 #: .\kanhub\templates\api\docs\task_create.html:70
@@ -899,7 +942,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:18
 #: .\kanhub\templates\api\docs\task_update.html:70
 msgid "location"
-msgstr ""
+msgstr "расположение"
 
 #: .\kanhub\templates\api\docs\task_create.html:19
 #: .\kanhub\templates\api\docs\task_create.html:71
@@ -908,7 +951,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:19
 #: .\kanhub\templates\api\docs\task_update.html:71
 msgid "type"
-msgstr ""
+msgstr "тип"
 
 #: .\kanhub\templates\api\docs\task_create.html:20
 #: .\kanhub\templates\api\docs\task_create.html:72
@@ -917,7 +960,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:20
 #: .\kanhub\templates\api\docs\task_update.html:72
 msgid "commitment"
-msgstr ""
+msgstr "обязательство"
 
 #: .\kanhub\templates\api\docs\task_create.html:21
 #: .\kanhub\templates\api\docs\task_create.html:73
@@ -929,7 +972,7 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:73
 #: .\kanhub\templates\api\docs\task_update.html:129
 msgid "description"
-msgstr ""
+msgstr "описание"
 
 #: .\kanhub\templates\api\docs\task_create.html:29
 #: .\kanhub\templates\api\docs\task_create.html:36
@@ -964,618 +1007,619 @@ msgstr ""
 #: .\kanhub\templates\api\docs\task_update.html:109
 #: .\kanhub\templates\api\docs\task_update.html:116
 msgid "yes"
-msgstr ""
+msgstr "да"
 
 #: .\kanhub\templates\api\docs\task_create.html:30
 #: .\kanhub\templates\api\docs\task_create.html:89
 #: .\kanhub\templates\api\docs\task_update.html:30
 #: .\kanhub\templates\api\docs\task_update.html:89
 msgid "Name of the task"
-msgstr ""
+msgstr "Название задачи"
 
 #: .\kanhub\templates\api\docs\task_create.html:37
 #: .\kanhub\templates\api\docs\task_create.html:96
 #: .\kanhub\templates\api\docs\task_update.html:37
 #: .\kanhub\templates\api\docs\task_update.html:96
 msgid "Description of the task"
-msgstr ""
+msgstr "Описание задачи"
 
 #: .\kanhub\templates\api\docs\task_create.html:44
 #: .\kanhub\templates\api\docs\task_create.html:103
 #: .\kanhub\templates\api\docs\task_update.html:44
 #: .\kanhub\templates\api\docs\task_update.html:103
 msgid "Task start date"
-msgstr ""
+msgstr "Дата начала задачи"
 
 #: .\kanhub\templates\api\docs\task_create.html:51
 #: .\kanhub\templates\api\docs\task_create.html:110
 #: .\kanhub\templates\api\docs\task_update.html:51
 #: .\kanhub\templates\api\docs\task_update.html:110
 msgid "Task end date"
-msgstr ""
+msgstr "Дата окончания задачи"
 
 #: .\kanhub\templates\api\docs\task_create.html:58
 #: .\kanhub\templates\api\docs\task_create.html:117
 #: .\kanhub\templates\api\docs\task_update.html:58
 #: .\kanhub\templates\api\docs\task_update.html:117
 msgid "List of tag IDs associated with the task"
-msgstr ""
+msgstr "Список идентификаторов тегов, связанных с задачей"
 
 #: .\kanhub\templates\api\docs\task_create.html:64
 #: .\kanhub\templates\api\docs\task_delete.html:36
 #: .\kanhub\templates\api\docs\task_update.html:64
 msgid "response_parameters:"
-msgstr ""
+msgstr "Параметры ответа:"
 
 #: .\kanhub\templates\api\docs\task_create.html:82
 msgid "ID of the created task"
-msgstr ""
+msgstr "ID созданной задачи"
 
 #: .\kanhub\templates\api\docs\task_create.html:123
 #: .\kanhub\templates\api\docs\task_delete.html:60
 #: .\kanhub\templates\api\docs\task_update.html:123
 msgid "response_codes:"
-msgstr ""
+msgstr "Коды ответов:"
 
 #: .\kanhub\templates\api\docs\task_create.html:128
 #: .\kanhub\templates\api\docs\task_delete.html:65
 #: .\kanhub\templates\api\docs\task_update.html:128
 msgid "code"
-msgstr ""
+msgstr "Код"
 
 #: .\kanhub\templates\api\docs\task_create.html:135
 msgid "task_created_successfully"
-msgstr ""
+msgstr "Задача успешно создана"
 
 #: .\kanhub\templates\api\docs\task_create.html:139
 #: .\kanhub\templates\api\docs\task_update.html:139
 msgid "invalid_data"
-msgstr ""
+msgstr "Недействительные данные"
 
 #: .\kanhub\templates\api\docs\task_create.html:143
 msgid "repository_not_found"
-msgstr ""
+msgstr "Репозиторий не найден"
 
 #: .\kanhub\templates\api\docs\task_create.html:149
 #: .\kanhub\templates\api\docs\task_delete.html:82
 #: .\kanhub\templates\api\docs\task_update.html:149
 msgid "example_of_request_sent:"
-msgstr ""
+msgstr "Пример отправленного запроса:"
 
 #: .\kanhub\templates\api\docs\task_create.html:158
 #: .\kanhub\templates\api\docs\task_delete.html:87
 #: .\kanhub\templates\api\docs\task_update.html:158
 msgid "example_of_response_receive:"
-msgstr ""
+msgstr "Пример получения ответа:"
 
 #: .\kanhub\templates\api\docs\task_create.html:168
 #: .\kanhub\templates\api\docs\task_delete.html:92
 #: .\kanhub\templates\api\docs\task_update.html:168
 msgid "python_code_example"
-msgstr ""
+msgstr "Пример кода python"
 
 #: .\kanhub\templates\api\docs\task_delete.html:10
 msgid "to_delete_an_existing_task_use_the_task_id_in_the_url_and_send_a_delete_request"
-msgstr ""
+msgstr "Чтобы удалить существующую задачу, используйте идентификатор задачи в URL-адресе и отправьте запрос на удаление."
 
 #: .\kanhub\templates\api\docs\task_delete.html:30
 msgid "ID of the task to be deleted"
-msgstr ""
+msgstr "Идентификатор удаляемой задачи"
 
 #: .\kanhub\templates\api\docs\task_delete.html:54
 msgid "Confirmation message indicating the task has been deleted"
-msgstr ""
+msgstr "Подтверждающее сообщение о том, что задача была удалена"
 
 #: .\kanhub\templates\api\docs\task_delete.html:72
 msgid "task_deleted_successfully"
-msgstr ""
+msgstr "Задача удалена успешно"
 
 #: .\kanhub\templates\api\docs\task_delete.html:76
 msgid "task_or_repository_not_found"
-msgstr ""
+msgstr "Запрос или репозиторий не найден"
 
 #: .\kanhub\templates\api\docs\task_get.html:10
 msgid ""
 "To fetch a specific task from a repository, send a GET request with the task "
 "ID and repository ID in the URL, and include a valid token in the headers."
 msgstr ""
+"Чтобы получить определенную задачу из репозитория, отправьте запрос GET с идентификатором задачи и идентификатором репозитория в URL-адресе, а также включите действительный токен в заголовки."
 
 #: .\kanhub\templates\api\docs\task_get.html:13
 msgid ""
 "The request does not have body parameters, but you need to include the "
 "repository ID and task ID in the URL path."
 msgstr ""
+"Запрос не имеет параметров тела, но вам необходимо включить "
+"идентификатор репозитория и идентификатор задачи в путь URL."
 
 #: .\kanhub\templates\api\docs\task_get.html:22
 #: .\kanhub\templates\api\docs\task_get.html:55
 msgid "Commitment"
-msgstr ""
+msgstr "Обязательство"
 
 #: .\kanhub\templates\api\docs\task_get.html:32
 msgid "ID of the repository to which the task belongs"
-msgstr ""
+msgstr "ID репозитория, к которому относится задача"
 
 #: .\kanhub\templates\api\docs\task_get.html:39
 msgid "ID of the task you want to fetch"
-msgstr ""
+msgstr "ID задачи, которую вы хотите получить"
 
 #: .\kanhub\templates\api\docs\task_get.html:46
 msgid "The response will contain the details of the requested task."
-msgstr ""
+msgstr "Ответ будет содержать подробную информацию о запрошенной задаче."
 
 #: .\kanhub\templates\api\docs\task_get.html:65
 msgid "The ID of the task"
-msgstr ""
+msgstr "Идентификатор задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:72
 msgid "The name of the task"
-msgstr ""
+msgstr "Название задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:79
 msgid "The description of the task"
-msgstr ""
+msgstr "Описание задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:86
 msgid "The status of the task"
-msgstr ""
+msgstr "Статус задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:93
 msgid "The start date of the task"
-msgstr ""
+msgstr "Дата начала задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:100
 msgid "The end date of the task"
-msgstr ""
+msgstr "Дата окончания задачи"
 
 #: .\kanhub\templates\api\docs\task_get.html:118
 msgid "Successfully fetched task details"
-msgstr ""
+msgstr "Подробности задачи успешно получены"
 
 #: .\kanhub\templates\api\docs\task_get.html:126
 msgid "Repository or task not found"
-msgstr ""
+msgstr "Репозиторий или задача не найдены"
 
 #: .\kanhub\templates\api\docs\task_get.html:136
 msgid "Example Request to Fetch Task:"
-msgstr ""
+msgstr "Пример запроса на получение задачи:"
 
 #: .\kanhub\templates\api\docs\task_get.html:142
 msgid "Example Response with Task Details:"
-msgstr ""
+msgstr "Пример ответа с подробностями задачи:"
 
 #: .\kanhub\templates\api\docs\task_update.html:4
 msgid "updating"
-msgstr ""
+msgstr "обновление"
 
 #: .\kanhub\templates\api\docs\task_update.html:10
 msgid "to_update_an_existing_task_use_the_task_id_in_the_url_and_provide_the_updated_task_data"
-msgstr ""
+msgstr "Чтобы обновить существующую задачу, используйте идентификатор задачи в URL-адресе и укажите обновленные данные задачи."
 
 #: .\kanhub\templates\api\docs\task_update.html:82
 msgid "ID of the updated task"
-msgstr ""
+msgstr "ID обновленной задачи"
 
 #: .\kanhub\templates\api\docs\task_update.html:135
 msgid "task_updated_successfully"
-msgstr ""
+msgstr "Задача успешно обновлена"
 
 #: .\kanhub\templates\api\docs\task_update.html:143
 msgid "repository_or_task_not_found"
-msgstr ""
+msgstr "Репозиторий или задача не найден"
 
 #: .\kanhub\templates\api\docs\token_create.html:4
 msgid "Creating"
-msgstr ""
+msgstr "Создание"
 
 #: .\kanhub\templates\api\docs\token_create.html:10
 #: .\kanhub\templates\api\docs\token_get.html:10
 msgid "To start interacting with the extended API, you need a token."
-msgstr ""
+msgstr "Чтобы начать взаимодействие с расширенным API, вам понадобится токен."
 
 #: .\kanhub\templates\api\docs\token_create.html:10
 msgid "Each new POST request recreates the token."
-msgstr ""
+msgstr "Каждый новый запрос POST воссоздает токен."
 
 #: .\kanhub\templates\api\docs\token_create.html:30
 #: .\kanhub\templates\api\docs\token_get.html:30
 msgid "Username or email"
-msgstr ""
+msgstr "Имя пользователя или почта"
 
 #: .\kanhub\templates\api\docs\token_create.html:37
 #: .\kanhub\templates\api\docs\token_get.html:37
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: .\kanhub\templates\api\docs\token_create.html:61
 #: .\kanhub\templates\api\docs\token_get.html:61
 msgid "Token for interaction with the extended API"
-msgstr ""
+msgstr "Токен для взаимодействия с расширенным API"
 
 #: .\kanhub\templates\api\docs\token_create.html:79
 #: .\kanhub\templates\api\docs\token_get.html:79
 msgid "Token successfully obtained"
-msgstr ""
+msgstr "Токен успешно получен"
 
 #: .\kanhub\templates\api\docs\token_create.html:83
 #: .\kanhub\templates\api\docs\token_get.html:83
 msgid "Missing required field"
-msgstr ""
+msgstr "Отсутствует обязательное поле"
 
 #: .\kanhub\templates\api\docs\token_create.html:87
 #: .\kanhub\templates\api\docs\token_get.html:87
 msgid "Request other than POST"
-msgstr ""
+msgstr "Запрос, отличный от POST"
 
 #: .\kanhub\templates\api\docs\token_create.html:93
 #: .\kanhub\templates\api\docs\token_get.html:93
 msgid "Example of Request Sent:"
-msgstr ""
+msgstr "Пример отправленного запроса:"
 
 #: .\kanhub\templates\api\docs\token_create.html:99
 #: .\kanhub\templates\api\docs\token_get.html:99
 msgid "Example of Response Received:"
-msgstr ""
+msgstr "Пример полученного ответа:"
 
 #: .\kanhub\templates\api\docs\token_get.html:4
 msgid "Receiving"
-msgstr ""
+msgstr "Получение"
 
 #: .\kanhub\templates\api\docs\token_get.html:10
 msgid "On this route, you can create a token or reacquire an existing one."
-msgstr ""
+msgstr "На этом пути вы можете создать токен или повторно получить существующий."
 
 #: .\kanhub\templates\homepage\main.html:4
 msgid "Kanhub - Task Management Platform"
-msgstr ""
+msgstr "Kanhub — платформа управления задачами"
 
 #: .\kanhub\templates\homepage\main.html:11
 msgid "Welcome to Kanhub"
-msgstr ""
+msgstr "Добро пожаловать в Kanhub"
 
 #: .\kanhub\templates\homepage\main.html:12
 msgid "A powerful platform for managing tasks across repositories."
-msgstr ""
+msgstr "Мощная платформа для управления задачами в репозиториях."
 
 #: .\kanhub\templates\homepage\main.html:21
 msgid "Create Tasks"
-msgstr ""
+msgstr "Создать задачи"
 
 #: .\kanhub\templates\homepage\main.html:22
 msgid "Easily create and describe tasks with titles, deadlines, and tags."
-msgstr ""
+msgstr "Легко создавайте и описывайте задачи с заголовками, сроками и тегами."
 
 #: .\kanhub\templates\homepage\main.html:30
 msgid "Link Commits"
-msgstr ""
+msgstr "Ссылка коммиты"
 
 #: .\kanhub\templates\homepage\main.html:31
 msgid "Connect tasks to specific commits and track changes effortlessly."
-msgstr ""
+msgstr "Привязывайте задачи к конкретным коммитам и легко отслеживайте изменения."
 
 #: .\kanhub\templates\homepage\main.html:39
 msgid "Track Progress"
-msgstr ""
+msgstr "Отслеживать прогресс"
 
 #: .\kanhub\templates\homepage\main.html:40
 msgid "Monitor task completion and repository progress in one place."
-msgstr ""
+msgstr "Отслеживайте выполнение задач и ход выполнения репозитория в одном месте."
 
 #: .\kanhub\templates\includes\footer.html:7
 #: .\kanhub\templates\includes\header.html:14
-#, fuzzy
-#| msgid "About"
 msgid "About us"
 msgstr "О проекте"
 
 #: .\kanhub\templates\includes\footer.html:8
 msgid "Kanhub - task management service"
-msgstr ""
+msgstr "Kanhub - сервис управления задачами"
 
 #: .\kanhub\templates\includes\header.html:13
 msgid "Home"
-msgstr ""
+msgstr "Главная"
 
 #: .\kanhub\templates\includes\header.html:15
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: .\kanhub\templates\includes\header.html:43
 msgid "theme"
-msgstr ""
+msgstr "Тема"
 
 #: .\kanhub\templates\includes\header.html:47
 msgid "light"
-msgstr ""
+msgstr "Светлая"
 
 #: .\kanhub\templates\includes\header.html:50
 msgid "dark"
-msgstr ""
+msgstr "Тёмная"
 
 #: .\kanhub\templates\includes\header.html:56
 msgid "no_user"
-msgstr ""
+msgstr "Нет пользователя"
 
 #: .\kanhub\templates\includes\header.html:63
 msgid "my_profile"
-msgstr ""
+msgstr "Мой профиль"
 
 #: .\kanhub\templates\includes\header.html:67
 msgid "admin"
-msgstr ""
+msgstr "Панель админа"
 
 #: .\kanhub\templates\includes\header.html:74
 msgid "exit"
-msgstr ""
+msgstr "Выход"
 
 #: .\kanhub\templates\includes\header.html:79
 #: .\kanhub\templates\users\login.html:14
 msgid "sign_in"
-msgstr ""
+msgstr "Войти"
 
 #: .\kanhub\templates\includes\header_of_repo.html:4
 msgid "Information"
-msgstr ""
+msgstr "Информация"
 
 #: .\kanhub\templates\includes\header_of_repo.html:6
 msgid "History"
-msgstr ""
+msgstr "История"
 
 #: .\kanhub\templates\includes\header_of_repo.html:7
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: .\kanhub\templates\includes\header_of_repo.html:8
 msgid "Calendar"
-msgstr ""
+msgstr "Календарь"
 
 #: .\kanhub\templates\includes\header_of_repo.html:9
 msgid "Stats"
-msgstr ""
+msgstr "Статистика"
 
 #: .\kanhub\templates\includes\repository_card.html:15
 msgid "Published"
-msgstr ""
+msgstr "Опубликовано"
 
 #: .\kanhub\templates\includes\repository_card.html:17
 msgid "Not published"
-msgstr ""
+msgstr "Не опубликовано"
 
 #: .\kanhub\templates\includes\repository_card.html:19
 msgid "Created at:"
-msgstr ""
+msgstr "Создано в:"
 
 #: .\kanhub\templates\includes\repository_card.html:21
 msgid "Updated at:"
-msgstr ""
+msgstr "Обновлено в:"
 
 #: .\kanhub\templates\includes\repository_card.html:24
 msgid "Подробнее"
-msgstr ""
+msgstr "Подробнее"
 
 #: .\kanhub\templates\includes\user_form.html:50
 msgid "Signin via Yandex"
-msgstr ""
+msgstr "Войти через Яндекс"
 
 #: .\kanhub\templates\includes\user_form.html:51
 msgid "dont_have_account_yet"
-msgstr ""
+msgstr "Нет аккаунта?"
 
 #: .\kanhub\templates\includes\user_form.html:51
 msgid "create_it"
-msgstr ""
+msgstr "Создай его"
 
 #: .\kanhub\templates\includes\user_form.html:52
 msgid "forgot_password"
-msgstr ""
+msgstr "Забыл пароль"
 
 #: .\kanhub\templates\repositories\repositories_calendar.html:10
 #: .\kanhub\templates\repositories\repository_list.html:9
 msgid "Calendar of repositories"
-msgstr ""
+msgstr "Календарь репозиториев"
 
 #: .\kanhub\templates\repositories\repository_delete.html:4
 #: .\kanhub\templates\repositories\repository_delete.html:9
 msgid "Удалить репозиторий"
-msgstr ""
+msgstr "Удалить репозиторий"
 
 #: .\kanhub\templates\repositories\repository_delete.html:10
 msgid ""
 "Вы действительно хотите удалить этот репозиторий? Это действие невозможно "
 "отменить."
 msgstr ""
+"Вы действительно хотите удалить этот репозиторий? Это действие невозможно "
+"отменить."
 
 #: .\kanhub\templates\repositories\repository_delete.html:15
 msgid "Удалить"
-msgstr ""
+msgstr "Удалить"
 
 #: .\kanhub\templates\repositories\repository_delete.html:16
 msgid "Отмена"
-msgstr ""
+msgstr "Отмена"
 
 #: .\kanhub\templates\repositories\repository_detail.html:14
 msgid "Active"
-msgstr ""
+msgstr "Активный"
 
 #: .\kanhub\templates\repositories\repository_detail.html:17
 msgid ""
 "This section can display detailed repository information, statistics, "
 "graphs, or recent changes."
 msgstr ""
+"В этом разделе может отображаться подробная информация о репозитории, статистика, "
+"графики или последние изменения."
 
 #: .\kanhub\templates\repositories\repository_detail.html:20
 #: .\kanhub\templates\repositories\repository_tasks.html:18
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: .\kanhub\templates\repositories\repository_detail.html:23
 #: .\kanhub\templates\repositories\repository_tasks.html:21
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: .\kanhub\templates\repositories\repository_history.html:4
 msgid "Repository History"
-msgstr ""
+msgstr "История репозитория"
 
 #: .\kanhub\templates\repositories\repository_history.html:17
 msgid "View details"
-msgstr ""
+msgstr "Посмотреть подробности"
 
 #: .\kanhub\templates\repositories\repository_history.html:20
 msgid "No history is available for this repository yet."
-msgstr ""
+msgstr "Для этого репозитория пока нет истории."
 
 #: .\kanhub\templates\repositories\repository_history.html:24
 #: .\kanhub\templates\repositories\repository_history_tasks.html:31
 msgid "You must be logged in to view this content."
-msgstr ""
+msgstr "Для просмотра этого контента вам необходимо войти в систему."
 
 #: .\kanhub\templates\repositories\repository_history_tasks.html:4
 msgid "Repository Tasks"
-msgstr ""
+msgstr "Задачи репозитория"
 
 #: .\kanhub\templates\repositories\repository_history_tasks.html:20
 msgid "Start"
-msgstr ""
+msgstr "Начинать"
 
 #: .\kanhub\templates\repositories\repository_history_tasks.html:21
 msgid "End"
-msgstr ""
+msgstr "Конец"
 
 #: .\kanhub\templates\repositories\repository_history_tasks.html:27
 msgid "No tasks available for this repository yet."
-msgstr ""
+msgstr "Для этого репозитория пока нет доступных задач."
 
 #: .\kanhub\templates\repositories\repository_list.html:15
 msgid "You don't have any repositories"
-msgstr ""
+msgstr "У вас нет репозиториев"
 
 #: .\kanhub\templates\repositories\repository_list.html:19
 msgid "Please log in to see your repositories."
-msgstr ""
-
-#: .\kanhub\templates\repositories\repository_materials.html:19
-msgid "No materials available."
-msgstr ""
+msgstr "Пожалуйста, войдите в систему, чтобы увидеть свои репозитории."
 
 #: .\kanhub\templates\repositories\repository_new.html:4
 msgid "New Repository"
-msgstr ""
+msgstr "Новый репозиторий"
 
 #: .\kanhub\templates\repositories\repository_new.html:9
 msgid "Add New Repository"
-msgstr ""
+msgstr "Добавить новый репозиторий"
 
 #: .\kanhub\templates\repositories\repository_new.html:16
 #: .\kanhub\templates\repositories\task_new.html:59
 #: .\kanhub\templates\users\profile.html:82
 msgid "Save"
-msgstr ""
+msgstr "Сохранять"
 
 #: .\kanhub\templates\repositories\repository_new.html:22
 msgid "Back to Repository List"
-msgstr ""
+msgstr "Вернуться к списку репозиториев"
 
 #: .\kanhub\templates\repositories\repository_settings.html:17
 msgid "Save Changes"
-msgstr ""
+msgstr "Сохранить изменения"
 
 #: .\kanhub\templates\repositories\repository_tasks.html:26
 msgid "No tasks available."
-msgstr ""
+msgstr "Нет доступных задач."
 
 #: .\kanhub\templates\repositories\repository_tasks.html:32
 msgid "New Task"
-msgstr ""
+msgstr "Новая задача"
 
 #: .\kanhub\templates\repositories\task_new.html:5
 msgid "Add a New Task"
-msgstr ""
+msgstr "Добавить новую задачу"
 
 #: .\kanhub\templates\repositories\task_new.html:16
 msgid "Add a New Task for"
-msgstr ""
+msgstr "Добавить новую задачу для"
 
 #: .\kanhub\templates\repositories\task_new.html:31
 msgid "Task Name"
-msgstr ""
+msgstr "Название задачи"
 
 #: .\kanhub\templates\repositories\task_new.html:36
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: .\kanhub\templates\repositories\task_new.html:41
 msgid "Task Description"
-msgstr ""
+msgstr "Описание задачи"
 
 #: .\kanhub\templates\repositories\task_new.html:46
 msgid "Start Date"
-msgstr ""
+msgstr "Дата начала"
 
 #: .\kanhub\templates\repositories\task_new.html:51
 msgid "End Date"
-msgstr ""
+msgstr "Дата окончания"
 
 #: .\kanhub\templates\repositories\task_new.html:62
 #: .\kanhub\templates\users\email_change.html:29
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: .\kanhub\templates\repositories\task_update.html:4
 msgid "Редактировать задачу"
-msgstr ""
+msgstr "Редактировать задачу"
 
 #: .\kanhub\templates\repositories\task_update.html:9
 msgid "Редактирование задачи"
-msgstr ""
+msgstr "Редактирование задачи"
 
 #: .\kanhub\templates\repositories\task_update.html:18
 msgid "Сохранить изменения"
-msgstr ""
+msgstr "Сохранить изменения"
 
 #: .\kanhub\templates\repositories\task_update.html:19
 msgid "Назад к задачам"
-msgstr ""
+msgstr "Назад к задачам"
 
 #: .\kanhub\templates\socialaccount\login.html:8
 msgid "Connect Yandex Account"
-msgstr ""
+msgstr "Подключить Яндекс Аккаунт"
 
 #: .\kanhub\templates\socialaccount\login.html:10
 msgid "Sign In via Yandex"
-msgstr ""
+msgstr "Войти через Яндекс"
 
 #: .\kanhub\templates\socialaccount\login.html:25
 #, python-format
 msgid "Connect %(provider)s"
-msgstr ""
+msgstr "Подключить %(provider)s"
 
 #: .\kanhub\templates\socialaccount\login.html:28
 #, python-format
 msgid "You are about to connect a new third-party account from %(provider)s."
-msgstr ""
+msgstr "Вы собираетесь подключить новую стороннюю учетную запись от %(provider)s."
 
 #: .\kanhub\templates\socialaccount\login.html:33
 #, python-format
 msgid "Sign In via %(provider)s"
-msgstr ""
+msgstr "Войти через %(provider)s"
 
 #: .\kanhub\templates\socialaccount\login.html:36
 #, python-format
 msgid "You are about to sign in using a third-party account from %(provider)s."
-msgstr ""
+msgstr "Вы собираетесь войти, используя стороннюю учетную запись от %(provider)s."
 
 #: .\kanhub\templates\socialaccount\login.html:44
 msgid "Continue"
-msgstr ""
+msgstr "Продолжать"
 
 #: .\kanhub\templates\socialaccount\signup.html:6
 msgid "Signup with Yandex"
-msgstr ""
+msgstr "Зарегистрироваться через Яндекс"
 
 #: .\kanhub\templates\socialaccount\signup.html:17
 #: .\kanhub\templates\socialaccount\signup.html:35
 msgid "Sign Up"
-msgstr ""
+msgstr "Зарегистрироваться"
 
 #: .\kanhub\templates\socialaccount\signup.html:20
 #, python-format
@@ -1586,57 +1630,62 @@ msgid ""
 "              As a final step, please complete the following form:\n"
 "            "
 msgstr ""
+"\n"
+"              Вы собираетесь использовать свою учетную запись %(provider_name)s для входа "
+"на %(site_name)s.\n"
+"              В качестве последнего шага, пожалуйста, заполните следующую форму:\n"
+"            "
 
 #: .\kanhub\templates\stats\repository_statistics.html:15
 msgid "Статистика репозитория"
-msgstr ""
+msgstr "Статистика репозитория"
 
 #: .\kanhub\templates\stats\repository_statistics.html:22
 msgid "Общая информация"
-msgstr ""
+msgstr "Общая информация"
 
 #: .\kanhub\templates\stats\repository_statistics.html:26
 msgid "Количество коммитов"
-msgstr ""
+msgstr "Количество коммитов"
 
 #: .\kanhub\templates\stats\repository_statistics.html:30
 msgid "Количество задач"
-msgstr ""
+msgstr "Количество задач"
 
 #: .\kanhub\templates\stats\repository_statistics.html:35
 msgid "Последний коммит"
-msgstr ""
+msgstr "Последний коммит"
 
 #: .\kanhub\templates\stats\repository_statistics.html:41
 msgid "Нет коммитов"
-msgstr ""
+msgstr "Нет коммитов"
 
 #: .\kanhub\templates\stats\repository_statistics.html:50
 msgid "Задачи по тегам"
-msgstr ""
+msgstr "Задачи по тегам"
 
 #: .\kanhub\templates\stats\repository_statistics.html:60
 msgid "Нет задач с тегами"
-msgstr ""
+msgstr "Нет задач с тегами"
 
 #: .\kanhub\templates\stats\repository_statistics.html:69
 msgid "График задач по тегам"
-msgstr ""
+msgstr "График задач по тегам"
 
 #: .\kanhub\templates\stats\repository_statistics.html:93
 msgid "Количество задач по тегам"
-msgstr ""
+msgstr "Количество задач по тегам"
 
 #: .\kanhub\templates\users\confirm_email.html:5
 #: .\kanhub\templates\users\confirm_email.html:11
 #: .\kanhub\templates\users\confirm_email_from_sent.html:7
 #: .\kanhub\templates\users\confirm_email_from_sent.html:13
 msgid "email_confirmation"
-msgstr ""
+msgstr "Подтверждение по электронной почте"
 
 #: .\kanhub\templates\users\confirm_email.html:12
 msgid "email_confirmation_description"
-msgstr ""
+msgstr "Подтвердите свою электронную почту"
 
 #: .\kanhub\templates\users\confirm_email_from_sent.html:18
 #, python-format
@@ -1644,10 +1693,12 @@ msgid ""
 "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an email "
 "address for user %(user_display)s."
 msgstr ""
+"Подтвердите, что <a href=\"mailto:%(email)s\">%(email)s</a> является адресом электронной почты "
+"пользователя %(user_display)s."
 
 #: .\kanhub\templates\users\confirm_email_from_sent.html:26
 msgid "Confirm"
-msgstr ""
+msgstr "Подтверждать"
 
 #: .\kanhub\templates\users\confirm_email_from_sent.html:33
 #, python-format
@@ -1655,6 +1706,8 @@ msgid ""
 "Unable to confirm %(email)s because it is already confirmed by a different "
 "account."
 msgstr ""
+"Невозможно подтвердить %(email)s, так как он уже подтвержден другим "
+"аккаунтом."
 
 #: .\kanhub\templates\users\confirm_email_from_sent.html:39
 #, python-format
@@ -1662,66 +1715,68 @@ msgid ""
 "This email confirmation link expired or is invalid. Please <a "
 "href=\"%(email_url)s\">issue a new email confirmation request</a>."
 msgstr ""
+"Эта ссылка для подтверждения по электронной почте устарела или недействительна. Пожалуйста, <a "
+"href=\"%(email_url)s\">отправьте новый запрос на подтверждение по электронной почте</a>."
 
 #: .\kanhub\templates\users\email_change.html:8
 msgid "email_change"
-msgstr ""
+msgstr "Смена почты"
 
 #: .\kanhub\templates\users\email_change.html:17
 #: .\kanhub\templates\users\email_change.html:20
 msgid "Email"
-msgstr ""
+msgstr "Электронная почта"
 
 #: .\kanhub\templates\users\email_change.html:28
 msgid "Re-send Verification"
-msgstr ""
+msgstr "Повторно отправить подтверждение"
 
 #: .\kanhub\templates\users\email_change.html:31
 msgid "change_email"
-msgstr ""
+msgstr "изменить email"
 
 #: .\kanhub\templates\users\information.html:3
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: .\kanhub\templates\users\information.html:6
 msgid "All is OK"
-msgstr ""
+msgstr "Все в порядке"
 
 #: .\kanhub\templates\users\login.html:5
 msgid "authorization"
-msgstr ""
+msgstr "Авторизация"
 
 #: .\kanhub\templates\users\login.html:13
-msgid "log_in_to_datanar"
-msgstr ""
+msgid "log_in_to_kanhub"
+msgstr "Войти в kanhub"
 
 #: .\kanhub\templates\users\logout.html:4
 msgid "logout"
-msgstr ""
+msgstr "выйти из системы"
 
 #: .\kanhub\templates\users\password_change.html:5
 #: .\kanhub\templates\users\password_change.html:12
 msgid "password_change"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: .\kanhub\templates\users\password_change.html:13
 msgid "change_password"
-msgstr ""
+msgstr "Изменение пароля"
 
 #: .\kanhub\templates\users\password_change_done.html:5
 msgid "password_changed"
-msgstr ""
+msgstr "Пароль изменён"
 
 #: .\kanhub\templates\users\password_change_done.html:11
 msgid "your_password_be_success_changed"
-msgstr ""
+msgstr "Ваш пароль был успешно изменен"
 
 #: .\kanhub\templates\users\password_change_done.html:12
 #: .\kanhub\templates\users\password_reset_complete.html:12
 #: .\kanhub\templates\users\password_reset_done.html:12
 msgid "to_main"
-msgstr ""
+msgstr "На главную"
 
 #: .\kanhub\templates\users\password_reset.html:5
 #: .\kanhub\templates\users\password_reset.html:13
@@ -1729,53 +1784,53 @@ msgstr ""
 #: .\kanhub\templates\users\password_reset_confirm.html:13
 #: .\kanhub\templates\users\password_reset_done.html:5
 msgid "password_recovery"
-msgstr ""
+msgstr "Восстановление пароля"
 
 #: .\kanhub\templates\users\password_reset.html:14
 msgid "recover"
-msgstr ""
+msgstr "Восстанавление"
 
 #: .\kanhub\templates\users\password_reset_complete.html:5
 msgid "password_recovered"
-msgstr ""
+msgstr "Восстанавление пароля"
 
 #: .\kanhub\templates\users\password_reset_complete.html:11
 msgid "password_reset_completed_success"
-msgstr ""
+msgstr "Пароль успешно сброшен"
 
 #: .\kanhub\templates\users\password_reset_confirm.html:14
 msgid "reset"
-msgstr ""
+msgstr "Сброс"
 
 #: .\kanhub\templates\users\password_reset_done.html:11
 msgid "email_instructions_for_password_recove_sent"
-msgstr ""
+msgstr "Инструкции по восстановлению пароля отправлены по электронной почте"
 
 #: .\kanhub\templates\users\profile.html:6
 #: .\kanhub\templates\users\profile.html:18
 msgid "My Profile"
-msgstr ""
+msgstr "Мой профиль"
 
 #: .\kanhub\templates\users\profile.html:55
 msgid "Delete Avatar"
-msgstr ""
+msgstr "Удалить аватар"
 
 #: .\kanhub\templates\users\profile.html:85
 msgid "Change Email"
-msgstr ""
+msgstr "Изменить адрес электронной почты"
 
 #: .\kanhub\templates\users\profile.html:88
 msgid "Change Password"
-msgstr ""
+msgstr "Изменить пароль"
 
 #: .\kanhub\templates\users\signup.html:5
 msgid "registration"
-msgstr ""
+msgstr "Регистрация"
 
 #: .\kanhub\templates\users\signup.html:13
 msgid "greeting"
-msgstr ""
+msgstr "Приветствуем"
 
 #: .\kanhub\templates\users\signup.html:14
 msgid "register"
-msgstr ""
+msgstr "Зарегистрироваться"

@@ -156,10 +156,6 @@ LANGUAGES = (
         "ru",
         django.utils.translation.gettext_lazy("Русский"),
     ),
-    (
-        "de",
-        django.utils.translation.gettext_lazy("Deutsch"),
-    ),
 )
 
 LOCALE_PATHS = [
