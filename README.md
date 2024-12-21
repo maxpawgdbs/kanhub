@@ -92,6 +92,19 @@ pip install -r requirements/test.txt
 pip install -r requirements/flake8.txt
 ```
 
+#### Копируем в .evn из evn.example
+
+- На Windows:
+ ```bash
+ copy .env.example .env
+ ```
+- На Mac или Linux:
+ ```bash
+ cp .env.example .env
+ ```
+
+Переменные KANHUB_DJANGO_YANDEX_CLIENT_ID и KANHUB_DJANGO_YANDEX_SECRET содержат данные от тестового аккаунта
+
 #### Переходим в папку с manage.py
 
 ```commandline
