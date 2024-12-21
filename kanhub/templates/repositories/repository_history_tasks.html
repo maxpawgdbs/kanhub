@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Repository Tasks" %}{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 mb-4">
+  {% include "includes/header_of_repo.html" %}
+
+  {% if user.is_authenticated %}
+    <div class="row g-3">
+      {% for task in tasks %}
+        <div class="col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.name }}</h5>
+              <p class="card-text">{{ task.text }}</p>
+              <p class="text-muted">
+                <small>{% trans "Start" %}: {{ task.start_at }}</small><br>
+                <small>{% trans "End" %}: {{ task.end_at }}</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">{% trans "No tasks available for this repository yet." %}</p>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center">{% trans "You must be logged in to view this content." %}</p>
+  {% endif %}
+</div>
+
+{% endblock %}

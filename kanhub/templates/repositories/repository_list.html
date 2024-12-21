@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Repositories" %}{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 mb-4">
+  <a href="{% url 'repositories:calendar_repos' %}" class="btn btn-primary mb-3">{% trans "Calendar of repositories" %}</a>
+  {% if user.is_authenticated %}
+    <div class="row">
+      {% for repository in repositories %}
+        {% include "includes/repository_card.html" with repository=repository %}
+      {% empty %}
+        <p class="text-center">{% trans "You don't have any repositories" %}</p>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center">{% trans "Please log in to see your repositories." %}</p>
+  {% endif %}
+  <a href="{% url 'repositories:new' %}" class="btn btn-primary mt-4">{% trans "Новый репозиторий" %}</a>
+</div>
+
+{% endblock %}

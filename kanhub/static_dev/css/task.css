@@ -1,0 +1,13 @@
+.custom-textarea {
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.django-ckeditor-widget {
+    display: contents !important;
+}
+
+.row {
+    margin-bottom: 40px;
+}

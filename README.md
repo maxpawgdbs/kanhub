@@ -1,93 +1,193 @@
-# team-4
+![Pipeline Status](https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/badges/main/pipeline.svg)
+
+# Kanhub - сайт для управления задачами
+
+## Содержание
+- [Введение](#введение)
+  - [Существующие решения](#существующие-решения)
+  - [Возможности kanhub](#с-kanhub-вы-можете)
+- [Структура проекта](#структура-проекта)
+  - [Стек технологий](#используемые-фреймворки--библиотеки)
+  - [База данных](#база-данных)
+- [Развёртывание](#развёртывание)
+- [Авторы](#авторы)
+
+## Введение
+Kanhub представляет собой сервис для управления задачами
 
 
+### Существующие решения
+Это не новая идея и уже существуют множество сервисов с похожим функционалом,
+вот их небольшой срез: 
 
-## Getting started
+| Сервис                                      | Отслеживание прогресса | Календарь | История изменений	 | Коллаборация | Русский язык | API  |
+|---------------------------------------------|-------------|---------------------|------------|--------------|---------|---------|
+| [trello.com](https://trello.com/)  	      | Да (+)      | Да ($)             | Нет (-)     | Да (+)       | Нет (-) | Да (+)  |
+| [todo.microsoft.com](https://todo.microsoft.com/)                   | Нет (+)     | Да (+)             | Нет (-)     | Нет (-)       | Да (+) | Нет (-)  |
+| [notion.so](https://notion.so/)             | Да (-)      | Да (+)              | Да ($)     | Да ($)      | Нет (-) | Да (+)  |
+| [basecamp.com](https://basecamp.com/)        | Да (-)      | Нет (+)              | Да ($)     | Да ($)      | Нет (-)  | Да ($)  |
+| [rebrandly.com](https://www.rebrandly.com/) | Нет (+)     | Да (+)              | Да (+)     | Нет (-)      | Нет (-) | Да (+)  |
+| [meistertask.com](https://www.meistertask.com/)          | Да (+)     | Да ($)              | Нет (-)     | Да ($)      | Нет (-) | Да (+)  |
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+(+) - функция есть; (-) - функции нет; ($) - функция платна
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Kanhub предоставляет пользователю весь этот функционал!
 
-## Add your files
+### С Kanhub вы можете:
+- Создавать задачи и устанавливать дедлайны
+- Просматривать и управлять задачами с помощью удобного календаря
+- Отслеживать историю изменений задач, чтобы видеть, какие правки были внесены
+- Организовывать задачи по тегам для лучшей структуризации
+- Совместно работать над задачами с коллегами в режиме реального времени
+- Подключать интеграции через API для автоматизации управления задачами
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Структура проекта
+### Используемые фреймворки / библиотеки
+- [Bootstrap](https://getbootstrap.com/) - популярная (html / css / js) 
+  библиотека для фронтенда
+- [Django](https://www.djangoproject.com/) - основной фреймворк web сервиса
 
+### База данных
+Функциональная структура базы данных следующая:
+![scheme](ER.jpg)
+
+## Развёртывание
+### Инструкция по запуску проекта
+
+Все команды вводятся в терминале</br>
+***Необходимо иметь установленные pip и python для терминала***
+
+#### Клонируем проект
+
+```commandline
+git clone https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/
 ```
-cd existing_repo
-git remote add origin https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4.git
-git branch -M main
-git push -uf origin main
+
+#### Переходим в папку team-4
+
+```commandline
+cd team-4
 ```
 
-## Integrate with your tools
+#### Создаём и активируем виртуальное окружение
+Рекомендуется использовать виртуальное окружение для изоляции зависимостей:<br>
+Для Windows:
+```commandline
+python -m venv venv
+venv\Scripts\activate
+```
 
-- [ ] [Set up project integrations](https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/-/settings/integrations)
+Для MacOS/Linux:
+```commandline
+python3 -m venv venv
+source venv/bin/activate
+```
 
-## Collaborate with your team
+#### Устанавливаем зависимости
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```commandline
+pip install -r requirements/prod.txt
+pip install -r requirements/dev.txt
+pip install -r requirements/test.txt
+pip install -r requirements/flake8.txt
+```
 
-## Test and Deploy
+#### Копируем в .evn из evn.example
 
-Use the built-in continuous integration in GitLab.
+- На Windows:
+ ```bash
+ copy .env.example .env
+ ```
+- На Mac или Linux:
+ ```bash
+ cp .env.example .env
+ ```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Переменные KANHUB_DJANGO_YANDEX_CLIENT_ID и KANHUB_DJANGO_YANDEX_SECRET, KANHUB_MAIL_USER и KANHUB_MAIL_PASSWORD содержат данные от тестовых аккаунтов 
 
-***
+#### Переходим в папку с manage.py
 
-# Editing this README
+```commandline
+cd kanhub
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+#### Настраиваем язык
 
-## Suggestions for a good README
+```commandline
+django-admin makemessages -l en
+django-admin makemessages -l ru
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+#### Настраиваем миграции
 
-## Name
-Choose a self-explaining name for your project.
+```commandline
+python manage.py migrate
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+#### Скачиваем фикстуры
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```commandline
+python manage.py loaddata fixtures/data.json
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### Запускаем сервер 
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```commandline
+python manage.py runserver
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+#### Переходим на сайт
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+<a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a>
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+***Терминал не закрываем!***
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+#### Тестирование
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- Windows
+  ```bash
+  python manage.py test
+  ```
+- macOS или linux (Debian / Ubuntu)
+  ```bash
+  python3 manage.py test
+  ```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Возможные ошибки запуска
+#### В случае возникновения ошибки с venv\Scripts\activate 
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Решение проблемы:
+- Открываем терминал PowerShell от админа.
+- Вставляем и запускаем `Set-ExecutionPolicy RemoteSigned`
+- На вопрос отвечаем `A`
+- Продолжаем запускать проект по инструкции README.md с `Создаём и активируем виртуальное окружение`
 
-## License
-For open source projects, say how it is licensed.
+#### Ошибка при загрузке requirements
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Если у вас установлены несколько версий Python, используйте путь к нужной версии. Например, чтобы использовать Python 3.8, выполните команду:
+
+**На Windows:**
+```commandline
+C:\path\to\python3.8\python.exe -m venv venv
+```
+
+Замените `C:\path\to\python3.8\python.exe` на путь к нужной версии Python, которую вы хотите использовать.
+
+**На macOS/Linux:** <br>
+Если у вас установлена нужная версия Python, вы можете использовать команду: <br>
+```commandline
+python3.8 -m venv venv
+```
+
+## Авторы:
+<div style="display: flex; align-items: center;">
+  <span style="margin-left: 10px;">Крахмальников Илья (<a href="https://github.com/124476">Github</a>)</span>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+  <span style="margin-left: 10px;">Хуснуллин Марсель (<a href="https://github.com/mario12508">Github</a>)</span>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+  <span style="margin-left: 10px;">Тараненко Максим (<a href="https://github.com/maxpawgdbs">Github</a>)</span>
+</div>

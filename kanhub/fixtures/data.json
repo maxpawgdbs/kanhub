@@ -1,0 +1,74 @@
+[
+{
+    "model": "repositories.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Новое",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Срочно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 3,
+    "fields": {
+        "name": "В процессе",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Обязательно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Сложно",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Нормально",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 7,
+    "fields": {
+        "name": "Легко",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 8,
+    "fields": {
+        "name": "Практическое",
+        "is_published": true
+    }
+},
+{
+    "model": "repositories.tag",
+    "pk": 9,
+    "fields": {
+        "name": "Теоретическое",
+        "is_published": true
+    }
+}
+]

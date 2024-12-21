@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ repository.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 mb-4">
+  {% include "includes/header_of_repo.html" %}
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">{{ repository.name }}</h4>
+      <span class="badge bg-success">{% trans "Active" %}</span>
+    </div>
+    <div class="card-body">
+      <p>{% trans "This section can display detailed repository information, statistics, graphs, or recent changes." %}</p>
+      <div class="d-flex gap-2 mt-3">
+        <a href="{% url 'repositories:settings' pk=repository.pk %}" class="btn btn-outline-secondary">
+          <i class="bi bi-pencil"></i> {% trans "Edit" %}
+        </a>
+        <a href="{% url 'repositories:repository_delete' pk=repository.pk %}" class="btn btn-outline-danger">
+          <i class="bi bi-trash"></i> {% trans "Delete" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

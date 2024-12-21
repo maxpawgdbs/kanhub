@@ -1,0 +1,85 @@
+{% load static %}
+{% load active_link_tags %}
+{% load i18n %}
+
+<header>
+  <div class="container d-flex justify-content-between align-items-center py-3">
+    <a href="/" class="logo d-flex align-items-center">
+      <img src="{% static 'img/logo.svg' %}" alt="Logo" height="60">
+      <span class="ms-2 fw-bold">Kanhub</span>
+    </a>
+    <nav class="my-auto nav-item dropdown">
+      {% with request.resolver_match.view_name as view_name %}
+      <a href="{% url 'homepage:main' %}" class="{% if view_name == 'homepage:main' %}active{% endif %}">{% trans "Home" %}</a>
+      <a href="{% url 'about:main' %}" class="{% if view_name == 'about:main' %}active{% endif %}">{% trans "About us" %}</a>
+      <a href="{% url 'api:docs_preamble' %}" class="{% if view_name == 'api:docs_preamble' %}active{% endif %}">{% trans "API" %}</a>
+      {% endwith %}
+    </nav>
+    <nav class="d-flex">
+      <nav class="my-auto nav-item dropdown me-2">
+        <button class="btn border-0 dropdown-toggle d-flex align-items-center" id="language-dropdown" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle language">
+          <i class="bi bi-globe me-2"></i>
+          <span class="d-none d-lg-block" id="language-text">{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE|language_name_translated }}</span>
+        </button>
+        <ul class="dropdown-menu dropend" aria-labelledby="language-text" data-bs-popper="static">
+          {% get_available_languages as LANGUAGES %}
+          {% for lang_code, lang_name in LANGUAGES %}
+            <li>
+              <form action="{% url 'set_language' %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="hidden" name="language" value="{{ lang_code }}">
+                <button type="submit" class="dropdown-item language-button d-flex align-items-center {% if lang_code == LANGUAGE_CODE %}active{% endif %}" aria-pressed="{% if lang_code == LANGUAGE_CODE %}true{% else %}false{% endif %}">
+                  <i class="bi bi-globe me-2"></i>
+                  {{ lang_name }}
+                </button>
+              </form>
+            </li>
+          {% endfor %}
+          </ul>
+      </nav>
+      <nav class="my-auto nav-item dropdown">
+        <button class="btn border-0 dropdown-toggle d-flex align-items-center" id="theme-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i id="theme-icon-active" class="bi bi-sun-fill"></i>
+          <span>{% trans "theme" %}</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <button class="dropdown-item" data-bs-theme-value="light">{% trans "light" %}</button>
+          </li>
+          <li>
+            <button class="dropdown-item" data-bs-theme-value="dark">{% trans "dark" %}</button>
+          </li>
+        </ul>
+      </nav>
+      {% if request.resolver_match.view_name != 'users:login' %}
+        {% if request.user.is_authenticated %}
+          {% trans "no_user" as no_user %}
+          <div class="dropdown ms-2">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{% if request.user.has_avatar %}{{ request.user.get_small_avatar }}{% else %}{% static 'img/default_user_avatar.jpg' %}{% endif %}" alt="{{ request.user.username }}" class="rounded-circle" width="48" height="48">
+              <strong>{{ request.user.username|default:no_user }}</strong>
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" {% if view_name != "users:profile" %}href="{% url 'users:profile' %}"{% endif %}>{% trans "my_profile" %}</a></li>
+              <li><hr class="dropdown-divider"></li>
+              {% if request.user.is_staff %}
+                <li><a href="{% url 'admin:index' %}" class="dropdown-item">
+                  {% trans "admin" %}
+                </a></li>
+              {% endif %}
+              <li><a href="{% url 'repositories:list' %}" class="dropdown-item">
+                {% trans "Repositories" %}
+              </a></li>
+
+              <li><a class="dropdown-item" href="{% url 'users:logout' %}">{% trans "exit" %}</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <a href="{% url 'users:login' %}" class="btn btn-outline my-auto me-2">
+            {% trans "sign_in" %}
+          </a>
+        {% endif %}
+      {% endif %}
+    </nav>
+  </div>
+</header>

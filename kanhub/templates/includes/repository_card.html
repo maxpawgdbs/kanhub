@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+<div class="col-md-4">
+  <div class="card shadow-sm mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+      <h5 class="card-title mb-0">{{ repository.name }}</h5>
+      {% if repository %}
+        <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-light btn-sm">
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      {% if repository.is_published %}
+        <p class="card-text">{% trans "Published" %}</p>
+      {% else %}
+        <p class="card-text">{% trans "Not published" %}</p>
+      {% endif %}
+      <p class="card-text">{% trans "Created at:" %} {{ repository.created_at|date:"d M Y H:i" }}</p>
+      {% if repository.updated_at|date:"d M Y H:i" > repository.created_at|date:"d M Y H:i" %}
+        <p class="card-text">{% trans "Updated at:" %} {{ repository.updated_at|date:"d M Y H:i" }}</p>
+      {% endif %}
+      <a href="{% url 'repositories:detail' pk=repository.id %}" class="btn btn-primary w-100">
+        {% trans "Подробнее" %}
+      </a>
+    </div>
+  </div>
+</div>

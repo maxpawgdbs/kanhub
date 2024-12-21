@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% load static %}
+
+{% block title %}{{ repository.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  {% include "includes/header_of_repo.html" %}
+
+  <br>
+  <div class="row mt-3 mb-3">
+    <form method="GET" action="" class="d-flex flex-wrap justify-content-between">
+      <div class="form-group col-md-12 text-center">
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-outline-primary mx-2" id="prev-month"><</button>
+          <h4 id="month-year" class="m-0 text-uppercase"></h4>
+          <button type="button" class="btn btn-outline-primary mx-2" id="next-month">></button>
+          <input type="hidden" name="date" id="hidden-date" value="{{ request.GET.date }}">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="calendar">
+    <div class="calendar-body">
+      <div class="d-flex">
+        {% for day_week in day_week_list %}
+          <div class="week-day position-relative">
+            <div class="week_numb">{{ day_week }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% for week in calendar_weeks %}
+        <div class="calendar-week d-flex">
+          {% for day in week %}
+            <div class="calendar-day position-relative">
+              <div class="day-number">{{ day.date }}</div>
+              {% if day.tasks %}
+                <ul class="events-list">
+                  {% for task in day.tasks %}
+                  <li class="event-item"><a href="{% url 'repositories:edit_task' pk=repository.id task_pk=task.id %}"><h3>{{ task.name }}</h3></a></li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<link href="{% static 'css/flatpickr.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/calendar.css' %}" rel="stylesheet">
+<script src="{% static 'js/flatpickr.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  let currentDate = new Date();
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const dateParam = urlParams.get('date');
+  if (dateParam) {
+    currentDate = new Date(dateParam);
+  }
+
+  function updateMonthYearDisplay() {
+    const monthYearElement = document.getElementById("month-year");
+    const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    monthYearElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+  }
+
+  function updateDateParamInUrl() {
+    const newDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-01`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('date', newDate);
+    window.location.href = url.toString();
+  }
+
+  document.getElementById("prev-month").addEventListener("click", function () {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    updateMonthYearDisplay();
+    updateDateParamInUrl();
+  });
+
+  document.getElementById("next-month").addEventListener("click", function () {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateMonthYearDisplay();
+    updateDateParamInUrl();
+  });
+
+  updateMonthYearDisplay();
+});
+</script>
+
+{% endblock %}
+
+
+__all__ = ()

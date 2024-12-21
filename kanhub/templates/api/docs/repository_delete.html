@@ -1,0 +1,92 @@
+{% extends "api/base.html" %}
+{% load i18n %}
+
+{% block api_title %}Repository - {% trans "Deleting" %}{% endblock %}
+
+{% block api_content %}
+
+<h4 class="mb-4"><strong>DELETE&#32;&gt;&gt;&#32;<a href="#">{{ server_url }}/api/repositories/{repository_id}/</a></strong></h4>
+
+<p class="mb-4">{% trans "To delete a repository, send a DELETE request with the repository ID and the token in headers." %}</p>
+
+<h4><strong>{% trans "Request Headers:" %}</strong></h4>
+<pre class="mb-3"><code class="language-json">{
+"Authorization": "Token <your_token>",
+"Content-Type": "application/json"
+}</code></pre>
+
+<h4><strong>{% trans "Response Parameters:" %}</strong></h4>
+<p>{% trans "There are no response parameters for a successful deletion." %}</p>
+
+<h4><strong>{% trans "Response Codes:" %}</strong></h4>
+<div class="overflow-x-auto mb-4">
+  <table class="table api-table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>{% trans "Code" %}</th>
+        <th>{% trans "Description" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>204</td>
+        <td>No Content ({% trans "Repository deleted successfully" %})</td>
+      </tr>
+      <tr>
+        <td>401</td>
+        <td>Unauthorized ({% trans "Invalid or missing token" %})</td>
+      </tr>
+      <tr>
+        <td>404</td>
+        <td>Not Found ({% trans "Repository not found" %})</td>
+      </tr>
+      <tr>
+        <td>405</td>
+        <td>Method Not Allowed ({% trans "Invalid HTTP method" %})</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4><strong>{% trans "Example Request to Delete Repository:" %}</strong></h4>
+<pre class="mb-3"><code class="language-json">{
+"Authorization": "Token < your_token >",
+"Content-Type": "application/json"
+}</code></pre>
+
+<h4><strong>{% trans "Example Response after Deleting Repository:" %}</strong></h4>
+<pre class="mb-4"><code class="language-json">{
+"message": "Repository deleted successfully"
+}</code></pre>
+
+<h4><strong>{% trans "Python Code Example" %}</strong></h4>
+<pre><code class="language-python">import requests
+
+url = "http://127.0.0.1:8000/api-token-auth/"
+data = {"username": "user", "password": "very1secret3password!"}
+
+response = requests.post(url, data=data)
+
+if response.status_code == 200:
+    token = response.json()["token"]
+else:
+    print("Ошибка получения токена:", response.status_code, response.text)
+    exit()
+
+print("Токен:", token)
+
+repository_id = 1
+url = f"http://127.0.0.1:8000/api/repositories/{repository_id}/"
+
+headers = {
+    "Authorization": f"Token {token}",
+    "Content-Type": "application/json"
+}
+
+response = requests.delete(url, headers=headers)
+
+print("Статус:", response.status_code)
+print("Ответ:", response.json() if response.status_code == 204 else response.text)
+</code></pre>
+
+{% endblock %}
