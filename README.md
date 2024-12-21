@@ -127,7 +127,7 @@ python manage.py migrate
 #### Скачиваем фикстуры
 
 ```commandline
-python loaddata fixtures/data.json
+python manage.py loaddata fixtures/data.json
 ```
 
 #### Запускаем сервер 
