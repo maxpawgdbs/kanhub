@@ -103,7 +103,7 @@ pip install -r requirements/flake8.txt
  cp .env.example .env
  ```
 
-Переменные KANHUB_DJANGO_YANDEX_CLIENT_ID и KANHUB_DJANGO_YANDEX_SECRET содержат данные от тестового аккаунта
+Переменные KANHUB_DJANGO_YANDEX_CLIENT_ID и KANHUB_DJANGO_YANDEX_SECRET, KANHUB_MAIL_USER и KANHUB_MAIL_PASSWORD содержат данные от тестовых аккаунтов 
 
 #### Переходим в папку с manage.py
 

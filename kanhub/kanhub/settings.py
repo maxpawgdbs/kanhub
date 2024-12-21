@@ -175,10 +175,6 @@ LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "/auth/profile/"
 LOGOUT_REDIRECT_URL = "/auth/login/"
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "send_mail"
-MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
-
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_CHANGE_EMAIL = True
