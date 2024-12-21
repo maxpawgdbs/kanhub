@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load active_link_tags %}
 
 {% load static %}
 
@@ -114,7 +115,7 @@
 
   <div class="row mt-5">
     <div class="col text-center">
-      <a href="{% url 'repositories:list'' %}" class="btn btn-primary btn-lg">
+      <a href="{% url 'repositories:list' %}" class="btn btn-primary btn-lg">
         <i class="bi bi-clipboard-plus"></i> {% trans "Get Started" %}
       </a>
     </div>
