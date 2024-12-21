@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
-from apps.repositories.models import Repository, Task, Commit
+from apps.repositories.models import Commit, Repository, Task
 
 
 class RepositoryStatistics(TemplateView):
