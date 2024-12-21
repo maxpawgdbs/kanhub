@@ -24,7 +24,7 @@ class Tag(django.db.models.Model):
         verbose_name_plural = _("теги")
 
     def __str__(self):
-        return self.name[:15]
+        return self.name
 
 
 class Repository(django.db.models.Model):

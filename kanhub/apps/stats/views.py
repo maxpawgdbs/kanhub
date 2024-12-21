@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
-from apps.repositories.models import Repository, Task
+from apps.repositories.models import Repository, Task, Commit
 
 
 class RepositoryStatistics(TemplateView):
@@ -20,14 +20,21 @@ class RepositoryStatistics(TemplateView):
         ):
             raise Http404("Репозиторий недоступен.")
 
+        commits = Commit.objects.filter(
+            repository=repository,
+        ).all()
+
+        commit = commits.last()
+        tasks = Task.objects.filter(
+            commit=commit,
+        ).all()
+
         commits_count = repository.commit_set.count()
-        tasks_count = Task.objects.filter(
-            commit__repository=repository,
-        ).count()
+        tasks_count = tasks.count()
         latest_commit = repository.commit_set.order_by("-created_at").first()
 
         tasks_by_tags = (
-            Task.objects.filter(commit__repository=repository)
+            tasks.filter(commit__repository=repository)
             .values("tags__name")
             .annotate(count=Count("tags"))
         )

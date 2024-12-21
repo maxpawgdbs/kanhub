@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import django.conf
 import django.contrib.auth
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseForbidden
+from django.http import Http404
 import django.shortcuts
 from django.utils.translation import gettext_lazy
 
@@ -125,17 +125,22 @@ class RepositoryDelete(LoginRequiredMixin, django.views.generic.DeleteView):
         django.contrib.messages.success(request, "Репозиторий успешно удален!")
         return super().delete(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        repository = django.shortcuts.get_object_or_404(
+            apps.repositories.models.Repository,
+            pk=self.kwargs["pk"],
+        )
+        check_repository_access(repository, self.request.user)
+
+        context["repository"] = repository
+        return context
+
 
 class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_new.html"
     form_class = apps.repositories.forms.TaskForm
-
-    def get(self, *args, **kwargs):
-        if self.request.user != self.get_object().first_commit.repository.user:
-            return HttpResponseForbidden()
-
-        return super().get(self, *args, **kwargs)
 
     def form_valid(self, form):
         repository = django.shortcuts.get_object_or_404(
@@ -182,12 +187,7 @@ class RepositoryTaskNew(LoginRequiredMixin, django.views.generic.CreateView):
             apps.repositories.models.Repository,
             pk=self.kwargs["pk"],
         )
-        if (
-            not repository.is_published
-            and self.request.user not in repository.users.all()
-            and repository.user != self.request.user
-        ):
-            raise Http404("Репозиторий недоступен.")
+        check_repository_access(repository, self.request.user)
 
         context["repository"] = repository
         return context
@@ -513,8 +513,6 @@ class RepositoryTaskDelete(django.views.generic.View):
             apps.repositories.models.Repository,
             pk=repository_id,
         )
-        if self.request.user != repository.user:
-            return HttpResponseForbidden()
 
         check_repository_access(repository, self.request.user)
 
@@ -556,12 +554,6 @@ class EditTaskView(django.views.generic.edit.UpdateView):
     model = apps.repositories.models.Task
     template_name = "repositories/task_update.html"
     form_class = apps.repositories.forms.TaskForm
-
-    def get(self, *args, **kwargs):
-        if self.request.user == self.get_object().first_commit.repository.user:
-            return super().get(self, *args, **kwargs)
-
-        return HttpResponseForbidden()
 
     def get_object(self):
         task_id = self.kwargs.get("task_pk")
@@ -647,12 +639,6 @@ class RepositorySettings(django.views.generic.DetailView):
         )
         check_repository_access(self.object, self.request.user)
         return context
-
-    def get(self, *args, **kwargs):
-        if self.request.user == self.get_object().user:
-            return super().get(self, *args, **kwargs)
-
-        return HttpResponseForbidden()
 
     def post(self, *args, **kwargs):
         rep = self.get_object()

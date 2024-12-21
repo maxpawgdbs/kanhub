@@ -111,6 +111,13 @@ pip install -r requirements/flake8.txt
 cd kanhub
 ```
 
+#### Настраиваем язык
+
+```commandline
+django-admin makemessages -l en
+django-admin makemessages -l ru
+```
+
 #### Настраиваем миграции
 
 ```commandline
