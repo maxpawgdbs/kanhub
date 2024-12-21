@@ -230,9 +230,5 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {
             "access_type": "online",
         },
-        "REDIRECT_URL": "http://127.0.0.1:8000/auth/yandex/login/callback/",
     },
 }
-SOCIAL_AUTH_YANDEX_OAUTH2_REDIRECT_URI = (
-    "http://127.0.0.1:8000/auth/complete/yandex-oauth2/"
-)

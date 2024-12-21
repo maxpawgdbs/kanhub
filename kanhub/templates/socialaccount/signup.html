@@ -26,7 +26,7 @@
           <form method="post" action="{{ action_url }}" class="mt-4">
             {% csrf_token %}
             <div class="mb-3">
-              {% element fields form=form unlabeled=True %}
+              {% element fields form=form unlabeled=True %} {% endelement %}
             </div>
             {{ redirect_field }}
             <div class="d-grid">
