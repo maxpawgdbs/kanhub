@@ -1,5 +1,3 @@
-![Pipeline Status](https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/badges/main/pipeline.svg)
-
 # Kanhub - сайт для управления задачами
 
 ## Содержание
@@ -63,7 +61,7 @@ Kanhub предоставляет пользователю весь этот ф�
 git clone https://github.com/maxpawgdbs/kanhub
 ```
 
-#### Переходим в папку team-4
+#### Переходим в папку kanhub
 
 ```commandline
 cd kanhub
