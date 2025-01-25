@@ -60,13 +60,13 @@ Kanhub предоставляет пользователю весь этот ф�
 #### Клонируем проект
 
 ```commandline
-git clone https://gitlab.crja72.ru/django/2024/autumn/course/projects/team-4/
+git clone https://github.com/maxpawgdbs/kanhub
 ```
 
 #### Переходим в папку team-4
 
 ```commandline
-cd team-4
+cd kanhub
 ```
 
 #### Создаём и активируем виртуальное окружение
